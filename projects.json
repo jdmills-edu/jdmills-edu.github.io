@@ -9,7 +9,7 @@
    "started": "2026-09",
    "retired": null,
    "tagline": "A small-party action-exploration RPG in the browser, on a procedurally generated garden world.",
-   "body": "Up to four players explore a seeded world about 6 km across, laid out in rings of biomes. Landmarks\nare placed so the next one is always visible on the horizon, and shelter comes from lore-rich shrines,\nthe Lanterns, that you kindle rather than build. The pitch is *Phantasy Star Online × Breath of the\nWild × Valheim × Tunic*.\n\nIt's TypeScript end to end: three.js in the browser, and a Node world server over WebSockets with\nSQLite. World generation is a pure, deterministic package that client and server share. Parties,\ncompanions, enemy tiers, radar, LODs and an asset viewer are all in. Since November an autonomous\nClaude Code loop works the backlog overnight. It playtests its own changes and opens pull requests for review in the morning.",
+   "body": "Up to four players explore a seeded world with a 6 km radius, laid out in rings of biomes. Landmarks\nare placed so the next one is always visible on the horizon, and shelter comes from lore-rich shrines,\nthe Lanterns, that you kindle rather than build. The pitch is *Phantasy Star Online × Breath of the\nWild × Valheim × Tunic*.\n\nIt's TypeScript end to end: three.js in the browser, and a Node world server over WebSockets with\nSQLite. World generation is a pure, deterministic package that client and server share. Parties,\ncompanions, enemy tiers, radar, LODs and an asset viewer are all in. Since November an autonomous\nClaude Code loop works the backlog overnight. It playtests its own changes and opens pull requests for review in the morning.",
    "stack": [
     "TypeScript",
     "three.js",
@@ -148,10 +148,11 @@
    "started": "2026-10",
    "retired": null,
    "tagline": "A short narrated video built from a JSON scene script and local text-to-speech.",
-   "body": "Each scene in a JSON script lists its lines and timing. Kokoro voices the narration locally, and the\nrenderer lays the scenes out against the audio, so you rewrite the script rather than re-edit the video.",
+   "body": "Each scene in a JSON script lists its lines. Kokoro voices every line separately and trims its silence,\nand the build lays out the film's whole timeline, so captions and animation cues land exactly on the\nwords. To change the video, you edit the script and rebuild.",
    "stack": [
+    "Python",
     "Kokoro TTS",
-    "ffmpeg",
+    "ONNX",
     "JSON"
    ],
    "links": [],
@@ -172,7 +173,7 @@
     "Python",
     "WebSockets",
     "JavaScript",
-    "Hamlib CAT",
+    "Yaesu CAT",
     "WSJT-X jt9"
    ],
    "links": [],
@@ -531,7 +532,7 @@
    "started": "2026-09",
    "retired": null,
    "tagline": "A paper-smartphone shell for an e-paper LoRa handheld that keeps the Meshtastic stack and replaces its UI.",
-   "body": "Vellum swaps Meshtastic's on-device UI for a minimal smartphone-style shell on the LilyGO T-Deck Pro\nMAX's e-paper screen, with messaging, an .epub reader, an audio player, mesh tools and LTE status. The\nproject kept a chapter-by-chapter journal of bring-up, power, the modem and recovery.",
+   "body": "Vellum swaps Meshtastic's on-device UI for a minimal smartphone-style shell on the LilyGO T-Deck Pro\nMAX's e-paper screen. The design calls for messages, a map, an .epub reader, music and an LTE console,\nbuilt in phases. The project keeps a chapter-by-chapter journal of bring-up, power, the modem and\nrecovery.",
    "stack": [
     "C++",
     "Meshtastic",
@@ -571,13 +572,14 @@
    "status": "done",
    "started": "2026-11",
    "retired": null,
-   "tagline": "Slice and send prints to a Bambu Lab P1S from the command line.",
-   "body": "It flattens Bambu Studio's inherited profiles so the command-line slicer can use them, auto-orients and\nrenders models, uploads over FTPS, and reads printer status and the camera. Starting the print stays a\nhuman button press.",
+   "tagline": "Scripts that drive a Bambu Lab P1S without the slicer GUI.",
+   "body": "The scripts flatten Bambu Studio's inherited profiles so the command-line slicer can use them, score\nan STL's possible orientations, render previews, read printer status over MQTT and grab camera frames.\nThe printer still refuses a remote print-start, so starting a print stays a button press.",
    "stack": [
     "Python",
-    "Bambu Studio CLI",
-    "FTPS",
-    "MQTT"
+    "NumPy",
+    "Matplotlib",
+    "MQTT",
+    "Bambu Studio CLI"
    ],
    "links": [],
    "upstream": null,
@@ -592,12 +594,12 @@
    "started": "2026-08",
    "retired": null,
    "tagline": "A family assistant you text over iMessage, running on a local LLM with household tools.",
-   "body": "One n8n agent serves every front end: iMessage, Discord and the TV's chat character. Its tools cover\nthe family calendar, the offline library, the bird detector, the solar inverter, the TV and local web\nsearch, plus memory of past conversations and \"errands\" that keep relayed messages in context. It\nsends a few short scheduled texts each day. iMessage runs through BlueBubbles in a macOS VM, so the\nassistant has its own Apple ID, and the model runs at home.",
+   "body": "One n8n agent serves every front end: iMessage, Discord and the TV's chat character. Its tools cover\nthe family calendar, the offline library, the bird detector, the solar inverter, the TV and local web\nsearch, plus memory of past conversations and \"errands\" that keep relayed messages in context. It\nsends a few short scheduled texts each day. iMessage goes through a bridge in a macOS VM, so the\nassistant has its own Apple ID, and the model runs at home.",
    "stack": [
     "n8n",
     "LangChain",
     "llama.cpp",
-    "BlueBubbles",
+    "macOS VM",
     "MCP",
     "SearXNG"
    ],
@@ -683,7 +685,7 @@
    "started": null,
    "retired": "2026-11",
    "tagline": "The family assistant's first version, an OpenClaw gateway on a local model.",
-   "body": "It ran the assistant through OpenClaw with a local Gemma 4 31B. Smaller mixture-of-experts models\nweren't good enough for its tool use. It was replaced by the n8n-based assistant in November 2026.",
+   "body": "It ran the assistant through OpenClaw with a local Gemma 4 31B. A smaller mixture-of-experts model\nwas faster but couldn't reason well enough for it. It was replaced by the n8n-based assistant in November 2026.",
    "stack": [
     "OpenClaw",
     "llama.cpp",
@@ -701,8 +703,8 @@
    "status": "done",
    "started": "2026-04",
    "retired": null,
-   "tagline": "A small CLI that upscales and re-renders images through Google's Gemini image model.",
-   "body": "It wraps the Gemini image API with a strict system prompt that always returns an image, never a chat\nreply, so it can batch through a folder unattended.",
+   "tagline": "A small CLI that upscales and refines an image through Google's Gemini image model.",
+   "body": "It wraps the Gemini image API with a strict system prompt that always returns an image, never a chat\nreply, and asks it to sharpen details while keeping any text intact, at a chosen output resolution.",
    "stack": [
     "Python",
     "Google GenAI SDK"
