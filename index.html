@@ -9,7 +9,7 @@
 <meta property="og:description" content="Things I&#x27;ve built with AI as a co-pilot: radios and SDR tools, firmware, games, a family assistant and a lot of small utilities. This page rebuilds itself every day from the projects on my machines, so it stays current even when I lose track.">
 <meta property="og:image" content="https://jdmills-edu.github.io/shots/lanterns-of-selvane-1.webp">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="style.css?v=c3816f44">
+<link rel="stylesheet" href="style.css?v=dd5a18da">
 <script>try{var t=localStorage.getItem('pi-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
@@ -30,7 +30,7 @@
 <p class="rebuilt">Rebuilt automatically · <time datetime="2026-11-16">16 Nov 2026</time></p>
 </div>
 </header>
-<section class="lately wrap" aria-labelledby="lately-h"><h2 id="lately-h">Lately</h2><ol><li><a href="#p-lanterns-of-selvane"><span class="l-title">Lanterns of Selvane</span><span class="l-when">today</span></a></li><li><a href="#p-sdrpp-cw"><span class="l-title">CW decoder for SDR++</span><span class="l-when">today</span></a></li><li><a href="#p-home-lab"><span class="l-title">Self-documenting home lab</span><span class="l-when">today</span></a></li><li><a href="#p-project-index"><span class="l-title">This project index</span><span class="l-when">today</span></a></li><li><a href="#p-tv-launcher"><span class="l-title">Living-room TV launcher</span><span class="l-when">yesterday</span></a></li><li><a href="#p-lakeshark-ft891"><span class="l-title">LakeShark FT-891 app</span><span class="l-when">2 days ago</span></a></li><li><a href="#p-sdr-noise-reduction"><span class="l-title">SDR++ noise reduction</span><span class="l-when">2 days ago</span></a></li><li><a href="#p-bambu-cli"><span class="l-title">Headless 3D printing CLI</span><span class="l-when">2 days ago</span></a></li></ol></section>
+<section class="lately wrap" aria-labelledby="lately-h"><h2 id="lately-h">Lately</h2><ol><li><a href="#p-lanterns-of-selvane"><span class="l-title">Lanterns of Selvane</span><span class="l-when">today</span></a></li><li><a href="#p-sdrpp-cw"><span class="l-title">CW decoder for SDR++</span><span class="l-when">today</span></a></li><li><a href="#p-talk-to-the-cat"><span class="l-title">Talk to the TV cat</span><span class="l-when">today</span></a></li><li><a href="#p-home-lab"><span class="l-title">Self-documenting home lab</span><span class="l-when">today</span></a></li><li><a href="#p-project-index"><span class="l-title">This project index</span><span class="l-when">today</span></a></li><li><a href="#p-tv-launcher"><span class="l-title">Living-room TV launcher</span><span class="l-when">yesterday</span></a></li><li><a href="#p-lakeshark-ft891"><span class="l-title">LakeShark FT-891 app</span><span class="l-when">2 days ago</span></a></li><li><a href="#p-sdr-noise-reduction"><span class="l-title">SDR++ noise reduction</span><span class="l-when">2 days ago</span></a></li></ol></section>
 <nav class="filters wrap" aria-label="Filter projects">
 <label class="search"><span class="vh">Search projects</span><input type="search" id="q" placeholder="Search projects, tools, tech…" autocomplete="off"></label>
 <div class="chips" role="group" aria-label="Category"><button type="button" data-filter="category" data-value="play" aria-pressed="false">Games, music &amp; stories</button><button type="button" data-filter="category" data-value="radio" aria-pressed="false">Radio &amp; SDR</button><button type="button" data-filter="category" data-value="devices" aria-pressed="false">Devices &amp; firmware</button><button type="button" data-filter="category" data-value="ai" aria-pressed="false">AI &amp; assistants</button><button type="button" data-filter="category" data-value="home" aria-pressed="false">Home &amp; family</button><button type="button" data-filter="category" data-value="tools" aria-pressed="false">Tools &amp; utilities</button></div>
@@ -389,6 +389,19 @@ the tv over adb, so claude and the family assistant can control it.
 <details><summary>More</summary><div class="more"><p>The stock launcher is gone. Home shows pixel-art holiday scenes and a voxel cat with moods and costumes. A vision model watches periodic screenshots and posters to write the cat&#x27;s reactions. It also pops up behind-the-scenes facts that are cold-checked against their sources, where every number must appear in the source. Weather and alerts, timers and reminders round out Home. An MCP server drives the TV over ADB, so Claude and the family assistant can control it.</p><p class="credit">Builds on <a href="https://github.com/Gathin23/CleanYourTV" rel="noopener">CleanYourTV</a>.</p></div></details>
 
 </div></article>
+<article class="card cat-home" id="p-talk-to-the-cat" data-category="home" data-status="live" data-search="talk to the tv cat press ok and talk to the tv&#x27;s cartoon cat, who answers in character with kid-safe tools. the app records the tv&#x27;s built-in far-field mic. parakeet transcribes it in about 60 ms on cpu (it
+beat moonshine and whisper on a bench of kid-style questions), and the family assistant answers with
+a kid-safe tool set and the cat&#x27;s persona, thinking disabled for speed. the reply streams back with a
+meow &quot;typing blip&quot; and the cat&#x27;s mood on its face.
+ java android tv python parakeet stt n8n">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-talk-to-the-cat">Talk to the TV cat</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">Press OK and talk to the TV&#x27;s cartoon cat, who answers in character with kid-safe tools.</p>
+<p class="meta"><span>Since Oct 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-16">today</time></span></p>
+<ul class="stack"><li>Java</li><li>Android TV</li><li>Python</li><li>Parakeet STT</li><li>n8n</li></ul>
+<details><summary>More</summary><div class="more"><p>The app records the TV&#x27;s built-in far-field mic. Parakeet transcribes it in about 60 ms on CPU (it beat Moonshine and Whisper on a bench of kid-style questions), and the family assistant answers with a kid-safe tool set and the cat&#x27;s persona, thinking disabled for speed. The reply streams back with a meow &quot;typing blip&quot; and the cat&#x27;s mood on its face.</p></div></details>
+
+</div></article>
 <article class="card cat-home" id="p-home-lab" data-category="home" data-status="live" data-search="self-documenting home lab a private wiki that rebuilds itself every night from what&#x27;s actually running, plus cross-host backups. collectors inventory the containers, services, scheduled jobs and repos on each machine. a generator
 joins those facts with a hand-curated catalog and rebuilds a private mkdocs wiki that flags drift and
 unpushed work. restic backs each machine up to the other and to object storage.
@@ -399,19 +412,6 @@ unpushed work. restic backs each machine up to the other and to object storage.
 <p class="meta"><span>Since Nov 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-16">today</time></span></p>
 <ul class="stack"><li>Python</li><li>MkDocs</li><li>restic</li></ul>
 <details><summary>More</summary><div class="more"><p>Collectors inventory the containers, services, scheduled jobs and repos on each machine. A generator joins those facts with a hand-curated catalog and rebuilds a private MkDocs wiki that flags drift and unpushed work. Restic backs each machine up to the other and to object storage.</p></div></details>
-
-</div></article>
-<article class="card cat-home" id="p-talk-to-the-cat" data-category="home" data-status="live" data-search="talk to the tv cat press ok and talk to the tv&#x27;s cartoon cat, who answers in character with kid-safe tools. the app records the tv&#x27;s built-in far-field mic. parakeet transcribes it in about 60 ms on cpu (it
-beat moonshine and whisper on a bench of kid-style questions), and the family assistant answers with
-a kid-safe tool set and the cat&#x27;s persona, thinking disabled for speed. the reply streams back with a
-meow &quot;typing blip&quot; and the cat&#x27;s mood on its face.
- java android tv python parakeet stt n8n">
-<div class="card-body">
-<div class="card-head"><h3><a href="#p-talk-to-the-cat">Talk to the TV cat</a></h3><span class="status s-live">Live</span></div>
-<p class="tagline">Press OK and talk to the TV&#x27;s cartoon cat, who answers in character with kid-safe tools.</p>
-<p class="meta"><span>Since Oct 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-12">4 days ago</time></span></p>
-<ul class="stack"><li>Java</li><li>Android TV</li><li>Python</li><li>Parakeet STT</li><li>n8n</li></ul>
-<details><summary>More</summary><div class="more"><p>The app records the TV&#x27;s built-in far-field mic. Parakeet transcribes it in about 60 ms on CPU (it beat Moonshine and Whisper on a bench of kid-style questions), and the family assistant answers with a kid-safe tool set and the cat&#x27;s persona, thinking disabled for speed. The reply streams back with a meow &quot;typing blip&quot; and the cat&#x27;s mood on its face.</p></div></details>
 
 </div></article>
 <article class="card cat-home" id="p-inverter-dashboard" data-category="home" data-status="live" data-search="solar &amp; battery inverter dashboard monitoring and guarded controls for a hybrid solar/battery inverter over modbus and mqtt. it keeps 30 days of readings and serves a mobile-first dashboard with its own svg charts and a
@@ -579,6 +579,6 @@ Private projects are described without a link. <a href="projects.json">projects.
 <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
 <div class="lb-bar"><button type="button" id="lb-prev" aria-label="Previous image">←</button><span id="lb-pos"></span><button type="button" id="lb-next" aria-label="Next image">→</button><button type="button" id="lb-close" aria-label="Close">Close</button></div>
 </dialog>
-<script src="app.js?v=c3816f44" defer></script>
+<script src="app.js?v=dd5a18da" defer></script>
 </body>
 </html>

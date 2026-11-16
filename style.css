@@ -141,7 +141,7 @@ details[open] summary::before { content: "− "; }
 dialog#lightbox { border: 0; padding: 0; background: transparent; max-width: min(96vw, 1500px); width: 100%; color: #eee; }
 dialog#lightbox::backdrop { background: rgba(8, 8, 7, .88); }
 dialog figure { margin: 0; display: flex; flex-direction: column; align-items: center; }
-#lb-img { max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 6px; background: #111; }
+#lb-img { width: auto; height: auto; max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 6px; background: #111; }
 #lb-cap { margin-top: 10px; font-size: .95rem; text-align: center; }
 .lb-bar { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 12px; font: .8rem var(--mono); }
 .lb-bar button { font: 500 .85rem var(--sans); color: #eee; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.25);
