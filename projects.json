@@ -1,0 +1,999 @@
+{
+ "generated": "2026-11-16",
+ "projects": [
+  {
+   "id": "lanterns-of-selvane",
+   "title": "Lanterns of Selvane",
+   "category": "play",
+   "status": "active",
+   "started": "2026-09",
+   "retired": null,
+   "tagline": "A small-party action-exploration RPG in the browser, on a procedurally generated garden world.",
+   "body": "Up to four players explore a seeded world about 6 km across, laid out in rings of biomes. Landmarks\nare placed so the next one is always visible on the horizon, and shelter comes from lore-rich shrines,\nthe Lanterns, that you kindle rather than build. The pitch is *Phantasy Star Online × Breath of the\nWild × Valheim × Tunic*.\n\nIt's TypeScript end to end: three.js in the browser, and a Node world server over WebSockets with\nSQLite. World generation is a pure, deterministic package that client and server share. Parties,\ncompanions, enemy tiers, radar, LODs and an asset viewer are all in. Since November an autonomous\nClaude Code loop works the backlog overnight. It playtests its own changes and opens pull requests for review in the morning.",
+   "stack": [
+    "TypeScript",
+    "three.js",
+    "Node",
+    "WebSockets",
+    "SQLite",
+    "Vite"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-16",
+   "images": [
+    {
+     "src": "shots/lanterns-of-selvane-1.webp",
+     "caption": "Midday in the meadow ring, with floating islands on the horizon"
+    },
+    {
+     "src": "shots/lanterns-of-selvane-2.webp",
+     "caption": "The Heartwell's beam at the centre of the world"
+    },
+    {
+     "src": "shots/lanterns-of-selvane-3.webp",
+     "caption": "The canopy biome"
+    },
+    {
+     "src": "shots/lanterns-of-selvane-4.webp",
+     "caption": "A whole generated world (seed 1), biome rings from the centre out"
+    },
+    {
+     "src": "shots/lanterns-of-selvane-5.webp",
+     "caption": "Title art"
+    }
+   ]
+  },
+  {
+   "id": "creature-pipeline",
+   "title": "Creature pipeline",
+   "category": "play",
+   "status": "paused",
+   "started": "2026-09",
+   "retired": null,
+   "tagline": "Local text-to-concept-art-to-3D for the game's creatures, entirely on the workstation's GPUs.",
+   "body": "A batch pipeline that writes concept sheets for each creature with an open image model, cuts out the\nsubject with BiRefNet, and lifts the best views into textured 3D meshes with TRELLIS. Each species\ngets several style passes (classic, fern, faceted, woolly…) to choose from before modelling.",
+   "stack": [
+    "Python",
+    "PyTorch",
+    "Z-Image",
+    "BiRefNet",
+    "TRELLIS"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-09-30",
+   "images": [
+    {
+     "src": "shots/creature-pipeline-1.webp",
+     "caption": "Concept pass for a cinder hound"
+    },
+    {
+     "src": "shots/creature-pipeline-2.webp",
+     "caption": "A tuftling, fern variant"
+    }
+   ]
+  },
+  {
+   "id": "woodshed",
+   "title": "Woodshed",
+   "category": "play",
+   "status": "live",
+   "started": "2026-09",
+   "retired": null,
+   "tagline": "A Rocksmith-style piano trainer that runs in the browser over Web MIDI.",
+   "body": "Plug in a MIDI keyboard and jam with a backing band in the Jam Room (band styles, missions, a coach,\nkey walks, free play with a chord trail and .mid export), or work through 8 arcade games and 45\nlessons in 10 units, with a circle-of-fifths view. An \"anti-laurels\" layer keeps a quick-eared\nplayer from coasting: a key heatmap, a Laurels Meter and a Daily Woodshed.\n\nThere's no build step and no server state. It's plain scripts on one namespace, and progress lives\nin the browser.",
+   "stack": [
+    "JavaScript",
+    "Web MIDI",
+    "Web Audio"
+   ],
+   "links": [
+    {
+     "label": "Open the app",
+     "url": "https://woodshed.jdmills.io/"
+    },
+    {
+     "label": "Source",
+     "url": "https://github.com/jdmills-edu/woodshed"
+    }
+   ],
+   "upstream": null,
+   "last_activity": "2026-11-05",
+   "images": [
+    {
+     "src": "shots/woodshed-1.webp",
+     "caption": "The Jam Room: a progression, the next chord, a coach and a mission"
+    },
+    {
+     "src": "shots/woodshed-2.webp",
+     "caption": "Eight arcade games, each drilling one jam skill"
+    },
+    {
+     "src": "shots/woodshed-3.webp",
+     "caption": "The circle of fifths, with every chord in the key"
+    },
+    {
+     "src": "shots/woodshed-4.webp",
+     "caption": "45 lessons in 10 units"
+    }
+   ]
+  },
+  {
+   "id": "pianoforge",
+   "title": "Pianoforge",
+   "category": "play",
+   "status": "retired",
+   "started": "2026-09",
+   "retired": "2026-11",
+   "tagline": "Turned a solo piano recording into a playable 88-key sampled instrument.",
+   "body": "Drop in a recording and it separated the piano from everything else (Demucs), transcribed the notes\n(Transkun), analysed each note's partials, calibrated an additive-plus-noise model against the\nrecording by analysis-by-synthesis, and exported an SFZ instrument. Retired in November 2026.",
+   "stack": [
+    "Python",
+    "PyTorch",
+    "Demucs",
+    "numba",
+    "SFZ"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": null,
+   "images": []
+  },
+  {
+   "id": "story-video",
+   "title": "Narrated story video",
+   "category": "play",
+   "status": "done",
+   "started": "2026-10",
+   "retired": null,
+   "tagline": "A short narrated video built from a JSON scene script and local text-to-speech.",
+   "body": "Each scene in a JSON script lists its lines and timing. Kokoro voices the narration locally, and the\nrenderer lays the scenes out against the audio, so you rewrite the script rather than re-edit the video.",
+   "stack": [
+    "Kokoro TTS",
+    "ffmpeg",
+    "JSON"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-10-04",
+   "images": []
+  },
+  {
+   "id": "ft891-console",
+   "title": "FT-891 Shack Console",
+   "category": "radio",
+   "status": "live",
+   "started": "2026-11",
+   "retired": null,
+   "tagline": "A browser console for a Yaesu FT-891 HF radio, with CAT control, a waterfall, and FT8 and CW decoding.",
+   "body": "It talks to the radio through a DigiRig Mobile interface. A beginner-friendly Simple view sits beside a\nPro view with every CAT control, meters and a live waterfall. It decodes FT8 with WSJT-X's jt9, and\ndecodes Morse with automatic pitch and speed, giving each transmitter its own line.\n\nIt knows which frequencies each US licence class may use (47 CFR §97.301/305/307), estimates RF\nexposure from FCC OET 65 duty factors, and shows band conditions from NOAA and ionosonde data. It's\nreceive-only by default, and a Bluetooth knob can tune the VFO.",
+   "stack": [
+    "Python",
+    "WebSockets",
+    "JavaScript",
+    "Hamlib CAT",
+    "WSJT-X jt9"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-09",
+   "images": [
+    {
+     "src": "shots/ft891-console-1.webp",
+     "caption": "The Pro view, with every CAT control, meters and the waterfall (radio off, placeholder callsign)"
+    },
+    {
+     "src": "shots/ft891-console-2.webp",
+     "caption": "The Simple view for new operators (radio off, placeholder callsign)"
+    }
+   ]
+  },
+  {
+   "id": "sdrpp-cw",
+   "title": "CW decoder for SDR++",
+   "category": "radio",
+   "status": "active",
+   "started": "2026-11",
+   "retired": null,
+   "tagline": "An SDR++ module that copies Morse automatically, both the station you're tuned to and every other keyed signal nearby.",
+   "body": "It's a C++ port of the shack console's decoder: automatic pitch and speed, a false-lock guard, and a\nphase-slope trick that starts a new line for each transmitter, each at its own speed. Decoded text is\nsplit into words and annotated (Q-codes, prosigns, signal reports, grid squares with distance,\nPOTA/SOTA references, callsign prefixes), with optional callbook lookups. Nothing like it existed for\nSDR++ on Linux.",
+   "stack": [
+    "C++",
+    "SDR++ module API",
+    "DSP"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-16",
+   "images": [
+    {
+     "src": "shots/sdrpp-cw-1.webp",
+     "caption": "Decoding a 40 m CW signal, with every nearby transmitter on its own line"
+    }
+   ]
+  },
+  {
+   "id": "lakeshark-ft891",
+   "title": "LakeShark FT-891 app",
+   "category": "radio",
+   "status": "active",
+   "started": "2026-10",
+   "retired": null,
+   "tagline": "A built-in app for the LakeShark handheld-SDR firmware that turns an ESP32-P4 board into a pocket FT-891 remote.",
+   "body": "LakeShark is community firmware for ESP32-P4 handhelds. This app adds a USB-host driver for the\nradio's CAT port and sound card, a rigctld-compatible server, and big-button RIG/LINK screens, and it\nfeeds the radio's audio into LakeShark's FT8 decoder. It replaced an earlier standalone-firmware\nattempt and is still in progress. Along the way: an upstream fix so the RTL-SDR Blog V4's USB strings\nare read in full, which unlocks its HF mode.",
+   "stack": [
+    "C",
+    "ESP-IDF",
+    "ESP32-P4",
+    "USB host"
+   ],
+   "links": [
+    {
+     "label": "Upstream PR",
+     "url": "https://github.com/SAMS0N1TE/LakeShark/pull/24"
+    }
+   ],
+   "upstream": {
+    "name": "LakeShark by SAMS0N1TE",
+    "url": "https://github.com/SAMS0N1TE/LakeShark"
+   },
+   "last_activity": "2026-11-14",
+   "images": []
+  },
+  {
+   "id": "orbic-sdr",
+   "title": "Orbic SDR server",
+   "category": "radio",
+   "status": "done",
+   "started": "2026-08",
+   "retired": null,
+   "tagline": "A rooted LTE hotspot turned into a Wi-Fi RTL-SDR server, with no reflash.",
+   "body": "The hotspot (Qualcomm MDM9607) ships with its USB port locked to peripheral mode and no host\ncontroller in the kernel. Three out-of-tree kernel modules, built against the matching vendor kernel,\nadd one at runtime and push the OTG state machine into host mode. With a powered hub, each RTL-SDR\ndongle gets its own IP serving rtl_tcp, survives reboots, and appears on a custom SDR-themed status\nscreen. It fed an rtl_433 sensor logger (since retired) and the Cascata iOS app.",
+   "stack": [
+    "C",
+    "Linux kernel modules",
+    "rtl_tcp",
+    "rtl_433"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-09-06",
+   "images": []
+  },
+  {
+   "id": "cascata",
+   "title": "Cascata",
+   "category": "radio",
+   "status": "paused",
+   "started": "2026-08",
+   "retired": null,
+   "tagline": "An iOS receiver for rtl_tcp SDR servers, with a Metal waterfall.",
+   "body": "SwiftUI with a GPU waterfall and spectrum and seven full-screen visualisers. WFM (stereo and RDS),\nNFM, AM and SSB demodulation runs on Accelerate, with noise reduction, CTCSS/DCS tone squelch, a\nscanner over bookmark groups, squelch-triggered recording, two VFOs inside one passband and CHIRP\nCSV import. App Store preparation is paused.",
+   "stack": [
+    "Swift",
+    "SwiftUI",
+    "Metal",
+    "Accelerate"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-08-26",
+   "images": []
+  },
+  {
+   "id": "ft8-station",
+   "title": "FT8 receive station & live map",
+   "category": "radio",
+   "status": "paused",
+   "started": "2026-09",
+   "retired": null,
+   "tagline": "A receive-only FT8 station that hopped bands around the clock and plotted every decode on a live map.",
+   "body": "An HF loop and an RTL-SDR fed SDR++ and WSJT-X. A band-hopper followed a day/night plan on FT8\nperiod boundaries, and a watchdog relaunched the chain when the dongle disappeared. A small\nstdlib-only Python app turned WSJT-X's UDP feed into a Leaflet map with great-circle paths, licence\nlookups and server-sent events, and spots went to PSK Reporter. Paused in November 2026 when the\nshack moved to a real HF radio.",
+   "stack": [
+    "Python",
+    "SDR++",
+    "WSJT-X",
+    "Hamlib",
+    "Leaflet",
+    "SQLite"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": null,
+   "images": []
+  },
+  {
+   "id": "bf-f8hp-pro",
+   "title": "Handheld radio programming",
+   "category": "radio",
+   "status": "done",
+   "started": "2026-09",
+   "retired": null,
+   "tagline": "A scripted channel plan and a native-Linux firmware flash for a BTECH BF-F8HP PRO.",
+   "body": "Rather than typing hundreds of channels into CHIRP, scripts regenerate them from sources (repeater\nlists, FAA airband frequencies, NOAA weather, railroad channels) into fixed 100-channel zones, then\nupload the image and verify it against a readback. The firmware was updated from Linux with the\nopen-source FlintWave KDH flasher (the vendor's updater is Windows-only), and every channel survived\nbyte for byte.",
+   "stack": [
+    "Python",
+    "CHIRP",
+    "pyserial"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-09-24",
+   "images": []
+  },
+  {
+   "id": "sdr-noise-reduction",
+   "title": "SDR++ noise reduction",
+   "category": "radio",
+   "status": "live",
+   "started": "2026-11",
+   "retired": null,
+   "tagline": "Switchable noise reduction for SDR++ audio through PipeWire filter chains.",
+   "body": "The routing changes with the mode: RNNoise for voice, a spectral denoiser for AM, and nothing for CW,\nbecause RNNoise erases it. It follows whichever demodulator you pick in SDR++ within a few seconds,\nand one key on the desk deck toggles it.",
+   "stack": [
+    "PipeWire",
+    "LADSPA",
+    "RNNoise",
+    "Bash"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-14",
+   "images": []
+  },
+  {
+   "id": "nanovna-toolkit",
+   "title": "NanoVNA toolkit",
+   "category": "radio",
+   "status": "done",
+   "started": "2026-11",
+   "retired": null,
+   "tagline": "Command-line tools for a NanoVNA-F V2, covering guided calibration, averaged SWR reports and overlay plots.",
+   "body": "It measures SWR and impedance across the HF bands or at spot frequencies, runs software-corrected\nhigh-resolution sweeps above 7.6 MHz, captures the LCD, and overlays runs for before-and-after\nantenna comparisons.",
+   "stack": [
+    "Python",
+    "pyserial",
+    "NumPy",
+    "SciPy",
+    "Matplotlib"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-09",
+   "images": [
+    {
+     "src": "shots/nanovna-toolkit-1.webp",
+     "caption": "SWR baseline for an end-fed half-wave, with per-band zooms"
+    }
+   ]
+  },
+  {
+   "id": "spyserver-station",
+   "title": "Network SDR server",
+   "category": "radio",
+   "status": "retired",
+   "started": "2026-06",
+   "retired": "2026-09",
+   "tagline": "Four RTL-SDR dongles on a Jetson, each shared over the LAN with SpyServer.",
+   "body": "It ran one SpyServer instance per dongle, so SDR++ and SDR# clients anywhere in the house could share\nthem. One lesson worth keeping: for RTL-SDR, SpyServer's `device_serial` is a USB index, not a serial\nnumber. It was retired when the Jetson died.",
+   "stack": [
+    "SpyServer",
+    "systemd",
+    "Jetson Orin Nano"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": null,
+   "images": []
+  },
+  {
+   "id": "gmrs-monitor",
+   "title": "GMRS repeater monitor",
+   "category": "radio",
+   "status": "retired",
+   "started": "2026-07",
+   "retired": "2026-09",
+   "tagline": "Recorded, transcribed and summarised traffic on a local GMRS repeater.",
+   "body": "It cut each transmission, transcribed it with Whisper, summarised it with a local model, and matched\nspoken callsigns against FCC licence records, with a web UI and an MCP server. Its OAuth-gated MCP\nbecame the template for later connectors. It was retired with the SDR server that fed it.",
+   "stack": [
+    "Python",
+    "SoapySDR",
+    "whisper.cpp",
+    "SQLite",
+    "MCP"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": null,
+   "images": []
+  },
+  {
+   "id": "spectrum-sweepers",
+   "title": "Spectrum sweeper station",
+   "category": "radio",
+   "status": "retired",
+   "started": "2026-07",
+   "retired": "2026-09",
+   "tagline": "Three receivers that wandered slices of spectrum, detecting, labelling and recording what they found.",
+   "body": "Signals were matched against a band plan and captured as audio and IQ, and each sweeper stepped aside\nwhenever a person connected to its dongle. It needed a from-scratch Python SpyServer client that can\nretune, which SoapySpyServer can't. It was retired with the SDR server.",
+   "stack": [
+    "Python",
+    "NumPy",
+    "SpyServer protocol",
+    "SQLite"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": null,
+   "images": []
+  },
+  {
+   "id": "flipper-morse-beacon",
+   "title": "Morse Beacon for Flipper Zero",
+   "category": "devices",
+   "status": "done",
+   "started": "2026-09",
+   "retired": null,
+   "tagline": "A Flipper Zero app that keys Morse station IDs and text beacons out of the Sub-GHz radio.",
+   "body": "It sends CW and MCW (by toggling FSK). Text can be typed on the Flipper, sent from a phone over BLE\nserial, or fed in on the UART pins. Transmit is region-gated, with safe fallbacks when a saved\nfrequency isn't allowed. It has been verified on air and submitted to the official Flipper apps catalog.",
+   "stack": [
+    "C",
+    "Flipper SDK",
+    "CC1101"
+   ],
+   "links": [
+    {
+     "label": "Source",
+     "url": "https://github.com/jdmills-edu/flipper-morse-beacon"
+    }
+   ],
+   "upstream": null,
+   "last_activity": "2026-09-13",
+   "images": [
+    {
+     "src": "shots/flipper-morse-beacon-1.webp",
+     "caption": "Morse Beacon"
+    },
+    {
+     "src": "shots/flipper-morse-beacon-2.webp",
+     "caption": "Beacon mode, listening between timed IDs"
+    },
+    {
+     "src": "shots/flipper-morse-beacon-3.webp",
+     "caption": "Main menu"
+    }
+   ]
+  },
+  {
+   "id": "flipper-repeater",
+   "title": "Flipper repeater controller",
+   "category": "devices",
+   "status": "done",
+   "started": "2026-09",
+   "retired": null,
+   "tagline": "A repeater controller for the Flipper Zero, with COR in, PTT out, a courtesy tone, a timeout timer and a CW ID.",
+   "body": "Two real radios do the RF, and the Flipper decides when to key. The README explains why the Flipper\ncan't be the repeater itself: it has one synthesiser and runs half duplex.",
+   "stack": [
+    "C",
+    "Flipper SDK",
+    "GPIO"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-09-08",
+   "images": []
+  },
+  {
+   "id": "mesh-watch",
+   "title": "Kid-friendly mesh messenger watch",
+   "category": "devices",
+   "status": "live",
+   "started": "2026-07",
+   "retired": null,
+   "tagline": "Custom Meshtastic firmware that turns a LilyGO T-Watch S3 into a child's LoRa messenger.",
+   "body": "It replaces the stock screen with a colourful UI: a big-key keyboard, incoming messages read aloud, a\n\"secret knock\", and a Fun tab with a stopwatch, doodle pad, a virtual pet fed by family messages, an\n8-ball, themes and an alarm. The watch has no GPS, so a \"Who's near me?\" card reports the nearest heard\nnode instead. A later release fixed about five minutes a day of clock drift by re-anchoring to the\ncrystal RTC.",
+   "stack": [
+    "C++",
+    "Meshtastic",
+    "ESP32-S3",
+    "LoRa"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-13",
+   "images": []
+  },
+  {
+   "id": "meshtastic-aaos",
+   "title": "Meshtastic for Android Automotive",
+   "category": "devices",
+   "status": "paused",
+   "started": "2026-08",
+   "retired": null,
+   "tagline": "A fork of the Meshtastic Android app that runs on a car's built-in Android Automotive OS.",
+   "body": "It uses the F-Droid flavour (osmdroid maps need no API key) plus the automotive manifest features, and\nis built as an app bundle for Google Play's Automotive track so it can be tested in the car.",
+   "stack": [
+    "Kotlin",
+    "Android Automotive OS",
+    "Gradle"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": null,
+   "images": []
+  },
+  {
+   "id": "vellum-tdeck",
+   "title": "Vellum for the T-Deck Pro MAX",
+   "category": "devices",
+   "status": "paused",
+   "started": "2026-09",
+   "retired": null,
+   "tagline": "A paper-smartphone shell for an e-paper LoRa handheld that keeps the Meshtastic stack and replaces its UI.",
+   "body": "Vellum swaps Meshtastic's on-device UI for a minimal smartphone-style shell on the LilyGO T-Deck Pro\nMAX's e-paper screen, with messaging, an .epub reader, an audio player, mesh tools and LTE status. The\nproject kept a chapter-by-chapter journal of bring-up, power, the modem and recovery.",
+   "stack": [
+    "C++",
+    "Meshtastic",
+    "ESP32-S3",
+    "e-paper"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-13",
+   "images": []
+  },
+  {
+   "id": "desk-controls",
+   "title": "Desk control surface",
+   "category": "devices",
+   "status": "live",
+   "started": "2026-11",
+   "retired": null,
+   "tagline": "A Bluetooth knob and an open-source stream-deck setup wired into the radio, the GPUs and the lights.",
+   "body": "The knob cycles through modes (volume, scroll, zoom, scrub, undo, lights and radio), with an Input\nRemapper preset per mode switched over D-Bus. In radio mode the shack console reads the knob directly\nto tune the FT-891. Deck keys show GPU stats, toggle SDR noise reduction and drive the RGB lighting.",
+   "stack": [
+    "Bash",
+    "Input Remapper",
+    "D-Bus",
+    "OpenDeck",
+    "hidraw"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": null,
+   "images": []
+  },
+  {
+   "id": "bambu-cli",
+   "title": "Headless 3D printing CLI",
+   "category": "devices",
+   "status": "done",
+   "started": "2026-11",
+   "retired": null,
+   "tagline": "Slice and send prints to a Bambu Lab P1S from the command line.",
+   "body": "It flattens Bambu Studio's inherited profiles so the command-line slicer can use them, auto-orients and\nrenders models, uploads over FTPS, and reads printer status and the camera. Starting the print stays a\nhuman button press.",
+   "stack": [
+    "Python",
+    "Bambu Studio CLI",
+    "FTPS",
+    "MQTT"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-14",
+   "images": []
+  },
+  {
+   "id": "family-assistant",
+   "title": "Family assistant over iMessage",
+   "category": "ai",
+   "status": "live",
+   "started": "2026-08",
+   "retired": null,
+   "tagline": "A family assistant you text over iMessage, running on a local LLM with household tools.",
+   "body": "One n8n agent serves every front end: iMessage, Discord and the TV's chat character. Its tools cover\nthe family calendar, the offline library, the bird detector, the solar inverter, the TV and local web\nsearch, plus memory of past conversations and \"errands\" that keep relayed messages in context. It\nsends a few short scheduled texts each day. iMessage runs through BlueBubbles in a macOS VM, so the\nassistant has its own Apple ID, and the model runs at home.",
+   "stack": [
+    "n8n",
+    "LangChain",
+    "llama.cpp",
+    "BlueBubbles",
+    "MCP",
+    "SearXNG"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": null,
+   "images": []
+  },
+  {
+   "id": "local-llm",
+   "title": "Local LLM server",
+   "category": "ai",
+   "status": "live",
+   "started": "2026-05",
+   "retired": null,
+   "tagline": "One local model on two consumer GPUs, shared by every AI feature on this page.",
+   "body": "llama.cpp's llama-server runs a 27B Qwen 3.8 finetune (Q4_K_M) with a multi-token-prediction draft\nhead and vision, split across an RTX 5070 Ti and an RTX 4070 on OCuLink. Measured along the way:\nwithout GPU peer-to-peer, tensor parallel gains 35–40% decode but loses 30–50% prefill, so it wins for\nchat and agent loops. A finite reasoning budget ended runaway thinking, and moving from Q5 to Q4\nstopped a silent CPU spill-over, taking decode from about 35 to 42–55 tokens/s. Small shims let Claude\nCode and a qFlipper fork talk to it.",
+   "stack": [
+    "llama.cpp",
+    "CUDA",
+    "Qwen",
+    "distrobox",
+    "systemd"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": null,
+   "images": []
+  },
+  {
+   "id": "offline-library",
+   "title": "Offline reference library",
+   "category": "ai",
+   "status": "live",
+   "started": "2026-10",
+   "retired": null,
+   "tagline": "381 GiB of offline reference (Wikipedia, medical, repair and preparedness libraries) that the assistant can search.",
+   "body": "Thirty-two Kiwix ZIM books are served on the home network, so they still work when the internet\ndoesn't. About 21,600 PDFs inside the ZIMs were OCR'd, using the text layer or Apple's Vision OCR for\nscans, so search hits come back with page numbers. An MCP server lets the assistant search and quote\nthe library. A daily \"Library Find\" shares one passage; the model only picks sentence numbers, so it\ncan't misquote.",
+   "stack": [
+    "Kiwix",
+    "Python",
+    "Swift",
+    "Apple Vision",
+    "SQLite FTS",
+    "MCP"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-05",
+   "images": []
+  },
+  {
+   "id": "karaoke-tts",
+   "title": "karaoke-tts",
+   "category": "ai",
+   "status": "done",
+   "started": "2026-02",
+   "retired": null,
+   "tagline": "A local MCP server that reads text aloud in a karaoke-style player with word-by-word highlighting.",
+   "body": "Kokoro synthesises the audio in small chunks that stream to the browser over WebSocket, so playback\nstarts within seconds. faster-whisper then refines each chunk's word timings, and every reading is\nsaved as an OGG and HTML pair.",
+   "stack": [
+    "Python",
+    "Kokoro",
+    "faster-whisper",
+    "WebSockets",
+    "MCP"
+   ],
+   "links": [
+    {
+     "label": "Source",
+     "url": "https://github.com/jdmills-edu/karaoke-tts"
+    }
+   ],
+   "upstream": null,
+   "last_activity": "2026-02-27",
+   "images": []
+  },
+  {
+   "id": "openclaw-assistant",
+   "title": "OpenClaw assistant (v1)",
+   "category": "ai",
+   "status": "retired",
+   "started": null,
+   "retired": "2026-11",
+   "tagline": "The family assistant's first version, an OpenClaw gateway on a local model.",
+   "body": "It ran the assistant through OpenClaw with a local Gemma 4 31B. Smaller mixture-of-experts models\nweren't good enough for its tool use. It was replaced by the n8n-based assistant in November 2026.",
+   "stack": [
+    "OpenClaw",
+    "llama.cpp",
+    "Gemma 4"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": null,
+   "images": []
+  },
+  {
+   "id": "image-upscaler",
+   "title": "Image upscaler",
+   "category": "ai",
+   "status": "done",
+   "started": "2026-04",
+   "retired": null,
+   "tagline": "A small CLI that upscales and re-renders images through Google's Gemini image model.",
+   "body": "It wraps the Gemini image API with a strict system prompt that always returns an image, never a chat\nreply, so it can batch through a folder unattended.",
+   "stack": [
+    "Python",
+    "Google GenAI SDK"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-04-19",
+   "images": []
+  },
+  {
+   "id": "tv-launcher",
+   "title": "Living-room TV launcher",
+   "category": "home",
+   "status": "live",
+   "started": "2026-10",
+   "retired": null,
+   "tagline": "A debloated Google TV with a custom pixel-art home screen and a resident cartoon cat who reviews whatever's on.",
+   "body": "The stock launcher is gone. Home shows pixel-art holiday scenes and a voxel cat with moods and\ncostumes. A vision model watches periodic screenshots and posters to write the cat's reactions. It also\npops up behind-the-scenes facts that are cold-checked against their sources, where every number must\nappear in the source. Weather and alerts, timers and reminders round out Home. An MCP server drives\nthe TV over ADB, so Claude and the family assistant can control it.",
+   "stack": [
+    "Java",
+    "Android TV",
+    "Python",
+    "ADB",
+    "MCP",
+    "llama.cpp"
+   ],
+   "links": [],
+   "upstream": {
+    "name": "CleanYourTV",
+    "url": "https://github.com/Gathin23/CleanYourTV"
+   },
+   "last_activity": "2026-11-15",
+   "images": []
+  },
+  {
+   "id": "talk-to-the-cat",
+   "title": "Talk to the TV cat",
+   "category": "home",
+   "status": "live",
+   "started": "2026-10",
+   "retired": null,
+   "tagline": "Press OK and talk to the TV's cartoon cat, who answers in character with kid-safe tools.",
+   "body": "The app records the TV's built-in far-field mic. Parakeet transcribes it in about 60 ms on CPU (it\nbeat Moonshine and Whisper on a bench of kid-style questions), and the family assistant answers with\na kid-safe tool set and the cat's persona, thinking disabled for speed. The reply streams back with a\nmeow \"typing blip\" and the cat's mood on its face.",
+   "stack": [
+    "Java",
+    "Android TV",
+    "Python",
+    "Parakeet STT",
+    "n8n"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-12",
+   "images": []
+  },
+  {
+   "id": "voxel-cat",
+   "title": "Voxel cat",
+   "category": "home",
+   "status": "done",
+   "started": "2026-10",
+   "retired": null,
+   "tagline": "A three.js renderer that turns the TV cat's pixel sprite into a 3D character, in four styles and eleven moods.",
+   "body": "Build scripts paste the launcher's sprite data into one HTML file, which renders it as voxels, low-res\npixel 3D, vinyl toy or low-poly, with hand-drawn faces for each mood. The voxel style now runs live on\nthe TV's home screen.",
+   "stack": [
+    "three.js",
+    "JavaScript",
+    "Python"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-10-22",
+   "images": [
+    {
+     "src": "shots/voxel-cat-1.webp",
+     "caption": "The voxel style, as it runs on the TV's home screen"
+    }
+   ]
+  },
+  {
+   "id": "screen-time-guard",
+   "title": "YouTube screen-time guard",
+   "category": "home",
+   "status": "live",
+   "started": "2026-11",
+   "retired": null,
+   "tagline": "A daily limit and a bedtime for YouTube on the family TV, enforced inside the custom launcher.",
+   "body": "Nothing built in fit, so the launcher reads app-usage events every few seconds and locks YouTube once the\nday's allowance is spent or it's bedtime. Other apps stay free. A grown-up can unlock it with a text to\nthe family assistant. The rules are pure functions with their own tests.",
+   "stack": [
+    "Java",
+    "Android TV",
+    "n8n"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": null,
+   "images": []
+  },
+  {
+   "id": "inverter-dashboard",
+   "title": "Solar & battery inverter dashboard",
+   "category": "home",
+   "status": "live",
+   "started": "2026-04",
+   "retired": null,
+   "tagline": "Monitoring and guarded controls for a hybrid solar/battery inverter over Modbus and MQTT.",
+   "body": "It keeps 30 days of readings and serves a mobile-first dashboard with its own SVG charts and a\npower-flow view. A Controls tab writes only an allowlist of settings: output and charge priority,\ncharge and discharge windows, and the inverter clock. Every write is read back and audited, and\nbattery settings are never writable. MCP tools are read-only or preview-first.",
+   "stack": [
+    "Node",
+    "MQTT",
+    "Modbus",
+    "SVG",
+    "MCP"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-05",
+   "images": []
+  },
+  {
+   "id": "demand-modeling",
+   "title": "Time-of-use demand modeling",
+   "category": "home",
+   "status": "live",
+   "started": "2026-03",
+   "retired": null,
+   "tagline": "Simulates a utility's demand-charge tariff from 15-minute data and acts to keep the monthly peak down.",
+   "body": "It pulls per-circuit and meter data, reproduces the time-of-use bill to within 2% of real bills, and\nattributes the demand charge to individual circuits so what-if questions get real answers. During peak\nhours it alerts on spikes and pre-heats or pre-cools through the thermostats beforehand, skipping mild\ndays.",
+   "stack": [
+    "Python",
+    "Streamlit",
+    "Emporia Vue API",
+    "Honeywell API"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-03-02",
+   "images": []
+  },
+  {
+   "id": "bird-detector",
+   "title": "Backyard bird detector",
+   "category": "home",
+   "status": "live",
+   "started": "2026-05",
+   "retired": null,
+   "tagline": "Self-hosted bird ID from outdoor camera microphones, using Cornell's Merlin sound models.",
+   "body": "RTSP audio is cut into roughly three-second windows and run through the Merlin TFLite models, with a\ngeographic prior and a bird/not-bird gate. Detections land in SQLite behind a journal and grid\ndashboard, a morning report and an MCP server. Merlin's model bundle is Cornell's and isn't in the repo.",
+   "stack": [
+    "Python",
+    "TFLite",
+    "ffmpeg",
+    "SQLite",
+    "MCP",
+    "Docker"
+   ],
+   "links": [
+    {
+     "label": "Source",
+     "url": "https://github.com/jdmills-edu/merlin-detector"
+    }
+   ],
+   "upstream": null,
+   "last_activity": "2026-06-22",
+   "images": []
+  },
+  {
+   "id": "web-nvr",
+   "title": "Web NVR",
+   "category": "home",
+   "status": "done",
+   "started": "2026-02",
+   "retired": null,
+   "tagline": "A browser-based network video recorder that finds RTSP cameras on its own.",
+   "body": "It scans the network for RTSP cameras and streams them live as low-latency HLS, with WebSocket status\nupdates, per-camera start and stop, and SQLite-backed configuration.",
+   "stack": [
+    "Node",
+    "ffmpeg",
+    "HLS",
+    "WebSockets",
+    "SQLite"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-02-06",
+   "images": []
+  },
+  {
+   "id": "home-lab",
+   "title": "Self-documenting home lab",
+   "category": "home",
+   "status": "live",
+   "started": "2026-11",
+   "retired": null,
+   "tagline": "A private wiki that rebuilds itself every night from what's actually running, plus cross-host backups.",
+   "body": "Collectors inventory the containers, services, scheduled jobs and repos on each machine. A generator\njoins those facts with a hand-curated catalog and rebuilds a private MkDocs wiki that flags drift and\nunpushed work. Restic backs each machine up to the other and to object storage.",
+   "stack": [
+    "Python",
+    "MkDocs",
+    "restic"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-16",
+   "images": []
+  },
+  {
+   "id": "linkover",
+   "title": "Linkover",
+   "category": "tools",
+   "status": "done",
+   "started": "2026-02",
+   "retired": null,
+   "tagline": "Send a link from your iPhone's share sheet and it opens on your Linux or Mac desktop.",
+   "body": "A tray or menu-bar client for GNOME and macOS that listens on Pushover's WebSocket API, so there's no\npolling and no always-on server. Incoming links open in the browser, and the last ten are one click\naway.",
+   "stack": [
+    "Python",
+    "Pushover",
+    "GTK",
+    "iOS Shortcuts"
+   ],
+   "links": [
+    {
+     "label": "Source",
+     "url": "https://github.com/jdmills-edu/linkover"
+    }
+   ],
+   "upstream": null,
+   "last_activity": "2026-02-24",
+   "images": []
+  },
+  {
+   "id": "music-library-fixer",
+   "title": "Music library fixer",
+   "category": "tools",
+   "status": "done",
+   "started": "2026-02",
+   "retired": null,
+   "tagline": "Cleans up a messy music library with acoustic fingerprints and MusicBrainz.",
+   "body": "It identifies tracks by sound with Chromaprint and AcoustID, pulls the metadata from MusicBrainz,\nhandles compilations properly, and reorganises files into Artist/Album (Year)/Track for Plex. File moves\nare atomic and verified, with rollback.",
+   "stack": [
+    "Python",
+    "Chromaprint",
+    "AcoustID",
+    "MusicBrainz"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-02-05",
+   "images": []
+  },
+  {
+   "id": "project-index",
+   "title": "This project index",
+   "category": "tools",
+   "status": "live",
+   "started": "2026-11",
+   "retired": null,
+   "tagline": "The page you're reading, rebuilt daily from the projects on my machines.",
+   "body": "A daily job reads activity from local git repos and GitHub, refreshes screenshots of safe views, and\nrenders this static page. A privacy scan checks the whole output against a deny-list (names, places,\nhostnames, addresses, callsigns, tokens) before anything is pushed. New private projects wait for review,\nand changed images wait for approval.",
+   "stack": [
+    "Python",
+    "Playwright",
+    "Pillow",
+    "GitHub Pages",
+    "systemd"
+   ],
+   "links": [],
+   "upstream": null,
+   "last_activity": "2026-11-16",
+   "images": []
+  },
+  {
+   "id": "jdmills-edu-github-io",
+   "title": "Jdmills edu.github.io",
+   "category": "tools",
+   "status": "active",
+   "started": "2026-11",
+   "retired": null,
+   "tagline": "Project index: things I've built with AI, rebuilt daily",
+   "body": "",
+   "stack": [],
+   "links": [
+    {
+     "label": "Source",
+     "url": "https://github.com/jdmills-edu/jdmills-edu.github.io"
+    }
+   ],
+   "upstream": null,
+   "last_activity": "2026-11-16",
+   "images": []
+  }
+ ]
+}

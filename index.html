@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project index · jdmills-edu</title>
+<meta name="description" content="Things I&#x27;ve built with AI as a co-pilot: radios and SDR tools, firmware, games, a family assistant and a lot of small utilities. This page rebuilds itself every day from the projects on my machines, so it stays current even when I lose track.">
+<meta property="og:title" content="Project index · jdmills-edu">
+<meta property="og:description" content="Things I&#x27;ve built with AI as a co-pilot: radios and SDR tools, firmware, games, a family assistant and a lot of small utilities. This page rebuilds itself every day from the projects on my machines, so it stays current even when I lose track.">
+<meta property="og:image" content="https://jdmills-edu.github.io/shots/lanterns-of-selvane-1.webp">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css?v=c3816f44">
+<script>try{var t=localStorage.getItem('pi-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#projects">Skip to projects</a>
+<header class="masthead">
+<div class="wrap">
+<div class="topline"><span class="handle"><a href="https://github.com/jdmills-edu" rel="noopener">jdmills-edu</a></span>
+<button type="button" class="theme" id="theme" aria-label="Toggle dark mode"><span aria-hidden="true">◐</span></button></div>
+<h1>Project index</h1>
+<p class="intro">Things I&#x27;ve built with AI as a co-pilot: radios and SDR tools, firmware, games, a family assistant and a lot of small utilities. This page rebuilds itself every day from the projects on my machines, so it stays current even when I lose track.</p>
+<dl class="stats">
+<div><dt>Projects</dt><dd>43</dd></div>
+<div><dt>Live</dt><dd>16</dd></div>
+<div><dt>In progress</dt><dd>4</dd></div>
+<div><dt>Paused or done</dt><dd>18</dd></div>
+<div><dt>Retired</dt><dd>5</dd></div>
+</dl>
+<p class="rebuilt">Rebuilt automatically · <time datetime="2026-11-16">16 Nov 2026</time></p>
+</div>
+</header>
+<section class="lately wrap" aria-labelledby="lately-h"><h2 id="lately-h">Lately</h2><ol><li><a href="#p-lanterns-of-selvane"><span class="l-title">Lanterns of Selvane</span><span class="l-when">today</span></a></li><li><a href="#p-sdrpp-cw"><span class="l-title">CW decoder for SDR++</span><span class="l-when">today</span></a></li><li><a href="#p-home-lab"><span class="l-title">Self-documenting home lab</span><span class="l-when">today</span></a></li><li><a href="#p-project-index"><span class="l-title">This project index</span><span class="l-when">today</span></a></li><li><a href="#p-jdmills-edu-github-io"><span class="l-title">Jdmills edu.github.io</span><span class="l-when">today</span></a></li><li><a href="#p-tv-launcher"><span class="l-title">Living-room TV launcher</span><span class="l-when">yesterday</span></a></li><li><a href="#p-lakeshark-ft891"><span class="l-title">LakeShark FT-891 app</span><span class="l-when">2 days ago</span></a></li><li><a href="#p-sdr-noise-reduction"><span class="l-title">SDR++ noise reduction</span><span class="l-when">2 days ago</span></a></li></ol></section>
+<nav class="filters wrap" aria-label="Filter projects">
+<label class="search"><span class="vh">Search projects</span><input type="search" id="q" placeholder="Search projects, tools, tech…" autocomplete="off"></label>
+<div class="chips" role="group" aria-label="Category"><button type="button" data-filter="category" data-value="play" aria-pressed="false">Games, music &amp; stories</button><button type="button" data-filter="category" data-value="radio" aria-pressed="false">Radio &amp; SDR</button><button type="button" data-filter="category" data-value="devices" aria-pressed="false">Devices &amp; firmware</button><button type="button" data-filter="category" data-value="ai" aria-pressed="false">AI &amp; assistants</button><button type="button" data-filter="category" data-value="home" aria-pressed="false">Home &amp; family</button><button type="button" data-filter="category" data-value="tools" aria-pressed="false">Tools &amp; utilities</button></div>
+<div class="chips" role="group" aria-label="Status"><button type="button" data-filter="status" data-value="live" aria-pressed="false">Live</button><button type="button" data-filter="status" data-value="active" aria-pressed="false">In progress</button><button type="button" data-filter="status" data-value="paused" aria-pressed="false">Paused</button><button type="button" data-filter="status" data-value="done" aria-pressed="false">Done</button><button type="button" data-filter="status" data-value="retired" aria-pressed="false">Retired</button></div>
+<p class="result" id="result" aria-live="polite"></p>
+</nav>
+<main id="projects" class="wrap">
+<section class="cat-section" id="c-play" data-section="play"><h2>Games, music &amp; stories <span class="n">4</span></h2><div class="grid"><article class="card cat-play has-thumb" id="p-lanterns-of-selvane" data-category="play" data-status="active" data-search="lanterns of selvane a small-party action-exploration rpg in the browser, on a procedurally generated garden world. up to four players explore a seeded world about 6 km across, laid out in rings of biomes. landmarks
+are placed so the next one is always visible on the horizon, and shelter comes from lore-rich shrines,
+the lanterns, that you kindle rather than build. the pitch is *phantasy star online × breath of the
+wild × valheim × tunic*.
+
+it&#x27;s typescript end to end: three.js in the browser, and a node world server over websockets with
+sqlite. world generation is a pure, deterministic package that client and server share. parties,
+companions, enemy tiers, radar, lods and an asset viewer are all in. since november an autonomous
+claude code loop works the backlog overnight. it playtests its own changes and opens pull requests for review in the morning.
+ typescript three.js node websockets sqlite vite">
+<button class="thumb fit-cover" type="button" data-gallery="[{&quot;src&quot;: &quot;shots/lanterns-of-selvane-1.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;Midday in the meadow ring, with floating islands on the horizon&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-2.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;The Heartwell&#x27;s beam at the centre of the world&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-3.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;The canopy biome&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-4.webp&quot;, &quot;w&quot;: 1024, &quot;h&quot;: 1024, &quot;caption&quot;: &quot;A whole generated world (seed 1), biome rings from the centre out&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-5.webp&quot;, &quot;w&quot;: 1448, &quot;h&quot;: 1086, &quot;caption&quot;: &quot;Title art&quot;}]" aria-label="View images of Lanterns of Selvane"><img src="shots/lanterns-of-selvane-1-t.webp" alt="Midday in the meadow ring, with floating islands on the horizon" width="720" height="405" loading="lazy" decoding="async"><span class="thumb-count">5 images</span></button><div class="card-body">
+<div class="card-head"><h3><a href="#p-lanterns-of-selvane">Lanterns of Selvane</a></h3><span class="status s-active">In progress</span></div>
+<p class="tagline">A small-party action-exploration RPG in the browser, on a procedurally generated garden world.</p>
+<p class="meta"><span>Since Sep 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-16">today</time></span></p>
+<ul class="stack"><li>TypeScript</li><li>three.js</li><li>Node</li><li>WebSockets</li><li>SQLite</li><li>Vite</li></ul>
+<details><summary>More</summary><div class="more"><p>Up to four players explore a seeded world about 6 km across, laid out in rings of biomes. Landmarks are placed so the next one is always visible on the horizon, and shelter comes from lore-rich shrines, the Lanterns, that you kindle rather than build. The pitch is <em>Phantasy Star Online × Breath of the Wild × Valheim × Tunic</em>.</p>
+<p>It&#x27;s TypeScript end to end: three.js in the browser, and a Node world server over WebSockets with SQLite. World generation is a pure, deterministic package that client and server share. Parties, companions, enemy tiers, radar, LODs and an asset viewer are all in. Since November an autonomous Claude Code loop works the backlog overnight. It playtests its own changes and opens pull requests for review in the morning.</p><div class="strip"><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/lanterns-of-selvane-1.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;Midday in the meadow ring, with floating islands on the horizon&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-2.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;The Heartwell&#x27;s beam at the centre of the world&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-3.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;The canopy biome&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-4.webp&quot;, &quot;w&quot;: 1024, &quot;h&quot;: 1024, &quot;caption&quot;: &quot;A whole generated world (seed 1), biome rings from the centre out&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-5.webp&quot;, &quot;w&quot;: 1448, &quot;h&quot;: 1086, &quot;caption&quot;: &quot;Title art&quot;}]" data-index="0" aria-label="Midday in the meadow ring, with floating islands on the horizon"><img src="shots/lanterns-of-selvane-1-t.webp" alt="" loading="lazy" width="720" height="405"></button><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/lanterns-of-selvane-1.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;Midday in the meadow ring, with floating islands on the horizon&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-2.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;The Heartwell&#x27;s beam at the centre of the world&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-3.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;The canopy biome&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-4.webp&quot;, &quot;w&quot;: 1024, &quot;h&quot;: 1024, &quot;caption&quot;: &quot;A whole generated world (seed 1), biome rings from the centre out&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-5.webp&quot;, &quot;w&quot;: 1448, &quot;h&quot;: 1086, &quot;caption&quot;: &quot;Title art&quot;}]" data-index="1" aria-label="The Heartwell&#x27;s beam at the centre of the world"><img src="shots/lanterns-of-selvane-2-t.webp" alt="" loading="lazy" width="720" height="405"></button><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/lanterns-of-selvane-1.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;Midday in the meadow ring, with floating islands on the horizon&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-2.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;The Heartwell&#x27;s beam at the centre of the world&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-3.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;The canopy biome&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-4.webp&quot;, &quot;w&quot;: 1024, &quot;h&quot;: 1024, &quot;caption&quot;: &quot;A whole generated world (seed 1), biome rings from the centre out&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-5.webp&quot;, &quot;w&quot;: 1448, &quot;h&quot;: 1086, &quot;caption&quot;: &quot;Title art&quot;}]" data-index="2" aria-label="The canopy biome"><img src="shots/lanterns-of-selvane-3-t.webp" alt="" loading="lazy" width="720" height="405"></button><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/lanterns-of-selvane-1.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;Midday in the meadow ring, with floating islands on the horizon&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-2.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;The Heartwell&#x27;s beam at the centre of the world&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-3.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;The canopy biome&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-4.webp&quot;, &quot;w&quot;: 1024, &quot;h&quot;: 1024, &quot;caption&quot;: &quot;A whole generated world (seed 1), biome rings from the centre out&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-5.webp&quot;, &quot;w&quot;: 1448, &quot;h&quot;: 1086, &quot;caption&quot;: &quot;Title art&quot;}]" data-index="3" aria-label="A whole generated world (seed 1), biome rings from the centre out"><img src="shots/lanterns-of-selvane-4-t.webp" alt="" loading="lazy" width="720" height="720"></button><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/lanterns-of-selvane-1.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;Midday in the meadow ring, with floating islands on the horizon&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-2.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;The Heartwell&#x27;s beam at the centre of the world&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-3.webp&quot;, &quot;w&quot;: 1280, &quot;h&quot;: 720, &quot;caption&quot;: &quot;The canopy biome&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-4.webp&quot;, &quot;w&quot;: 1024, &quot;h&quot;: 1024, &quot;caption&quot;: &quot;A whole generated world (seed 1), biome rings from the centre out&quot;}, {&quot;src&quot;: &quot;shots/lanterns-of-selvane-5.webp&quot;, &quot;w&quot;: 1448, &quot;h&quot;: 1086, &quot;caption&quot;: &quot;Title art&quot;}]" data-index="4" aria-label="Title art"><img src="shots/lanterns-of-selvane-5-t.webp" alt="" loading="lazy" width="720" height="540"></button></div></div></details>
+
+</div></article>
+<article class="card cat-play has-thumb" id="p-woodshed" data-category="play" data-status="live" data-search="woodshed a rocksmith-style piano trainer that runs in the browser over web midi. plug in a midi keyboard and jam with a backing band in the jam room (band styles, missions, a coach,
+key walks, free play with a chord trail and .mid export), or work through 8 arcade games and 45
+lessons in 10 units, with a circle-of-fifths view. an &quot;anti-laurels&quot; layer keeps a quick-eared
+player from coasting: a key heatmap, a laurels meter and a daily woodshed.
+
+there&#x27;s no build step and no server state. it&#x27;s plain scripts on one namespace, and progress lives
+in the browser.
+ javascript web midi web audio">
+<button class="thumb fit-cover" type="button" data-gallery="[{&quot;src&quot;: &quot;shots/woodshed-1.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The Jam Room: a progression, the next chord, a coach and a mission&quot;}, {&quot;src&quot;: &quot;shots/woodshed-2.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;Eight arcade games, each drilling one jam skill&quot;}, {&quot;src&quot;: &quot;shots/woodshed-3.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The circle of fifths, with every chord in the key&quot;}, {&quot;src&quot;: &quot;shots/woodshed-4.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;45 lessons in 10 units&quot;}]" aria-label="View images of Woodshed"><img src="shots/woodshed-1-t.webp" alt="The Jam Room: a progression, the next chord, a coach and a mission" width="720" height="450" loading="lazy" decoding="async"><span class="thumb-count">4 images</span></button><div class="card-body">
+<div class="card-head"><h3><a href="#p-woodshed">Woodshed</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">A Rocksmith-style piano trainer that runs in the browser over Web MIDI.</p>
+<p class="meta"><span>Since Sep 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-05">11 days ago</time></span></p>
+<ul class="stack"><li>JavaScript</li><li>Web MIDI</li><li>Web Audio</li></ul>
+<details><summary>More</summary><div class="more"><p>Plug in a MIDI keyboard and jam with a backing band in the Jam Room (band styles, missions, a coach, key walks, free play with a chord trail and .mid export), or work through 8 arcade games and 45 lessons in 10 units, with a circle-of-fifths view. An &quot;anti-laurels&quot; layer keeps a quick-eared player from coasting: a key heatmap, a Laurels Meter and a Daily Woodshed.</p>
+<p>There&#x27;s no build step and no server state. It&#x27;s plain scripts on one namespace, and progress lives in the browser.</p><div class="strip"><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/woodshed-1.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The Jam Room: a progression, the next chord, a coach and a mission&quot;}, {&quot;src&quot;: &quot;shots/woodshed-2.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;Eight arcade games, each drilling one jam skill&quot;}, {&quot;src&quot;: &quot;shots/woodshed-3.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The circle of fifths, with every chord in the key&quot;}, {&quot;src&quot;: &quot;shots/woodshed-4.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;45 lessons in 10 units&quot;}]" data-index="0" aria-label="The Jam Room: a progression, the next chord, a coach and a mission"><img src="shots/woodshed-1-t.webp" alt="" loading="lazy" width="720" height="450"></button><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/woodshed-1.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The Jam Room: a progression, the next chord, a coach and a mission&quot;}, {&quot;src&quot;: &quot;shots/woodshed-2.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;Eight arcade games, each drilling one jam skill&quot;}, {&quot;src&quot;: &quot;shots/woodshed-3.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The circle of fifths, with every chord in the key&quot;}, {&quot;src&quot;: &quot;shots/woodshed-4.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;45 lessons in 10 units&quot;}]" data-index="1" aria-label="Eight arcade games, each drilling one jam skill"><img src="shots/woodshed-2-t.webp" alt="" loading="lazy" width="720" height="450"></button><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/woodshed-1.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The Jam Room: a progression, the next chord, a coach and a mission&quot;}, {&quot;src&quot;: &quot;shots/woodshed-2.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;Eight arcade games, each drilling one jam skill&quot;}, {&quot;src&quot;: &quot;shots/woodshed-3.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The circle of fifths, with every chord in the key&quot;}, {&quot;src&quot;: &quot;shots/woodshed-4.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;45 lessons in 10 units&quot;}]" data-index="2" aria-label="The circle of fifths, with every chord in the key"><img src="shots/woodshed-3-t.webp" alt="" loading="lazy" width="720" height="450"></button><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/woodshed-1.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The Jam Room: a progression, the next chord, a coach and a mission&quot;}, {&quot;src&quot;: &quot;shots/woodshed-2.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;Eight arcade games, each drilling one jam skill&quot;}, {&quot;src&quot;: &quot;shots/woodshed-3.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The circle of fifths, with every chord in the key&quot;}, {&quot;src&quot;: &quot;shots/woodshed-4.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;45 lessons in 10 units&quot;}]" data-index="3" aria-label="45 lessons in 10 units"><img src="shots/woodshed-4-t.webp" alt="" loading="lazy" width="720" height="450"></button></div></div></details>
+<p class="links"><a href="https://woodshed.jdmills.io/" rel="noopener">Open the app<span aria-hidden="true"> ↗</span></a><a href="https://github.com/jdmills-edu/woodshed" rel="noopener">Source<span aria-hidden="true"> ↗</span></a></p>
+</div></article>
+<article class="card cat-play has-thumb" id="p-creature-pipeline" data-category="play" data-status="paused" data-search="creature pipeline local text-to-concept-art-to-3d for the game&#x27;s creatures, entirely on the workstation&#x27;s gpus. a batch pipeline that writes concept sheets for each creature with an open image model, cuts out the
+subject with birefnet, and lifts the best views into textured 3d meshes with trellis. each species
+gets several style passes (classic, fern, faceted, woolly…) to choose from before modelling.
+ python pytorch z-image birefnet trellis">
+<button class="thumb fit-cover" type="button" data-gallery="[{&quot;src&quot;: &quot;shots/creature-pipeline-1.webp&quot;, &quot;w&quot;: 1024, &quot;h&quot;: 1024, &quot;caption&quot;: &quot;Concept pass for a cinder hound&quot;}, {&quot;src&quot;: &quot;shots/creature-pipeline-2.webp&quot;, &quot;w&quot;: 1024, &quot;h&quot;: 1024, &quot;caption&quot;: &quot;A tuftling, fern variant&quot;}]" aria-label="View images of Creature pipeline"><img src="shots/creature-pipeline-1-t.webp" alt="Concept pass for a cinder hound" width="720" height="720" loading="lazy" decoding="async"><span class="thumb-count">2 images</span></button><div class="card-body">
+<div class="card-head"><h3><a href="#p-creature-pipeline">Creature pipeline</a></h3><span class="status s-paused">Paused</span></div>
+<p class="tagline">Local text-to-concept-art-to-3D for the game&#x27;s creatures, entirely on the workstation&#x27;s GPUs.</p>
+<p class="meta"><span>Since Sep 2026</span><span>Touched <time datetime="2026-09-30">6 weeks ago</time></span></p>
+<ul class="stack"><li>Python</li><li>PyTorch</li><li>Z-Image</li><li>BiRefNet</li><li>TRELLIS</li></ul>
+<details><summary>More</summary><div class="more"><p>A batch pipeline that writes concept sheets for each creature with an open image model, cuts out the subject with BiRefNet, and lifts the best views into textured 3D meshes with TRELLIS. Each species gets several style passes (classic, fern, faceted, woolly…) to choose from before modelling.</p><div class="strip"><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/creature-pipeline-1.webp&quot;, &quot;w&quot;: 1024, &quot;h&quot;: 1024, &quot;caption&quot;: &quot;Concept pass for a cinder hound&quot;}, {&quot;src&quot;: &quot;shots/creature-pipeline-2.webp&quot;, &quot;w&quot;: 1024, &quot;h&quot;: 1024, &quot;caption&quot;: &quot;A tuftling, fern variant&quot;}]" data-index="0" aria-label="Concept pass for a cinder hound"><img src="shots/creature-pipeline-1-t.webp" alt="" loading="lazy" width="720" height="720"></button><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/creature-pipeline-1.webp&quot;, &quot;w&quot;: 1024, &quot;h&quot;: 1024, &quot;caption&quot;: &quot;Concept pass for a cinder hound&quot;}, {&quot;src&quot;: &quot;shots/creature-pipeline-2.webp&quot;, &quot;w&quot;: 1024, &quot;h&quot;: 1024, &quot;caption&quot;: &quot;A tuftling, fern variant&quot;}]" data-index="1" aria-label="A tuftling, fern variant"><img src="shots/creature-pipeline-2-t.webp" alt="" loading="lazy" width="720" height="720"></button></div></div></details>
+
+</div></article></div><div class="grid"><article class="card cat-play" id="p-story-video" data-category="play" data-status="done" data-search="narrated story video a short narrated video built from a json scene script and local text-to-speech. each scene in a json script lists its lines and timing. kokoro voices the narration locally, and the
+renderer lays the scenes out against the audio, so you rewrite the script rather than re-edit the video.
+ kokoro tts ffmpeg json">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-story-video">Narrated story video</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">A short narrated video built from a JSON scene script and local text-to-speech.</p>
+<p class="meta"><span>Since Oct 2026</span><span>Touched <time datetime="2026-10-04">6 weeks ago</time></span></p>
+<ul class="stack"><li>Kokoro TTS</li><li>ffmpeg</li><li>JSON</li></ul>
+<details><summary>More</summary><div class="more"><p>Each scene in a JSON script lists its lines and timing. Kokoro voices the narration locally, and the renderer lays the scenes out against the audio, so you rewrite the script rather than re-edit the video.</p></div></details>
+
+</div></article></div></section><section class="cat-section" id="c-radio" data-section="radio"><h2>Radio &amp; SDR <span class="n">9</span></h2><div class="grid"><article class="card cat-radio has-thumb" id="p-ft891-console" data-category="radio" data-status="live" data-search="ft-891 shack console a browser console for a yaesu ft-891 hf radio, with cat control, a waterfall, and ft8 and cw decoding. it talks to the radio through a digirig mobile interface. a beginner-friendly simple view sits beside a
+pro view with every cat control, meters and a live waterfall. it decodes ft8 with wsjt-x&#x27;s jt9, and
+decodes morse with automatic pitch and speed, giving each transmitter its own line.
+
+it knows which frequencies each us licence class may use (47 cfr §97.301/305/307), estimates rf
+exposure from fcc oet 65 duty factors, and shows band conditions from noaa and ionosonde data. it&#x27;s
+receive-only by default, and a bluetooth knob can tune the vfo.
+ python websockets javascript hamlib cat wsjt-x jt9">
+<button class="thumb fit-cover" type="button" data-gallery="[{&quot;src&quot;: &quot;shots/ft891-console-1.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The Pro view, with every CAT control, meters and the waterfall (radio off, placeholder callsign)&quot;}, {&quot;src&quot;: &quot;shots/ft891-console-2.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The Simple view for new operators (radio off, placeholder callsign)&quot;}]" aria-label="View images of FT-891 Shack Console"><img src="shots/ft891-console-1-t.webp" alt="The Pro view, with every CAT control, meters and the waterfall (radio off, placeholder callsign)" width="720" height="450" loading="lazy" decoding="async"><span class="thumb-count">2 images</span></button><div class="card-body">
+<div class="card-head"><h3><a href="#p-ft891-console">FT-891 Shack Console</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">A browser console for a Yaesu FT-891 HF radio, with CAT control, a waterfall, and FT8 and CW decoding.</p>
+<p class="meta"><span>Since Nov 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-09">7 days ago</time></span></p>
+<ul class="stack"><li>Python</li><li>WebSockets</li><li>JavaScript</li><li>Hamlib CAT</li><li>WSJT-X jt9</li></ul>
+<details><summary>More</summary><div class="more"><p>It talks to the radio through a DigiRig Mobile interface. A beginner-friendly Simple view sits beside a Pro view with every CAT control, meters and a live waterfall. It decodes FT8 with WSJT-X&#x27;s jt9, and decodes Morse with automatic pitch and speed, giving each transmitter its own line.</p>
+<p>It knows which frequencies each US licence class may use (47 CFR §97.301/305/307), estimates RF exposure from FCC OET 65 duty factors, and shows band conditions from NOAA and ionosonde data. It&#x27;s receive-only by default, and a Bluetooth knob can tune the VFO.</p><div class="strip"><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/ft891-console-1.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The Pro view, with every CAT control, meters and the waterfall (radio off, placeholder callsign)&quot;}, {&quot;src&quot;: &quot;shots/ft891-console-2.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The Simple view for new operators (radio off, placeholder callsign)&quot;}]" data-index="0" aria-label="The Pro view, with every CAT control, meters and the waterfall (radio off, placeholder callsign)"><img src="shots/ft891-console-1-t.webp" alt="" loading="lazy" width="720" height="450"></button><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/ft891-console-1.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The Pro view, with every CAT control, meters and the waterfall (radio off, placeholder callsign)&quot;}, {&quot;src&quot;: &quot;shots/ft891-console-2.webp&quot;, &quot;w&quot;: 1440, &quot;h&quot;: 900, &quot;caption&quot;: &quot;The Simple view for new operators (radio off, placeholder callsign)&quot;}]" data-index="1" aria-label="The Simple view for new operators (radio off, placeholder callsign)"><img src="shots/ft891-console-2-t.webp" alt="" loading="lazy" width="720" height="450"></button></div></div></details>
+
+</div></article>
+<article class="card cat-radio has-thumb" id="p-sdrpp-cw" data-category="radio" data-status="active" data-search="cw decoder for sdr++ an sdr++ module that copies morse automatically, both the station you&#x27;re tuned to and every other keyed signal nearby. it&#x27;s a c++ port of the shack console&#x27;s decoder: automatic pitch and speed, a false-lock guard, and a
+phase-slope trick that starts a new line for each transmitter, each at its own speed. decoded text is
+split into words and annotated (q-codes, prosigns, signal reports, grid squares with distance,
+pota/sota references, callsign prefixes), with optional callbook lookups. nothing like it existed for
+sdr++ on linux.
+ c++ sdr++ module api dsp">
+<button class="thumb fit-cover" type="button" data-gallery="[{&quot;src&quot;: &quot;shots/sdrpp-cw-1.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 1000, &quot;caption&quot;: &quot;Decoding a 40 m CW signal, with every nearby transmitter on its own line&quot;}]" aria-label="View images of CW decoder for SDR++"><img src="shots/sdrpp-cw-1-t.webp" alt="Decoding a 40 m CW signal, with every nearby transmitter on its own line" width="720" height="450" loading="lazy" decoding="async"></button><div class="card-body">
+<div class="card-head"><h3><a href="#p-sdrpp-cw">CW decoder for SDR++</a></h3><span class="status s-active">In progress</span></div>
+<p class="tagline">An SDR++ module that copies Morse automatically, both the station you&#x27;re tuned to and every other keyed signal nearby.</p>
+<p class="meta"><span>Since Nov 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-16">today</time></span></p>
+<ul class="stack"><li>C++</li><li>SDR++ module API</li><li>DSP</li></ul>
+<details><summary>More</summary><div class="more"><p>It&#x27;s a C++ port of the shack console&#x27;s decoder: automatic pitch and speed, a false-lock guard, and a phase-slope trick that starts a new line for each transmitter, each at its own speed. Decoded text is split into words and annotated (Q-codes, prosigns, signal reports, grid squares with distance, POTA/SOTA references, callsign prefixes), with optional callbook lookups. Nothing like it existed for SDR++ on Linux.</p></div></details>
+
+</div></article>
+<article class="card cat-radio has-thumb" id="p-nanovna-toolkit" data-category="radio" data-status="done" data-search="nanovna toolkit command-line tools for a nanovna-f v2, covering guided calibration, averaged swr reports and overlay plots. it measures swr and impedance across the hf bands or at spot frequencies, runs software-corrected
+high-resolution sweeps above 7.6 mhz, captures the lcd, and overlays runs for before-and-after
+antenna comparisons.
+ python pyserial numpy scipy matplotlib">
+<button class="thumb fit-contain" type="button" data-gallery="[{&quot;src&quot;: &quot;shots/nanovna-toolkit-1.webp&quot;, &quot;w&quot;: 1341, &quot;h&quot;: 828, &quot;caption&quot;: &quot;SWR baseline for an end-fed half-wave, with per-band zooms&quot;}]" aria-label="View images of NanoVNA toolkit"><img src="shots/nanovna-toolkit-1-t.webp" alt="SWR baseline for an end-fed half-wave, with per-band zooms" width="720" height="445" loading="lazy" decoding="async"></button><div class="card-body">
+<div class="card-head"><h3><a href="#p-nanovna-toolkit">NanoVNA toolkit</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">Command-line tools for a NanoVNA-F V2, covering guided calibration, averaged SWR reports and overlay plots.</p>
+<p class="meta"><span>Since Nov 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-09">7 days ago</time></span></p>
+<ul class="stack"><li>Python</li><li>pyserial</li><li>NumPy</li><li>SciPy</li><li>Matplotlib</li></ul>
+<details><summary>More</summary><div class="more"><p>It measures SWR and impedance across the HF bands or at spot frequencies, runs software-corrected high-resolution sweeps above 7.6 MHz, captures the LCD, and overlays runs for before-and-after antenna comparisons.</p></div></details>
+
+</div></article></div><div class="grid"><article class="card cat-radio" id="p-lakeshark-ft891" data-category="radio" data-status="active" data-search="lakeshark ft-891 app a built-in app for the lakeshark handheld-sdr firmware that turns an esp32-p4 board into a pocket ft-891 remote. lakeshark is community firmware for esp32-p4 handhelds. this app adds a usb-host driver for the
+radio&#x27;s cat port and sound card, a rigctld-compatible server, and big-button rig/link screens, and it
+feeds the radio&#x27;s audio into lakeshark&#x27;s ft8 decoder. it replaced an earlier standalone-firmware
+attempt and is still in progress. along the way: an upstream fix so the rtl-sdr blog v4&#x27;s usb strings
+are read in full, which unlocks its hf mode.
+ c esp-idf esp32-p4 usb host">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-lakeshark-ft891">LakeShark FT-891 app</a></h3><span class="status s-active">In progress</span></div>
+<p class="tagline">A built-in app for the LakeShark handheld-SDR firmware that turns an ESP32-P4 board into a pocket FT-891 remote.</p>
+<p class="meta"><span>Since Oct 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-14">2 days ago</time></span></p>
+<ul class="stack"><li>C</li><li>ESP-IDF</li><li>ESP32-P4</li><li>USB host</li></ul>
+<details><summary>More</summary><div class="more"><p>LakeShark is community firmware for ESP32-P4 handhelds. This app adds a USB-host driver for the radio&#x27;s CAT port and sound card, a rigctld-compatible server, and big-button RIG/LINK screens, and it feeds the radio&#x27;s audio into LakeShark&#x27;s FT8 decoder. It replaced an earlier standalone-firmware attempt and is still in progress. Along the way: an upstream fix so the RTL-SDR Blog V4&#x27;s USB strings are read in full, which unlocks its HF mode.</p><p class="credit">Builds on <a href="https://github.com/SAMS0N1TE/LakeShark" rel="noopener">LakeShark by SAMS0N1TE</a>.</p></div></details>
+<p class="links"><a href="https://github.com/SAMS0N1TE/LakeShark/pull/24" rel="noopener">Upstream PR<span aria-hidden="true"> ↗</span></a></p>
+</div></article>
+<article class="card cat-radio" id="p-sdr-noise-reduction" data-category="radio" data-status="live" data-search="sdr++ noise reduction switchable noise reduction for sdr++ audio through pipewire filter chains. the routing changes with the mode: rnnoise for voice, a spectral denoiser for am, and nothing for cw,
+because rnnoise erases it. it follows whichever demodulator you pick in sdr++ within a few seconds,
+and one key on the desk deck toggles it.
+ pipewire ladspa rnnoise bash">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-sdr-noise-reduction">SDR++ noise reduction</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">Switchable noise reduction for SDR++ audio through PipeWire filter chains.</p>
+<p class="meta"><span>Since Nov 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-14">2 days ago</time></span></p>
+<ul class="stack"><li>PipeWire</li><li>LADSPA</li><li>RNNoise</li><li>Bash</li></ul>
+<details><summary>More</summary><div class="more"><p>The routing changes with the mode: RNNoise for voice, a spectral denoiser for AM, and nothing for CW, because RNNoise erases it. It follows whichever demodulator you pick in SDR++ within a few seconds, and one key on the desk deck toggles it.</p></div></details>
+
+</div></article>
+<article class="card cat-radio" id="p-bf-f8hp-pro" data-category="radio" data-status="done" data-search="handheld radio programming a scripted channel plan and a native-linux firmware flash for a btech bf-f8hp pro. rather than typing hundreds of channels into chirp, scripts regenerate them from sources (repeater
+lists, faa airband frequencies, noaa weather, railroad channels) into fixed 100-channel zones, then
+upload the image and verify it against a readback. the firmware was updated from linux with the
+open-source flintwave kdh flasher (the vendor&#x27;s updater is windows-only), and every channel survived
+byte for byte.
+ python chirp pyserial">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-bf-f8hp-pro">Handheld radio programming</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">A scripted channel plan and a native-Linux firmware flash for a BTECH BF-F8HP PRO.</p>
+<p class="meta"><span>Since Sep 2026</span><span>Touched <time datetime="2026-09-24">7 weeks ago</time></span></p>
+<ul class="stack"><li>Python</li><li>CHIRP</li><li>pyserial</li></ul>
+<details><summary>More</summary><div class="more"><p>Rather than typing hundreds of channels into CHIRP, scripts regenerate them from sources (repeater lists, FAA airband frequencies, NOAA weather, railroad channels) into fixed 100-channel zones, then upload the image and verify it against a readback. The firmware was updated from Linux with the open-source FlintWave KDH flasher (the vendor&#x27;s updater is Windows-only), and every channel survived byte for byte.</p></div></details>
+
+</div></article>
+<article class="card cat-radio" id="p-orbic-sdr" data-category="radio" data-status="done" data-search="orbic sdr server a rooted lte hotspot turned into a wi-fi rtl-sdr server, with no reflash. the hotspot (qualcomm mdm9607) ships with its usb port locked to peripheral mode and no host
+controller in the kernel. three out-of-tree kernel modules, built against the matching vendor kernel,
+add one at runtime and push the otg state machine into host mode. with a powered hub, each rtl-sdr
+dongle gets its own ip serving rtl_tcp, survives reboots, and appears on a custom sdr-themed status
+screen. it fed an rtl_433 sensor logger (since retired) and the cascata ios app.
+ c linux kernel modules rtl_tcp rtl_433">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-orbic-sdr">Orbic SDR server</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">A rooted LTE hotspot turned into a Wi-Fi RTL-SDR server, with no reflash.</p>
+<p class="meta"><span>Since Aug 2026</span><span>Touched <time datetime="2026-09-06">Sep 2026</time></span></p>
+<ul class="stack"><li>C</li><li>Linux kernel modules</li><li>rtl_tcp</li><li>rtl_433</li></ul>
+<details><summary>More</summary><div class="more"><p>The hotspot (Qualcomm MDM9607) ships with its USB port locked to peripheral mode and no host controller in the kernel. Three out-of-tree kernel modules, built against the matching vendor kernel, add one at runtime and push the OTG state machine into host mode. With a powered hub, each RTL-SDR dongle gets its own IP serving rtl_tcp, survives reboots, and appears on a custom SDR-themed status screen. It fed an rtl_433 sensor logger (since retired) and the Cascata iOS app.</p></div></details>
+
+</div></article>
+<article class="card cat-radio" id="p-cascata" data-category="radio" data-status="paused" data-search="cascata an ios receiver for rtl_tcp sdr servers, with a metal waterfall. swiftui with a gpu waterfall and spectrum and seven full-screen visualisers. wfm (stereo and rds),
+nfm, am and ssb demodulation runs on accelerate, with noise reduction, ctcss/dcs tone squelch, a
+scanner over bookmark groups, squelch-triggered recording, two vfos inside one passband and chirp
+csv import. app store preparation is paused.
+ swift swiftui metal accelerate">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-cascata">Cascata</a></h3><span class="status s-paused">Paused</span></div>
+<p class="tagline">An iOS receiver for rtl_tcp SDR servers, with a Metal waterfall.</p>
+<p class="meta"><span>Since Aug 2026</span><span>Touched <time datetime="2026-08-26">Aug 2026</time></span></p>
+<ul class="stack"><li>Swift</li><li>SwiftUI</li><li>Metal</li><li>Accelerate</li></ul>
+<details><summary>More</summary><div class="more"><p>SwiftUI with a GPU waterfall and spectrum and seven full-screen visualisers. WFM (stereo and RDS), NFM, AM and SSB demodulation runs on Accelerate, with noise reduction, CTCSS/DCS tone squelch, a scanner over bookmark groups, squelch-triggered recording, two VFOs inside one passband and CHIRP CSV import. App Store preparation is paused.</p></div></details>
+
+</div></article>
+<article class="card cat-radio" id="p-ft8-station" data-category="radio" data-status="paused" data-search="ft8 receive station &amp; live map a receive-only ft8 station that hopped bands around the clock and plotted every decode on a live map. an hf loop and an rtl-sdr fed sdr++ and wsjt-x. a band-hopper followed a day/night plan on ft8
+period boundaries, and a watchdog relaunched the chain when the dongle disappeared. a small
+stdlib-only python app turned wsjt-x&#x27;s udp feed into a leaflet map with great-circle paths, licence
+lookups and server-sent events, and spots went to psk reporter. paused in november 2026 when the
+shack moved to a real hf radio.
+ python sdr++ wsjt-x hamlib leaflet sqlite">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-ft8-station">FT8 receive station &amp; live map</a></h3><span class="status s-paused">Paused</span></div>
+<p class="tagline">A receive-only FT8 station that hopped bands around the clock and plotted every decode on a live map.</p>
+<p class="meta"><span>Since Sep 2026</span></p>
+<ul class="stack"><li>Python</li><li>SDR++</li><li>WSJT-X</li><li>Hamlib</li><li>Leaflet</li><li>SQLite</li></ul>
+<details><summary>More</summary><div class="more"><p>An HF loop and an RTL-SDR fed SDR++ and WSJT-X. A band-hopper followed a day/night plan on FT8 period boundaries, and a watchdog relaunched the chain when the dongle disappeared. A small stdlib-only Python app turned WSJT-X&#x27;s UDP feed into a Leaflet map with great-circle paths, licence lookups and server-sent events, and spots went to PSK Reporter. Paused in November 2026 when the shack moved to a real HF radio.</p></div></details>
+
+</div></article></div></section><section class="cat-section" id="c-devices" data-section="devices"><h2>Devices &amp; firmware <span class="n">7</span></h2><div class="grid"><article class="card cat-devices has-thumb" id="p-flipper-morse-beacon" data-category="devices" data-status="done" data-search="morse beacon for flipper zero a flipper zero app that keys morse station ids and text beacons out of the sub-ghz radio. it sends cw and mcw (by toggling fsk). text can be typed on the flipper, sent from a phone over ble
+serial, or fed in on the uart pins. transmit is region-gated, with safe fallbacks when a saved
+frequency isn&#x27;t allowed. it has been verified on air and submitted to the official flipper apps catalog.
+ c flipper sdk cc1101">
+<button class="thumb fit-contain" type="button" data-gallery="[{&quot;src&quot;: &quot;shots/flipper-morse-beacon-1.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 640, &quot;caption&quot;: &quot;Morse Beacon&quot;}, {&quot;src&quot;: &quot;shots/flipper-morse-beacon-2.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 800, &quot;caption&quot;: &quot;Beacon mode, listening between timed IDs&quot;}, {&quot;src&quot;: &quot;shots/flipper-morse-beacon-3.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 800, &quot;caption&quot;: &quot;Main menu&quot;}]" aria-label="View images of Morse Beacon for Flipper Zero"><img src="shots/flipper-morse-beacon-1-t.webp" alt="Morse Beacon" width="720" height="288" loading="lazy" decoding="async"><span class="thumb-count">3 images</span></button><div class="card-body">
+<div class="card-head"><h3><a href="#p-flipper-morse-beacon">Morse Beacon for Flipper Zero</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">A Flipper Zero app that keys Morse station IDs and text beacons out of the Sub-GHz radio.</p>
+<p class="meta"><span>Since Sep 2026</span><span>Touched <time datetime="2026-09-13">Sep 2026</time></span></p>
+<ul class="stack"><li>C</li><li>Flipper SDK</li><li>CC1101</li></ul>
+<details><summary>More</summary><div class="more"><p>It sends CW and MCW (by toggling FSK). Text can be typed on the Flipper, sent from a phone over BLE serial, or fed in on the UART pins. Transmit is region-gated, with safe fallbacks when a saved frequency isn&#x27;t allowed. It has been verified on air and submitted to the official Flipper apps catalog.</p><div class="strip"><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/flipper-morse-beacon-1.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 640, &quot;caption&quot;: &quot;Morse Beacon&quot;}, {&quot;src&quot;: &quot;shots/flipper-morse-beacon-2.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 800, &quot;caption&quot;: &quot;Beacon mode, listening between timed IDs&quot;}, {&quot;src&quot;: &quot;shots/flipper-morse-beacon-3.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 800, &quot;caption&quot;: &quot;Main menu&quot;}]" data-index="0" aria-label="Morse Beacon"><img src="shots/flipper-morse-beacon-1-t.webp" alt="" loading="lazy" width="720" height="288"></button><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/flipper-morse-beacon-1.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 640, &quot;caption&quot;: &quot;Morse Beacon&quot;}, {&quot;src&quot;: &quot;shots/flipper-morse-beacon-2.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 800, &quot;caption&quot;: &quot;Beacon mode, listening between timed IDs&quot;}, {&quot;src&quot;: &quot;shots/flipper-morse-beacon-3.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 800, &quot;caption&quot;: &quot;Main menu&quot;}]" data-index="1" aria-label="Beacon mode, listening between timed IDs"><img src="shots/flipper-morse-beacon-2-t.webp" alt="" loading="lazy" width="720" height="360"></button><button type="button" class="mini" data-gallery="[{&quot;src&quot;: &quot;shots/flipper-morse-beacon-1.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 640, &quot;caption&quot;: &quot;Morse Beacon&quot;}, {&quot;src&quot;: &quot;shots/flipper-morse-beacon-2.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 800, &quot;caption&quot;: &quot;Beacon mode, listening between timed IDs&quot;}, {&quot;src&quot;: &quot;shots/flipper-morse-beacon-3.webp&quot;, &quot;w&quot;: 1600, &quot;h&quot;: 800, &quot;caption&quot;: &quot;Main menu&quot;}]" data-index="2" aria-label="Main menu"><img src="shots/flipper-morse-beacon-3-t.webp" alt="" loading="lazy" width="720" height="360"></button></div></div></details>
+<p class="links"><a href="https://github.com/jdmills-edu/flipper-morse-beacon" rel="noopener">Source<span aria-hidden="true"> ↗</span></a></p>
+</div></article></div><div class="grid"><article class="card cat-devices" id="p-bambu-cli" data-category="devices" data-status="done" data-search="headless 3d printing cli slice and send prints to a bambu lab p1s from the command line. it flattens bambu studio&#x27;s inherited profiles so the command-line slicer can use them, auto-orients and
+renders models, uploads over ftps, and reads printer status and the camera. starting the print stays a
+human button press.
+ python bambu studio cli ftps mqtt">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-bambu-cli">Headless 3D printing CLI</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">Slice and send prints to a Bambu Lab P1S from the command line.</p>
+<p class="meta"><span>Since Nov 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-14">2 days ago</time></span></p>
+<ul class="stack"><li>Python</li><li>Bambu Studio CLI</li><li>FTPS</li><li>MQTT</li></ul>
+<details><summary>More</summary><div class="more"><p>It flattens Bambu Studio&#x27;s inherited profiles so the command-line slicer can use them, auto-orients and renders models, uploads over FTPS, and reads printer status and the camera. Starting the print stays a human button press.</p></div></details>
+
+</div></article>
+<article class="card cat-devices" id="p-mesh-watch" data-category="devices" data-status="live" data-search="kid-friendly mesh messenger watch custom meshtastic firmware that turns a lilygo t-watch s3 into a child&#x27;s lora messenger. it replaces the stock screen with a colourful ui: a big-key keyboard, incoming messages read aloud, a
+&quot;secret knock&quot;, and a fun tab with a stopwatch, doodle pad, a virtual pet fed by family messages, an
+8-ball, themes and an alarm. the watch has no gps, so a &quot;who&#x27;s near me?&quot; card reports the nearest heard
+node instead. a later release fixed about five minutes a day of clock drift by re-anchoring to the
+crystal rtc.
+ c++ meshtastic esp32-s3 lora">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-mesh-watch">Kid-friendly mesh messenger watch</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">Custom Meshtastic firmware that turns a LilyGO T-Watch S3 into a child&#x27;s LoRa messenger.</p>
+<p class="meta"><span>Since Jul 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-13">3 days ago</time></span></p>
+<ul class="stack"><li>C++</li><li>Meshtastic</li><li>ESP32-S3</li><li>LoRa</li></ul>
+<details><summary>More</summary><div class="more"><p>It replaces the stock screen with a colourful UI: a big-key keyboard, incoming messages read aloud, a &quot;secret knock&quot;, and a Fun tab with a stopwatch, doodle pad, a virtual pet fed by family messages, an 8-ball, themes and an alarm. The watch has no GPS, so a &quot;Who&#x27;s near me?&quot; card reports the nearest heard node instead. A later release fixed about five minutes a day of clock drift by re-anchoring to the crystal RTC.</p></div></details>
+
+</div></article>
+<article class="card cat-devices" id="p-vellum-tdeck" data-category="devices" data-status="paused" data-search="vellum for the t-deck pro max a paper-smartphone shell for an e-paper lora handheld that keeps the meshtastic stack and replaces its ui. vellum swaps meshtastic&#x27;s on-device ui for a minimal smartphone-style shell on the lilygo t-deck pro
+max&#x27;s e-paper screen, with messaging, an .epub reader, an audio player, mesh tools and lte status. the
+project kept a chapter-by-chapter journal of bring-up, power, the modem and recovery.
+ c++ meshtastic esp32-s3 e-paper">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-vellum-tdeck">Vellum for the T-Deck Pro MAX</a></h3><span class="status s-paused">Paused</span></div>
+<p class="tagline">A paper-smartphone shell for an e-paper LoRa handheld that keeps the Meshtastic stack and replaces its UI.</p>
+<p class="meta"><span>Since Sep 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-13">3 days ago</time></span></p>
+<ul class="stack"><li>C++</li><li>Meshtastic</li><li>ESP32-S3</li><li>e-paper</li></ul>
+<details><summary>More</summary><div class="more"><p>Vellum swaps Meshtastic&#x27;s on-device UI for a minimal smartphone-style shell on the LilyGO T-Deck Pro MAX&#x27;s e-paper screen, with messaging, an .epub reader, an audio player, mesh tools and LTE status. The project kept a chapter-by-chapter journal of bring-up, power, the modem and recovery.</p></div></details>
+
+</div></article>
+<article class="card cat-devices" id="p-flipper-repeater" data-category="devices" data-status="done" data-search="flipper repeater controller a repeater controller for the flipper zero, with cor in, ptt out, a courtesy tone, a timeout timer and a cw id. two real radios do the rf, and the flipper decides when to key. the readme explains why the flipper
+can&#x27;t be the repeater itself: it has one synthesiser and runs half duplex.
+ c flipper sdk gpio">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-flipper-repeater">Flipper repeater controller</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">A repeater controller for the Flipper Zero, with COR in, PTT out, a courtesy tone, a timeout timer and a CW ID.</p>
+<p class="meta"><span>Since Sep 2026</span><span>Touched <time datetime="2026-09-08">Sep 2026</time></span></p>
+<ul class="stack"><li>C</li><li>Flipper SDK</li><li>GPIO</li></ul>
+<details><summary>More</summary><div class="more"><p>Two real radios do the RF, and the Flipper decides when to key. The README explains why the Flipper can&#x27;t be the repeater itself: it has one synthesiser and runs half duplex.</p></div></details>
+
+</div></article>
+<article class="card cat-devices" id="p-meshtastic-aaos" data-category="devices" data-status="paused" data-search="meshtastic for android automotive a fork of the meshtastic android app that runs on a car&#x27;s built-in android automotive os. it uses the f-droid flavour (osmdroid maps need no api key) plus the automotive manifest features, and
+is built as an app bundle for google play&#x27;s automotive track so it can be tested in the car.
+ kotlin android automotive os gradle">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-meshtastic-aaos">Meshtastic for Android Automotive</a></h3><span class="status s-paused">Paused</span></div>
+<p class="tagline">A fork of the Meshtastic Android app that runs on a car&#x27;s built-in Android Automotive OS.</p>
+<p class="meta"><span>Since Aug 2026</span></p>
+<ul class="stack"><li>Kotlin</li><li>Android Automotive OS</li><li>Gradle</li></ul>
+<details><summary>More</summary><div class="more"><p>It uses the F-Droid flavour (osmdroid maps need no API key) plus the automotive manifest features, and is built as an app bundle for Google Play&#x27;s Automotive track so it can be tested in the car.</p></div></details>
+
+</div></article>
+<article class="card cat-devices" id="p-desk-controls" data-category="devices" data-status="live" data-search="desk control surface a bluetooth knob and an open-source stream-deck setup wired into the radio, the gpus and the lights. the knob cycles through modes (volume, scroll, zoom, scrub, undo, lights and radio), with an input
+remapper preset per mode switched over d-bus. in radio mode the shack console reads the knob directly
+to tune the ft-891. deck keys show gpu stats, toggle sdr noise reduction and drive the rgb lighting.
+ bash input remapper d-bus opendeck hidraw">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-desk-controls">Desk control surface</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">A Bluetooth knob and an open-source stream-deck setup wired into the radio, the GPUs and the lights.</p>
+<p class="meta"><span>Since Nov 2026</span></p>
+<ul class="stack"><li>Bash</li><li>Input Remapper</li><li>D-Bus</li><li>OpenDeck</li><li>hidraw</li></ul>
+<details><summary>More</summary><div class="more"><p>The knob cycles through modes (volume, scroll, zoom, scrub, undo, lights and radio), with an Input Remapper preset per mode switched over D-Bus. In radio mode the shack console reads the knob directly to tune the FT-891. Deck keys show GPU stats, toggle SDR noise reduction and drive the RGB lighting.</p></div></details>
+
+</div></article></div></section><section class="cat-section" id="c-ai" data-section="ai"><h2>AI &amp; assistants <span class="n">5</span></h2><div class="grid"><article class="card cat-ai" id="p-family-assistant" data-category="ai" data-status="live" data-search="family assistant over imessage a family assistant you text over imessage, running on a local llm with household tools. one n8n agent serves every front end: imessage, discord and the tv&#x27;s chat character. its tools cover
+the family calendar, the offline library, the bird detector, the solar inverter, the tv and local web
+search, plus memory of past conversations and &quot;errands&quot; that keep relayed messages in context. it
+sends a few short scheduled texts each day. imessage runs through bluebubbles in a macos vm, so the
+assistant has its own apple id, and the model runs at home.
+ n8n langchain llama.cpp bluebubbles mcp searxng">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-family-assistant">Family assistant over iMessage</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">A family assistant you text over iMessage, running on a local LLM with household tools.</p>
+<p class="meta"><span>Since Aug 2026</span></p>
+<ul class="stack"><li>n8n</li><li>LangChain</li><li>llama.cpp</li><li>BlueBubbles</li><li>MCP</li><li>SearXNG</li></ul>
+<details><summary>More</summary><div class="more"><p>One n8n agent serves every front end: iMessage, Discord and the TV&#x27;s chat character. Its tools cover the family calendar, the offline library, the bird detector, the solar inverter, the TV and local web search, plus memory of past conversations and &quot;errands&quot; that keep relayed messages in context. It sends a few short scheduled texts each day. iMessage runs through BlueBubbles in a macOS VM, so the assistant has its own Apple ID, and the model runs at home.</p></div></details>
+
+</div></article>
+<article class="card cat-ai" id="p-offline-library" data-category="ai" data-status="live" data-search="offline reference library 381 gib of offline reference (wikipedia, medical, repair and preparedness libraries) that the assistant can search. thirty-two kiwix zim books are served on the home network, so they still work when the internet
+doesn&#x27;t. about 21,600 pdfs inside the zims were ocr&#x27;d, using the text layer or apple&#x27;s vision ocr for
+scans, so search hits come back with page numbers. an mcp server lets the assistant search and quote
+the library. a daily &quot;library find&quot; shares one passage; the model only picks sentence numbers, so it
+can&#x27;t misquote.
+ kiwix python swift apple vision sqlite fts mcp">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-offline-library">Offline reference library</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">381 GiB of offline reference (Wikipedia, medical, repair and preparedness libraries) that the assistant can search.</p>
+<p class="meta"><span>Since Oct 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-05">11 days ago</time></span></p>
+<ul class="stack"><li>Kiwix</li><li>Python</li><li>Swift</li><li>Apple Vision</li><li>SQLite FTS</li><li>MCP</li></ul>
+<details><summary>More</summary><div class="more"><p>Thirty-two Kiwix ZIM books are served on the home network, so they still work when the internet doesn&#x27;t. About 21,600 PDFs inside the ZIMs were OCR&#x27;d, using the text layer or Apple&#x27;s Vision OCR for scans, so search hits come back with page numbers. An MCP server lets the assistant search and quote the library. A daily &quot;Library Find&quot; shares one passage; the model only picks sentence numbers, so it can&#x27;t misquote.</p></div></details>
+
+</div></article>
+<article class="card cat-ai" id="p-image-upscaler" data-category="ai" data-status="done" data-search="image upscaler a small cli that upscales and re-renders images through google&#x27;s gemini image model. it wraps the gemini image api with a strict system prompt that always returns an image, never a chat
+reply, so it can batch through a folder unattended.
+ python google genai sdk">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-image-upscaler">Image upscaler</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">A small CLI that upscales and re-renders images through Google&#x27;s Gemini image model.</p>
+<p class="meta"><span>Since Apr 2026</span><span>Touched <time datetime="2026-04-19">Apr 2026</time></span></p>
+<ul class="stack"><li>Python</li><li>Google GenAI SDK</li></ul>
+<details><summary>More</summary><div class="more"><p>It wraps the Gemini image API with a strict system prompt that always returns an image, never a chat reply, so it can batch through a folder unattended.</p></div></details>
+
+</div></article>
+<article class="card cat-ai" id="p-karaoke-tts" data-category="ai" data-status="done" data-search="karaoke-tts a local mcp server that reads text aloud in a karaoke-style player with word-by-word highlighting. kokoro synthesises the audio in small chunks that stream to the browser over websocket, so playback
+starts within seconds. faster-whisper then refines each chunk&#x27;s word timings, and every reading is
+saved as an ogg and html pair.
+ python kokoro faster-whisper websockets mcp">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-karaoke-tts">karaoke-tts</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">A local MCP server that reads text aloud in a karaoke-style player with word-by-word highlighting.</p>
+<p class="meta"><span>Since Feb 2026</span><span>Touched <time datetime="2026-02-27">Feb 2026</time></span></p>
+<ul class="stack"><li>Python</li><li>Kokoro</li><li>faster-whisper</li><li>WebSockets</li><li>MCP</li></ul>
+<details><summary>More</summary><div class="more"><p>Kokoro synthesises the audio in small chunks that stream to the browser over WebSocket, so playback starts within seconds. faster-whisper then refines each chunk&#x27;s word timings, and every reading is saved as an OGG and HTML pair.</p></div></details>
+<p class="links"><a href="https://github.com/jdmills-edu/karaoke-tts" rel="noopener">Source<span aria-hidden="true"> ↗</span></a></p>
+</div></article>
+<article class="card cat-ai" id="p-local-llm" data-category="ai" data-status="live" data-search="local llm server one local model on two consumer gpus, shared by every ai feature on this page. llama.cpp&#x27;s llama-server runs a 27b qwen 3.8 finetune (q4_k_m) with a multi-token-prediction draft
+head and vision, split across an rtx 5070 ti and an rtx 4070 on oculink. measured along the way:
+without gpu peer-to-peer, tensor parallel gains 35–40% decode but loses 30–50% prefill, so it wins for
+chat and agent loops. a finite reasoning budget ended runaway thinking, and moving from q5 to q4
+stopped a silent cpu spill-over, taking decode from about 35 to 42–55 tokens/s. small shims let claude
+code and a qflipper fork talk to it.
+ llama.cpp cuda qwen distrobox systemd">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-local-llm">Local LLM server</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">One local model on two consumer GPUs, shared by every AI feature on this page.</p>
+<p class="meta"><span>Since May 2026</span></p>
+<ul class="stack"><li>llama.cpp</li><li>CUDA</li><li>Qwen</li><li>distrobox</li><li>systemd</li></ul>
+<details><summary>More</summary><div class="more"><p>llama.cpp&#x27;s llama-server runs a 27B Qwen 3.8 finetune (Q4_K_M) with a multi-token-prediction draft head and vision, split across an RTX 5070 Ti and an RTX 4070 on OCuLink. Measured along the way: without GPU peer-to-peer, tensor parallel gains 35–40% decode but loses 30–50% prefill, so it wins for chat and agent loops. A finite reasoning budget ended runaway thinking, and moving from Q5 to Q4 stopped a silent CPU spill-over, taking decode from about 35 to 42–55 tokens/s. Small shims let Claude Code and a qFlipper fork talk to it.</p></div></details>
+
+</div></article></div></section><section class="cat-section" id="c-home" data-section="home"><h2>Home &amp; family <span class="n">9</span></h2><div class="grid"><article class="card cat-home has-thumb" id="p-voxel-cat" data-category="home" data-status="done" data-search="voxel cat a three.js renderer that turns the tv cat&#x27;s pixel sprite into a 3d character, in four styles and eleven moods. build scripts paste the launcher&#x27;s sprite data into one html file, which renders it as voxels, low-res
+pixel 3d, vinyl toy or low-poly, with hand-drawn faces for each mood. the voxel style now runs live on
+the tv&#x27;s home screen.
+ three.js javascript python">
+<button class="thumb fit-cover" type="button" data-gallery="[{&quot;src&quot;: &quot;shots/voxel-cat-1.webp&quot;, &quot;w&quot;: 1154, &quot;h&quot;: 663, &quot;caption&quot;: &quot;The voxel style, as it runs on the TV&#x27;s home screen&quot;}]" aria-label="View images of Voxel cat"><img src="shots/voxel-cat-1-t.webp" alt="The voxel style, as it runs on the TV&#x27;s home screen" width="720" height="414" loading="lazy" decoding="async"></button><div class="card-body">
+<div class="card-head"><h3><a href="#p-voxel-cat">Voxel cat</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">A three.js renderer that turns the TV cat&#x27;s pixel sprite into a 3D character, in four styles and eleven moods.</p>
+<p class="meta"><span>Since Oct 2026</span><span>Touched <time datetime="2026-10-22">3 weeks ago</time></span></p>
+<ul class="stack"><li>three.js</li><li>JavaScript</li><li>Python</li></ul>
+<details><summary>More</summary><div class="more"><p>Build scripts paste the launcher&#x27;s sprite data into one HTML file, which renders it as voxels, low-res pixel 3D, vinyl toy or low-poly, with hand-drawn faces for each mood. The voxel style now runs live on the TV&#x27;s home screen.</p></div></details>
+
+</div></article></div><div class="grid"><article class="card cat-home" id="p-tv-launcher" data-category="home" data-status="live" data-search="living-room tv launcher a debloated google tv with a custom pixel-art home screen and a resident cartoon cat who reviews whatever&#x27;s on. the stock launcher is gone. home shows pixel-art holiday scenes and a voxel cat with moods and
+costumes. a vision model watches periodic screenshots and posters to write the cat&#x27;s reactions. it also
+pops up behind-the-scenes facts that are cold-checked against their sources, where every number must
+appear in the source. weather and alerts, timers and reminders round out home. an mcp server drives
+the tv over adb, so claude and the family assistant can control it.
+ java android tv python adb mcp llama.cpp">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-tv-launcher">Living-room TV launcher</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">A debloated Google TV with a custom pixel-art home screen and a resident cartoon cat who reviews whatever&#x27;s on.</p>
+<p class="meta"><span>Since Oct 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-15">yesterday</time></span></p>
+<ul class="stack"><li>Java</li><li>Android TV</li><li>Python</li><li>ADB</li><li>MCP</li><li>llama.cpp</li></ul>
+<details><summary>More</summary><div class="more"><p>The stock launcher is gone. Home shows pixel-art holiday scenes and a voxel cat with moods and costumes. A vision model watches periodic screenshots and posters to write the cat&#x27;s reactions. It also pops up behind-the-scenes facts that are cold-checked against their sources, where every number must appear in the source. Weather and alerts, timers and reminders round out Home. An MCP server drives the TV over ADB, so Claude and the family assistant can control it.</p><p class="credit">Builds on <a href="https://github.com/Gathin23/CleanYourTV" rel="noopener">CleanYourTV</a>.</p></div></details>
+
+</div></article>
+<article class="card cat-home" id="p-home-lab" data-category="home" data-status="live" data-search="self-documenting home lab a private wiki that rebuilds itself every night from what&#x27;s actually running, plus cross-host backups. collectors inventory the containers, services, scheduled jobs and repos on each machine. a generator
+joins those facts with a hand-curated catalog and rebuilds a private mkdocs wiki that flags drift and
+unpushed work. restic backs each machine up to the other and to object storage.
+ python mkdocs restic">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-home-lab">Self-documenting home lab</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">A private wiki that rebuilds itself every night from what&#x27;s actually running, plus cross-host backups.</p>
+<p class="meta"><span>Since Nov 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-16">today</time></span></p>
+<ul class="stack"><li>Python</li><li>MkDocs</li><li>restic</li></ul>
+<details><summary>More</summary><div class="more"><p>Collectors inventory the containers, services, scheduled jobs and repos on each machine. A generator joins those facts with a hand-curated catalog and rebuilds a private MkDocs wiki that flags drift and unpushed work. Restic backs each machine up to the other and to object storage.</p></div></details>
+
+</div></article>
+<article class="card cat-home" id="p-talk-to-the-cat" data-category="home" data-status="live" data-search="talk to the tv cat press ok and talk to the tv&#x27;s cartoon cat, who answers in character with kid-safe tools. the app records the tv&#x27;s built-in far-field mic. parakeet transcribes it in about 60 ms on cpu (it
+beat moonshine and whisper on a bench of kid-style questions), and the family assistant answers with
+a kid-safe tool set and the cat&#x27;s persona, thinking disabled for speed. the reply streams back with a
+meow &quot;typing blip&quot; and the cat&#x27;s mood on its face.
+ java android tv python parakeet stt n8n">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-talk-to-the-cat">Talk to the TV cat</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">Press OK and talk to the TV&#x27;s cartoon cat, who answers in character with kid-safe tools.</p>
+<p class="meta"><span>Since Oct 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-12">4 days ago</time></span></p>
+<ul class="stack"><li>Java</li><li>Android TV</li><li>Python</li><li>Parakeet STT</li><li>n8n</li></ul>
+<details><summary>More</summary><div class="more"><p>The app records the TV&#x27;s built-in far-field mic. Parakeet transcribes it in about 60 ms on CPU (it beat Moonshine and Whisper on a bench of kid-style questions), and the family assistant answers with a kid-safe tool set and the cat&#x27;s persona, thinking disabled for speed. The reply streams back with a meow &quot;typing blip&quot; and the cat&#x27;s mood on its face.</p></div></details>
+
+</div></article>
+<article class="card cat-home" id="p-inverter-dashboard" data-category="home" data-status="live" data-search="solar &amp; battery inverter dashboard monitoring and guarded controls for a hybrid solar/battery inverter over modbus and mqtt. it keeps 30 days of readings and serves a mobile-first dashboard with its own svg charts and a
+power-flow view. a controls tab writes only an allowlist of settings: output and charge priority,
+charge and discharge windows, and the inverter clock. every write is read back and audited, and
+battery settings are never writable. mcp tools are read-only or preview-first.
+ node mqtt modbus svg mcp">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-inverter-dashboard">Solar &amp; battery inverter dashboard</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">Monitoring and guarded controls for a hybrid solar/battery inverter over Modbus and MQTT.</p>
+<p class="meta"><span>Since Apr 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-05">11 days ago</time></span></p>
+<ul class="stack"><li>Node</li><li>MQTT</li><li>Modbus</li><li>SVG</li><li>MCP</li></ul>
+<details><summary>More</summary><div class="more"><p>It keeps 30 days of readings and serves a mobile-first dashboard with its own SVG charts and a power-flow view. A Controls tab writes only an allowlist of settings: output and charge priority, charge and discharge windows, and the inverter clock. Every write is read back and audited, and battery settings are never writable. MCP tools are read-only or preview-first.</p></div></details>
+
+</div></article>
+<article class="card cat-home" id="p-bird-detector" data-category="home" data-status="live" data-search="backyard bird detector self-hosted bird id from outdoor camera microphones, using cornell&#x27;s merlin sound models. rtsp audio is cut into roughly three-second windows and run through the merlin tflite models, with a
+geographic prior and a bird/not-bird gate. detections land in sqlite behind a journal and grid
+dashboard, a morning report and an mcp server. merlin&#x27;s model bundle is cornell&#x27;s and isn&#x27;t in the repo.
+ python tflite ffmpeg sqlite mcp docker">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-bird-detector">Backyard bird detector</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">Self-hosted bird ID from outdoor camera microphones, using Cornell&#x27;s Merlin sound models.</p>
+<p class="meta"><span>Since May 2026</span><span>Touched <time datetime="2026-06-22">Jun 2026</time></span></p>
+<ul class="stack"><li>Python</li><li>TFLite</li><li>ffmpeg</li><li>SQLite</li><li>MCP</li><li>Docker</li></ul>
+<details><summary>More</summary><div class="more"><p>RTSP audio is cut into roughly three-second windows and run through the Merlin TFLite models, with a geographic prior and a bird/not-bird gate. Detections land in SQLite behind a journal and grid dashboard, a morning report and an MCP server. Merlin&#x27;s model bundle is Cornell&#x27;s and isn&#x27;t in the repo.</p></div></details>
+<p class="links"><a href="https://github.com/jdmills-edu/merlin-detector" rel="noopener">Source<span aria-hidden="true"> ↗</span></a></p>
+</div></article>
+<article class="card cat-home" id="p-demand-modeling" data-category="home" data-status="live" data-search="time-of-use demand modeling simulates a utility&#x27;s demand-charge tariff from 15-minute data and acts to keep the monthly peak down. it pulls per-circuit and meter data, reproduces the time-of-use bill to within 2% of real bills, and
+attributes the demand charge to individual circuits so what-if questions get real answers. during peak
+hours it alerts on spikes and pre-heats or pre-cools through the thermostats beforehand, skipping mild
+days.
+ python streamlit emporia vue api honeywell api">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-demand-modeling">Time-of-use demand modeling</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">Simulates a utility&#x27;s demand-charge tariff from 15-minute data and acts to keep the monthly peak down.</p>
+<p class="meta"><span>Since Mar 2026</span><span>Touched <time datetime="2026-03-02">Mar 2026</time></span></p>
+<ul class="stack"><li>Python</li><li>Streamlit</li><li>Emporia Vue API</li><li>Honeywell API</li></ul>
+<details><summary>More</summary><div class="more"><p>It pulls per-circuit and meter data, reproduces the time-of-use bill to within 2% of real bills, and attributes the demand charge to individual circuits so what-if questions get real answers. During peak hours it alerts on spikes and pre-heats or pre-cools through the thermostats beforehand, skipping mild days.</p></div></details>
+
+</div></article>
+<article class="card cat-home" id="p-web-nvr" data-category="home" data-status="done" data-search="web nvr a browser-based network video recorder that finds rtsp cameras on its own. it scans the network for rtsp cameras and streams them live as low-latency hls, with websocket status
+updates, per-camera start and stop, and sqlite-backed configuration.
+ node ffmpeg hls websockets sqlite">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-web-nvr">Web NVR</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">A browser-based network video recorder that finds RTSP cameras on its own.</p>
+<p class="meta"><span>Since Feb 2026</span><span>Touched <time datetime="2026-02-06">Feb 2026</time></span></p>
+<ul class="stack"><li>Node</li><li>ffmpeg</li><li>HLS</li><li>WebSockets</li><li>SQLite</li></ul>
+<details><summary>More</summary><div class="more"><p>It scans the network for RTSP cameras and streams them live as low-latency HLS, with WebSocket status updates, per-camera start and stop, and SQLite-backed configuration.</p></div></details>
+
+</div></article>
+<article class="card cat-home" id="p-screen-time-guard" data-category="home" data-status="live" data-search="youtube screen-time guard a daily limit and a bedtime for youtube on the family tv, enforced inside the custom launcher. nothing built in fit, so the launcher reads app-usage events every few seconds and locks youtube once the
+day&#x27;s allowance is spent or it&#x27;s bedtime. other apps stay free. a grown-up can unlock it with a text to
+the family assistant. the rules are pure functions with their own tests.
+ java android tv n8n">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-screen-time-guard">YouTube screen-time guard</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">A daily limit and a bedtime for YouTube on the family TV, enforced inside the custom launcher.</p>
+<p class="meta"><span>Since Nov 2026</span></p>
+<ul class="stack"><li>Java</li><li>Android TV</li><li>n8n</li></ul>
+<details><summary>More</summary><div class="more"><p>Nothing built in fit, so the launcher reads app-usage events every few seconds and locks YouTube once the day&#x27;s allowance is spent or it&#x27;s bedtime. Other apps stay free. A grown-up can unlock it with a text to the family assistant. The rules are pure functions with their own tests.</p></div></details>
+
+</div></article></div></section><section class="cat-section" id="c-tools" data-section="tools"><h2>Tools &amp; utilities <span class="n">4</span></h2><div class="grid"><article class="card cat-tools" id="p-project-index" data-category="tools" data-status="live" data-search="this project index the page you&#x27;re reading, rebuilt daily from the projects on my machines. a daily job reads activity from local git repos and github, refreshes screenshots of safe views, and
+renders this static page. a privacy scan checks the whole output against a deny-list (names, places,
+hostnames, addresses, callsigns, tokens) before anything is pushed. new private projects wait for review,
+and changed images wait for approval.
+ python playwright pillow github pages systemd">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-project-index">This project index</a></h3><span class="status s-live">Live</span></div>
+<p class="tagline">The page you&#x27;re reading, rebuilt daily from the projects on my machines.</p>
+<p class="meta"><span>Since Nov 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-16">today</time></span></p>
+<ul class="stack"><li>Python</li><li>Playwright</li><li>Pillow</li><li>GitHub Pages</li><li>systemd</li></ul>
+<details><summary>More</summary><div class="more"><p>A daily job reads activity from local git repos and GitHub, refreshes screenshots of safe views, and renders this static page. A privacy scan checks the whole output against a deny-list (names, places, hostnames, addresses, callsigns, tokens) before anything is pushed. New private projects wait for review, and changed images wait for approval.</p></div></details>
+
+</div></article>
+<article class="card cat-tools" id="p-jdmills-edu-github-io" data-category="tools" data-status="active" data-search="jdmills edu.github.io project index: things i&#x27;ve built with ai, rebuilt daily  ">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-jdmills-edu-github-io">Jdmills edu.github.io</a></h3><span class="status s-active">In progress</span></div>
+<p class="tagline">Project index: things I&#x27;ve built with AI, rebuilt daily</p>
+<p class="meta"><span>Since Nov 2026</span><span class="fresh" title="Touched in the last two weeks">Touched <time datetime="2026-11-16">today</time></span></p>
+<ul class="stack"></ul>
+
+<p class="links"><a href="https://github.com/jdmills-edu/jdmills-edu.github.io" rel="noopener">Source<span aria-hidden="true"> ↗</span></a></p>
+</div></article>
+<article class="card cat-tools" id="p-linkover" data-category="tools" data-status="done" data-search="linkover send a link from your iphone&#x27;s share sheet and it opens on your linux or mac desktop. a tray or menu-bar client for gnome and macos that listens on pushover&#x27;s websocket api, so there&#x27;s no
+polling and no always-on server. incoming links open in the browser, and the last ten are one click
+away.
+ python pushover gtk ios shortcuts">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-linkover">Linkover</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">Send a link from your iPhone&#x27;s share sheet and it opens on your Linux or Mac desktop.</p>
+<p class="meta"><span>Since Feb 2026</span><span>Touched <time datetime="2026-02-24">Feb 2026</time></span></p>
+<ul class="stack"><li>Python</li><li>Pushover</li><li>GTK</li><li>iOS Shortcuts</li></ul>
+<details><summary>More</summary><div class="more"><p>A tray or menu-bar client for GNOME and macOS that listens on Pushover&#x27;s WebSocket API, so there&#x27;s no polling and no always-on server. Incoming links open in the browser, and the last ten are one click away.</p></div></details>
+<p class="links"><a href="https://github.com/jdmills-edu/linkover" rel="noopener">Source<span aria-hidden="true"> ↗</span></a></p>
+</div></article>
+<article class="card cat-tools" id="p-music-library-fixer" data-category="tools" data-status="done" data-search="music library fixer cleans up a messy music library with acoustic fingerprints and musicbrainz. it identifies tracks by sound with chromaprint and acoustid, pulls the metadata from musicbrainz,
+handles compilations properly, and reorganises files into artist/album (year)/track for plex. file moves
+are atomic and verified, with rollback.
+ python chromaprint acoustid musicbrainz">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-music-library-fixer">Music library fixer</a></h3><span class="status s-done">Done</span></div>
+<p class="tagline">Cleans up a messy music library with acoustic fingerprints and MusicBrainz.</p>
+<p class="meta"><span>Since Feb 2026</span><span>Touched <time datetime="2026-02-05">Feb 2026</time></span></p>
+<ul class="stack"><li>Python</li><li>Chromaprint</li><li>AcoustID</li><li>MusicBrainz</li></ul>
+<details><summary>More</summary><div class="more"><p>It identifies tracks by sound with Chromaprint and AcoustID, pulls the metadata from MusicBrainz, handles compilations properly, and reorganises files into Artist/Album (Year)/Track for Plex. File moves are atomic and verified, with rollback.</p></div></details>
+
+</div></article></div></section><section class="cat-section retired-section" id="c-retired" data-section="retired"><h2>Retired <span class="n">5</span></h2><p class="section-note">Finished their run. Kept here so I remember what they taught me.</p><div class="grid"><article class="card cat-play" id="p-pianoforge" data-category="play" data-status="retired" data-search="pianoforge turned a solo piano recording into a playable 88-key sampled instrument. drop in a recording and it separated the piano from everything else (demucs), transcribed the notes
+(transkun), analysed each note&#x27;s partials, calibrated an additive-plus-noise model against the
+recording by analysis-by-synthesis, and exported an sfz instrument. retired in november 2026.
+ python pytorch demucs numba sfz">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-pianoforge">Pianoforge</a></h3><span class="status s-retired">Retired</span></div>
+<p class="tagline">Turned a solo piano recording into a playable 88-key sampled instrument.</p>
+<p class="meta"><span>Since Sep 2026</span><span>Retired Nov 2026</span></p>
+<ul class="stack"><li>Python</li><li>PyTorch</li><li>Demucs</li><li>numba</li><li>SFZ</li></ul>
+<details><summary>More</summary><div class="more"><p>Drop in a recording and it separated the piano from everything else (Demucs), transcribed the notes (Transkun), analysed each note&#x27;s partials, calibrated an additive-plus-noise model against the recording by analysis-by-synthesis, and exported an SFZ instrument. Retired in November 2026.</p></div></details>
+
+</div></article>
+<article class="card cat-ai" id="p-openclaw-assistant" data-category="ai" data-status="retired" data-search="openclaw assistant (v1) the family assistant&#x27;s first version, an openclaw gateway on a local model. it ran the assistant through openclaw with a local gemma 4 31b. smaller mixture-of-experts models
+weren&#x27;t good enough for its tool use. it was replaced by the n8n-based assistant in november 2026.
+ openclaw llama.cpp gemma 4">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-openclaw-assistant">OpenClaw assistant (v1)</a></h3><span class="status s-retired">Retired</span></div>
+<p class="tagline">The family assistant&#x27;s first version, an OpenClaw gateway on a local model.</p>
+<p class="meta"><span>Retired Nov 2026</span></p>
+<ul class="stack"><li>OpenClaw</li><li>llama.cpp</li><li>Gemma 4</li></ul>
+<details><summary>More</summary><div class="more"><p>It ran the assistant through OpenClaw with a local Gemma 4 31B. Smaller mixture-of-experts models weren&#x27;t good enough for its tool use. It was replaced by the n8n-based assistant in November 2026.</p></div></details>
+
+</div></article>
+<article class="card cat-radio" id="p-spyserver-station" data-category="radio" data-status="retired" data-search="network sdr server four rtl-sdr dongles on a jetson, each shared over the lan with spyserver. it ran one spyserver instance per dongle, so sdr++ and sdr# clients anywhere in the house could share
+them. one lesson worth keeping: for rtl-sdr, spyserver&#x27;s `device_serial` is a usb index, not a serial
+number. it was retired when the jetson died.
+ spyserver systemd jetson orin nano">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-spyserver-station">Network SDR server</a></h3><span class="status s-retired">Retired</span></div>
+<p class="tagline">Four RTL-SDR dongles on a Jetson, each shared over the LAN with SpyServer.</p>
+<p class="meta"><span>Since Jun 2026</span><span>Retired Sep 2026</span></p>
+<ul class="stack"><li>SpyServer</li><li>systemd</li><li>Jetson Orin Nano</li></ul>
+<details><summary>More</summary><div class="more"><p>It ran one SpyServer instance per dongle, so SDR++ and SDR# clients anywhere in the house could share them. One lesson worth keeping: for RTL-SDR, SpyServer&#x27;s <code>device_serial</code> is a USB index, not a serial number. It was retired when the Jetson died.</p></div></details>
+
+</div></article>
+<article class="card cat-radio" id="p-gmrs-monitor" data-category="radio" data-status="retired" data-search="gmrs repeater monitor recorded, transcribed and summarised traffic on a local gmrs repeater. it cut each transmission, transcribed it with whisper, summarised it with a local model, and matched
+spoken callsigns against fcc licence records, with a web ui and an mcp server. its oauth-gated mcp
+became the template for later connectors. it was retired with the sdr server that fed it.
+ python soapysdr whisper.cpp sqlite mcp">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-gmrs-monitor">GMRS repeater monitor</a></h3><span class="status s-retired">Retired</span></div>
+<p class="tagline">Recorded, transcribed and summarised traffic on a local GMRS repeater.</p>
+<p class="meta"><span>Since Jul 2026</span><span>Retired Sep 2026</span></p>
+<ul class="stack"><li>Python</li><li>SoapySDR</li><li>whisper.cpp</li><li>SQLite</li><li>MCP</li></ul>
+<details><summary>More</summary><div class="more"><p>It cut each transmission, transcribed it with Whisper, summarised it with a local model, and matched spoken callsigns against FCC licence records, with a web UI and an MCP server. Its OAuth-gated MCP became the template for later connectors. It was retired with the SDR server that fed it.</p></div></details>
+
+</div></article>
+<article class="card cat-radio" id="p-spectrum-sweepers" data-category="radio" data-status="retired" data-search="spectrum sweeper station three receivers that wandered slices of spectrum, detecting, labelling and recording what they found. signals were matched against a band plan and captured as audio and iq, and each sweeper stepped aside
+whenever a person connected to its dongle. it needed a from-scratch python spyserver client that can
+retune, which soapyspyserver can&#x27;t. it was retired with the sdr server.
+ python numpy spyserver protocol sqlite">
+<div class="card-body">
+<div class="card-head"><h3><a href="#p-spectrum-sweepers">Spectrum sweeper station</a></h3><span class="status s-retired">Retired</span></div>
+<p class="tagline">Three receivers that wandered slices of spectrum, detecting, labelling and recording what they found.</p>
+<p class="meta"><span>Since Jul 2026</span><span>Retired Sep 2026</span></p>
+<ul class="stack"><li>Python</li><li>NumPy</li><li>SpyServer protocol</li><li>SQLite</li></ul>
+<details><summary>More</summary><div class="more"><p>Signals were matched against a band plan and captured as audio and IQ, and each sweeper stepped aside whenever a person connected to its dongle. It needed a from-scratch Python SpyServer client that can retune, which SoapySpyServer can&#x27;t. It was retired with the SDR server.</p></div></details>
+
+</div></article></div></section>
+<p class="empty" id="empty" hidden>Nothing matches that. Try fewer filters.</p>
+</main>
+<footer class="wrap foot">
+<p>Every project here was built with AI help (mostly Claude Code), often with a local LLM. Each card's "touched" date comes from the project's own commits or files.
+Private projects are described without a link. <a href="projects.json">projects.json</a> has the same data.</p>
+</footer>
+<dialog id="lightbox" aria-label="Image viewer">
+<figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+<div class="lb-bar"><button type="button" id="lb-prev" aria-label="Previous image">←</button><span id="lb-pos"></span><button type="button" id="lb-next" aria-label="Next image">→</button><button type="button" id="lb-close" aria-label="Close">Close</button></div>
+</dialog>
+<script src="app.js?v=c3816f44" defer></script>
+</body>
+</html>
