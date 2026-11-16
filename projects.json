@@ -289,7 +289,7 @@
    "started": "2026-09",
    "retired": null,
    "tagline": "A receive-only FT8 station that hopped bands around the clock and plotted every decode on a live map.",
-   "body": "An HF loop and an RTL-SDR fed SDR++ and WSJT-X. A band-hopper followed a day/night plan on FT8\nperiod boundaries, and a watchdog relaunched the chain when the dongle disappeared. A small\nstdlib-only Python app turned WSJT-X's UDP feed into a Leaflet map with great-circle paths, licence\nlookups and server-sent events, and spots went to PSK Reporter. Paused in November 2026 when the\nshack moved to a real HF radio.",
+   "body": "An HF loop and an RTL-SDR fed SDR++ and WSJT-X. A band-hopper followed a day/night plan on FT8\nperiod boundaries, and a watchdog relaunched the chain when the dongle disappeared. A small\nstdlib-only Python app turned WSJT-X's UDP feed into a Leaflet map with great-circle paths, licence\nlookups and server-sent events, and spots went to PSK Reporter. Paused in November 2026.",
    "stack": [
     "Python",
     "SDR++",
