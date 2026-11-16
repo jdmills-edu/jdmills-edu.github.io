@@ -974,26 +974,6 @@
    "upstream": null,
    "last_activity": "2026-11-16",
    "images": []
-  },
-  {
-   "id": "jdmills-edu-github-io",
-   "title": "Jdmills edu.github.io",
-   "category": "tools",
-   "status": "active",
-   "started": "2026-11",
-   "retired": null,
-   "tagline": "Project index: things I've built with AI, rebuilt daily",
-   "body": "",
-   "stack": [],
-   "links": [
-    {
-     "label": "Source",
-     "url": "https://github.com/jdmills-edu/jdmills-edu.github.io"
-    }
-   ],
-   "upstream": null,
-   "last_activity": "2026-11-16",
-   "images": []
   }
  ]
 }
