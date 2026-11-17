@@ -320,7 +320,12 @@
    "links": [],
    "upstream": null,
    "last_activity": null,
-   "images": []
+   "images": [
+    {
+     "src": "shots/ft8-station-1.webp",
+     "caption": "Every station the receiver decoded, coloured by band (world view; the receiver's own marker is hidden)"
+    }
+   ]
   },
   {
    "id": "bf-f8hp-pro",

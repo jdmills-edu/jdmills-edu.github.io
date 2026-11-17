@@ -176,6 +176,19 @@ csv import. app store preparation is paused.
 <ul class="stack"><li>Swift</li><li>SwiftUI</li><li>Metal</li><li>Accelerate</li></ul>
 <details><summary>More</summary><div class="more"><p>SwiftUI with a GPU waterfall and spectrum and seven full-screen visualisers. WFM (stereo and RDS), NFM, AM and SSB demodulation runs on Accelerate, with noise reduction, CTCSS/DCS tone squelch, a scanner over bookmark groups, squelch-triggered recording, two VFOs inside one passband and CHIRP CSV import. App Store preparation is paused.</p></div></details>
 
+</div></article>
+<article class="card cat-radio has-thumb" id="p-ft8-station" data-category="radio" data-status="paused" data-search="ft8 receive station &amp; live map a receive-only ft8 station that hopped bands around the clock and plotted every decode on a live map. an hf loop and an rtl-sdr fed sdr++ and wsjt-x. a band-hopper followed a day/night plan on ft8
+period boundaries, and a watchdog relaunched the chain when the dongle disappeared. a small
+stdlib-only python app turned wsjt-x&#x27;s udp feed into a leaflet map with great-circle paths, licence
+lookups and server-sent events, and spots went to psk reporter. paused in november 2026.
+ python sdr++ wsjt-x hamlib leaflet sqlite">
+<button class="thumb fit-cover" type="button" data-gallery="[{&quot;src&quot;: &quot;shots/ft8-station-1.webp&quot;, &quot;w&quot;: 1260, &quot;h&quot;: 900, &quot;caption&quot;: &quot;Every station the receiver decoded, coloured by band (world view; the receiver&#x27;s own marker is hidden)&quot;}]" aria-label="View images of FT8 receive station &amp; live map"><img src="shots/ft8-station-1-t.webp" alt="Every station the receiver decoded, coloured by band (world view; the receiver&#x27;s own marker is hidden)" width="720" height="514" loading="lazy" decoding="async"></button><div class="card-body">
+<div class="card-head"><h3><a href="#p-ft8-station">FT8 receive station &amp; live map</a></h3><span class="status s-paused">Paused</span></div>
+<p class="tagline">A receive-only FT8 station that hopped bands around the clock and plotted every decode on a live map.</p>
+<p class="meta"><span>Since Sep 2026</span></p>
+<ul class="stack"><li>Python</li><li>SDR++</li><li>WSJT-X</li><li>Hamlib</li><li>Leaflet</li><li>SQLite</li></ul>
+<details><summary>More</summary><div class="more"><p>An HF loop and an RTL-SDR fed SDR++ and WSJT-X. A band-hopper followed a day/night plan on FT8 period boundaries, and a watchdog relaunched the chain when the dongle disappeared. A small stdlib-only Python app turned WSJT-X&#x27;s UDP feed into a Leaflet map with great-circle paths, licence lookups and server-sent events, and spots went to PSK Reporter. Paused in November 2026.</p></div></details>
+
 </div></article></div><div class="grid"><article class="card cat-radio" id="p-bf-f8hp-pro" data-category="radio" data-status="done" data-search="handheld radio programming a scripted channel plan and a native-linux firmware flash for a btech bf-f8hp pro. rather than typing hundreds of channels into chirp, scripts regenerate them from sources (repeater
 lists, faa airband frequencies, noaa weather, railroad channels) into fixed 100-channel zones, then
 upload the image and verify it against a readback. the firmware was updated from linux with the
@@ -202,19 +215,6 @@ screen. it fed an rtl_433 sensor logger (since retired) and the cascata ios app.
 <p class="meta"><span>Since Aug 2026</span><span>Touched <time datetime="2026-09-06">Sep 2026</time></span></p>
 <ul class="stack"><li>C</li><li>Linux kernel modules</li><li>rtl_tcp</li><li>rtl_433</li></ul>
 <details><summary>More</summary><div class="more"><p>The hotspot (Qualcomm MDM9607) ships with its USB port locked to peripheral mode and no host controller in the kernel. Three out-of-tree kernel modules, built against the matching vendor kernel, add one at runtime and push the OTG state machine into host mode. With a powered hub, each RTL-SDR dongle gets its own IP serving rtl_tcp, survives reboots, and appears on a custom SDR-themed status screen. It fed an rtl_433 sensor logger (since retired) and the Cascata iOS app.</p><p class="uc-links">Use cases: <a href="use-cases.html#u-sdr-signals-and-noise">Software-defined radio, from receivers to noise hunts</a></p></div></details>
-
-</div></article>
-<article class="card cat-radio" id="p-ft8-station" data-category="radio" data-status="paused" data-search="ft8 receive station &amp; live map a receive-only ft8 station that hopped bands around the clock and plotted every decode on a live map. an hf loop and an rtl-sdr fed sdr++ and wsjt-x. a band-hopper followed a day/night plan on ft8
-period boundaries, and a watchdog relaunched the chain when the dongle disappeared. a small
-stdlib-only python app turned wsjt-x&#x27;s udp feed into a leaflet map with great-circle paths, licence
-lookups and server-sent events, and spots went to psk reporter. paused in november 2026.
- python sdr++ wsjt-x hamlib leaflet sqlite">
-<div class="card-body">
-<div class="card-head"><h3><a href="#p-ft8-station">FT8 receive station &amp; live map</a></h3><span class="status s-paused">Paused</span></div>
-<p class="tagline">A receive-only FT8 station that hopped bands around the clock and plotted every decode on a live map.</p>
-<p class="meta"><span>Since Sep 2026</span></p>
-<ul class="stack"><li>Python</li><li>SDR++</li><li>WSJT-X</li><li>Hamlib</li><li>Leaflet</li><li>SQLite</li></ul>
-<details><summary>More</summary><div class="more"><p>An HF loop and an RTL-SDR fed SDR++ and WSJT-X. A band-hopper followed a day/night plan on FT8 period boundaries, and a watchdog relaunched the chain when the dongle disappeared. A small stdlib-only Python app turned WSJT-X&#x27;s UDP feed into a Leaflet map with great-circle paths, licence lookups and server-sent events, and spots went to PSK Reporter. Paused in November 2026.</p></div></details>
 
 </div></article></div></section><section class="cat-section" id="c-devices" data-section="devices"><h2>Devices &amp; firmware <span class="n">7</span></h2><div class="grid"><article class="card cat-devices has-thumb" id="p-flipper-morse-beacon" data-category="devices" data-status="done" data-search="morse beacon for flipper zero a flipper zero app that keys morse station ids and text beacons out of the sub-ghz radio. it sends cw and mcw (by toggling fsk). text can be typed on the flipper, sent from a phone over ble
 serial, or fed in on the uart pins. transmit is region-gated, with safe fallbacks when a saved
