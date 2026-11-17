@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-16",
+ "generated": "2026-11-17",
  "projects": [
   {
    "id": "lanterns-of-selvane",
@@ -20,7 +20,7 @@
    ],
    "links": [],
    "upstream": null,
-   "last_activity": "2026-11-16",
+   "last_activity": "2026-11-17",
    "images": [
     {
      "src": "shots/lanterns-of-selvane-1.webp",
@@ -363,7 +363,7 @@
    ],
    "links": [],
    "upstream": null,
-   "last_activity": "2026-11-14",
+   "last_activity": "2026-11-16",
    "images": [
     {
      "src": "shots/sdr-noise-reduction-1.webp",
@@ -1018,7 +1018,7 @@
    ],
    "links": [],
    "upstream": null,
-   "last_activity": "2026-11-16",
+   "last_activity": "2026-11-17",
    "images": []
   },
   {
