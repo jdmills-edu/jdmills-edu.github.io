@@ -977,5 +977,901 @@
    "last_activity": "2026-11-16",
    "images": []
   }
+ ],
+ "use_cases": [
+  {
+   "id": "serial-port-reset-loop",
+   "title": "The \"boot loop\" that was my own serial console",
+   "topic": "troubleshooting",
+   "date": "2026-10",
+   "problem": "A freshly flashed ESP32-P4 handheld seemed to reboot itself again and again, with a 30-second splash each time.",
+   "approach": "The reboots lined up exactly with each new serial connection, and the firmware's crash record showed only external\nresets. The board wires the USB-serial chip's DTR/RTS lines straight to the chip's EN pin, so Linux toggling them on\nevery port open reset the board. A tiny helper now holds the port open in a state Linux leaves alone, run as a\nsystemd service tied to that USB device.\n",
+   "outcome": "Connecting no longer resets the board. It still resets once on plug-in and when flashing, as it should.",
+   "lesson": "If a board \"boot-loops\" only while you're watching it, suspect your own tooling first.",
+   "tags": [
+    "ESP32-P4",
+    "USB serial",
+    "DTR/RTS",
+    "systemd"
+   ],
+   "related": [
+    "lakeshark-ft891"
+   ]
+  },
+  {
+   "id": "carrier-waiting",
+   "title": "Two different reasons for \"CARRIER: WAITING\"",
+   "topic": "troubleshooting",
+   "date": "2026-11",
+   "problem": "The FM screen of a handheld SDR firmware sat on \"waiting for carrier\" with no audio, on two separate occasions.",
+   "approach": "The first time, reading the firmware source showed the screen was locked to a frequency below the onboard LR2021's\nfloor, a job the firmware hands to an external RTL-SDR that wasn't plugged in. The second time, the console showed no\ndongle registered at all. A reboot and USB root-port resets didn't help, and the schematic showed the USB-A power\nswitch's enable pin tied to 5 V, so no software can cut the dongle's power.\n",
+   "outcome": "Retuning fixed the first case. The second needed a physical unplug and replug, after which HF came straight back.",
+   "lesson": "A bus-powered dongle that hangs stays hung until VBUS drops, and a reboot doesn't drop it.",
+   "tags": [
+    "RTL-SDR",
+    "LR2021",
+    "USB host",
+    "schematics"
+   ],
+   "related": [
+    "lakeshark-ft891"
+   ]
+  },
+  {
+   "id": "invisible-cursor",
+   "title": "An invisible mouse pointer that was really a VRAM shortage",
+   "topic": "troubleshooting",
+   "date": "2026-09",
+   "problem": "The mouse pointer vanished on the Linux desktop, but hovering and clicking still worked.",
+   "approach": "The GNOME log lines looked like a multi-GPU modifier bug, but a kernel NVKMS error showed the display GPU couldn't\nallocate memory for the cursor sprite. The local LLM server had sized itself to leave only 512 MiB free, and the\ndesktop ate that. Fixing the per-GPU margin was complicated by llama.cpp numbering the GPUs in the reverse of\nnvidia-smi's order.\n",
+   "outcome": "A bigger per-device margin on the display GPU fixed it for good. The pointer only comes back after a fresh login.",
+   "lesson": "Pointer position needs no GPU memory and the sprite does, which is why input keeps working. Mutter falls back to a software cursor for the rest of the session.",
+   "tags": [
+    "NVIDIA",
+    "GNOME",
+    "Wayland",
+    "llama.cpp",
+    "VRAM"
+   ],
+   "related": [
+    "local-llm"
+   ]
+  },
+  {
+   "id": "failed-suspend-not-hangs",
+   "title": "Most \"freezes\" were failed resumes from sleep",
+   "topic": "troubleshooting",
+   "date": "2026-10",
+   "problem": "A workstation seemed to freeze at random every few days and needed a hard reset.",
+   "approach": "An audit of all 36 retained boots found 14 ending with \"PM: suspend entry\" as the last log line, so the desktop was\nsuspending itself after 15 idle minutes (SSH doesn't count as activity) and failing to resume. A remote kernel log\nstream (netconsole) caught the remaining hangs from another machine.\n",
+   "outcome": "Masking the sleep targets ended the suspend failures. A smaller set of real hangs under dual-GPU load is still being chased.",
+   "lesson": "Before debugging a \"hang\", check whether the machine simply went to sleep.",
+   "tags": [
+    "Linux",
+    "systemd",
+    "suspend",
+    "netconsole",
+    "journalctl"
+   ],
+   "related": []
+  },
+  {
+   "id": "netconsole-went-dark",
+   "title": "A hard freeze, and the crash log that had quietly stopped working",
+   "topic": "troubleshooting",
+   "date": "2026-10",
+   "problem": "The workstation hard-froze twice in half an hour. The journal stopped mid-line with no kernel, GPU or PCIe error.",
+   "approach": "A service that logged every 7.5 seconds pinned the freeze to the second, below where the kernel's lockup watchdog\ncould see it. Both freezes came while the LLM was busy across both GPUs, one of them on an OCuLink link. The remote\nnetconsole log that should have caught it had stopped days earlier, because the receiving machine's MAC address\nchanged after a network-card swap.\n",
+   "outcome": "No root cause yet, though the evidence points at the PCIe link under dual-GPU load. Netconsole works again and now checks the MAC.",
+   "lesson": "Netconsole fails silently when the receiver's MAC changes, so test your crash logging before you need it.",
+   "tags": [
+    "netconsole",
+    "PCIe",
+    "OCuLink",
+    "multi-GPU"
+   ],
+   "related": [
+    "local-llm"
+   ]
+  },
+  {
+   "id": "hdmi-frl-black-screen",
+   "title": "Black screen after the monitor sleeps",
+   "topic": "troubleshooting",
+   "date": "2026-09",
+   "problem": "After the monitor went to sleep, the screen often never came back, and sometimes the only fix was a reboot.",
+   "approach": "The kernel log showed \"HDMI FRL link training failed\". The monitor's 240 Hz mode needs HDMI 2.1's FRL signalling,\nand the NVIDIA driver often fails to retrain it after a display power event. A rescue script, runnable over SSH, drops\nto a 60 Hz mode that always trains and then retries the full mode.\n",
+   "outcome": "The real fix is to use DisplayPort for this pairing. The script covers the times the cabling can't change.",
+   "lesson": null,
+   "tags": [
+    "NVIDIA",
+    "HDMI 2.1",
+    "Wayland",
+    "DisplayPort"
+   ],
+   "related": []
+  },
+  {
+   "id": "slow-downloads",
+   "title": "\"Downloads keep failing\": four causes, three of them local",
+   "topic": "troubleshooting",
+   "date": "2026-09",
+   "problem": "Browser downloads failed and pages stalled on and off for months, on both wired and Wi-Fi.",
+   "approach": "`ethtool` showed the link partner had withdrawn gigabit from its advertisement, so a failing cable kept flapping the\nlink and downshifting it to 100 Mb. A Flatpak sync service in a restart loop was quietly using about 30 Mbps. The\nrouter advertised IPv6 that black-holed some sites. The real path MTU was 1420, not 1500.\n",
+   "outcome": "A new cable took throughput from about 9 to 22 MB/s with peaks near 90. Masking the runaway service and turning IPv6 off on that profile cleared the stalls.",
+   "lesson": "Check the negotiated link speed first. An intermittent fault often has more than one cause.",
+   "tags": [
+    "ethtool",
+    "IPv6",
+    "MTU",
+    "Flatpak",
+    "NetworkManager"
+   ],
+   "related": []
+  },
+  {
+   "id": "tcc-wedge",
+   "title": "A permission prompt nobody could click froze a headless Mac",
+   "topic": "troubleshooting",
+   "date": "2026-10",
+   "problem": "Two services on a headless Mac mini, a bird detector and an inverter monitor, hung with no error. Even their SQLite opens never returned.",
+   "approach": "Sampling a hung process showed it stuck in the kernel's `open()`. Sampling the per-user privacy daemon (tccd) showed\nits threads piled up behind a consent prompt nobody could answer. The root cause: macOS ties these grants to a\nbinary's path, and each Homebrew upgrade of node or python changes that path.\n",
+   "outcome": "Force-killing tccd let both services recover, and moving their data out of the protected Documents folder keeps it from recurring.",
+   "lesson": "On a headless Mac, keep service data out of TCC-protected folders.",
+   "tags": [
+    "macOS",
+    "TCC",
+    "launchd",
+    "Docker",
+    "SQLite"
+   ],
+   "related": [
+    "bird-detector",
+    "inverter-dashboard"
+   ]
+  },
+  {
+   "id": "accidental-software-rendering",
+   "title": "Two apps quietly rendering on the CPU",
+   "topic": "troubleshooting",
+   "date": "2026-11",
+   "problem": "SDR++ used about 830% CPU drawing a waterfall, and a 3D slicer felt sluggish, on a machine with two NVIDIA GPUs.",
+   "approach": "SDR++ ran in a distrobox created without NVIDIA support, so OpenGL fell back to llvmpipe. Rather than rebuild the\ncontainer, the host's NVIDIA libraries were symlinked in and registered with glvnd. The slicer had a months-old\nFlatpak override forcing software GL.\n",
+   "outcome": "SDR++ dropped to 1–2% CPU on the GPU. Resetting the override restored hardware rendering in the slicer.",
+   "lesson": "Check `glxinfo -B`. Old workarounds outlive the bugs they fixed.",
+   "tags": [
+    "OpenGL",
+    "llvmpipe",
+    "distrobox",
+    "Flatpak",
+    "NVIDIA"
+   ],
+   "related": [
+    "bambu-cli"
+   ]
+  },
+  {
+   "id": "gnome-extensions-off",
+   "title": "Every GNOME extension silently switched off",
+   "topic": "troubleshooting",
+   "date": "2026-10",
+   "problem": "A keep-awake extension wasn't running, and it turned out every GNOME extension had been off for days.",
+   "approach": "Three GNOME Shell crashes, the last within two seconds of startup, had tripped a safety switch that disables user\nextensions, on the theory that an extension caused the crash. The actual crash was in the shell's sound-device code.\nThe first check said everything was fine because the terminal's `gsettings` was Homebrew's build, which can't see the\nreal settings.\n",
+   "outcome": "Flipping the setting back restored all 15 extensions without a restart.",
+   "lesson": "On a system with Homebrew, call /usr/bin/gsettings. Brew's build returns defaults and silently drops writes.",
+   "tags": [
+    "GNOME",
+    "gsettings",
+    "Homebrew"
+   ],
+   "related": []
+  },
+  {
+   "id": "gpu-order-trap",
+   "title": "A global setting flipped which GPU an app used",
+   "topic": "troubleshooting",
+   "date": "2026-10",
+   "problem": "An image-generation launcher that pinned work with CUDA_VISIBLE_DEVICES=1,0 started computing on the wrong card.",
+   "approach": "Testing all four combinations of CUDA_DEVICE_ORDER and CUDA_VISIBLE_DEVICES in PyTorch showed that a system-wide\nPCI_BUS_ID setting, added two weeks earlier for another app, had inverted the old workaround.\n",
+   "outcome": "The launcher now sets both variables explicitly, so the bigger card is always the compute device.",
+   "lesson": "A workaround written for one enumeration order breaks the moment something else changes the order.",
+   "tags": [
+    "CUDA",
+    "PyTorch",
+    "ComfyUI",
+    "multi-GPU"
+   ],
+   "related": [
+    "local-llm"
+   ]
+  },
+  {
+   "id": "audio-interface-dropouts",
+   "title": "An audio interface that fell off USB on its own",
+   "topic": "troubleshooting",
+   "date": "2026-07",
+   "problem": "A USB audio interface kept going \"offline\", sometimes at 4 a.m. with nothing playing.",
+   "approach": "A small monitor service polled every five seconds and saved diagnostics for each event. The signature was always a\nclean USB disconnect and a re-enumeration a second later, with no host-side errors, on a direct root-hub port, and in\nescalating bursts. That pointed at the device's power path, not drivers or firmware.\n",
+   "outcome": "Firmware reflashing and custom drivers were ruled out. A staged A/B plan swaps the power adapter, the cable, and then the port.",
+   "lesson": "Log faults automatically before you theorise. Manual power cycles look exactly like faults in the logs.",
+   "tags": [
+    "USB",
+    "ALSA",
+    "PipeWire",
+    "systemd"
+   ],
+   "related": []
+  },
+  {
+   "id": "monitor-rfi",
+   "title": "Tracing radio noise to a monitor's power supply",
+   "topic": "radio",
+   "date": "2026-07",
+   "problem": "The noise floor on several receivers jumped up to 20 dB in a single step, with a flat hash and no carrier.",
+   "approach": "The hash pulsed at exactly 250 Hz with strong harmonics, which pointed to power electronics, not mains. Turning the\nworkstation off didn't clear it, and the solar inverter was ruled out by its logs. The sudden step turned out to be a\ncoax run falling behind an OLED monitor. Weeks later it came back on a long HF wire.\n",
+   "outcome": "Turning the monitor off dropped the floor by 8 dB immediately, and rerouting the coax fixed it.",
+   "lesson": "A real signal's modulation lives only in its own channel, while hash stamps the same envelope rate on every frequency. Compare envelope spectra across bands.",
+   "tags": [
+    "RFI",
+    "SDR",
+    "spectrum analysis",
+    "coax"
+   ],
+   "related": [
+    "spectrum-sweepers",
+    "gmrs-monitor"
+   ]
+  },
+  {
+   "id": "dongles-and-a-bad-hub",
+   "title": "SDR dongles dropping off USB, and the hub that caused it",
+   "topic": "radio",
+   "date": "2026-08",
+   "problem": "On a four-dongle SDR server, dongles kept vanishing and the repeater monitor went silently deaf for 11 days.",
+   "approach": "Each dropped dongle shifted the device indices, so SpyServer instances grabbed the wrong dongle or none at all. Per-port\npower cycling with uhubctl made recovery possible remotely. A grabbed recording of pure FM hiss ruled out a decoding\nbug.\n",
+   "outcome": "The USB sub-hub turned out to be the fault, not the dongles. Index-based device mapping is what made one drop cascade.",
+   "lesson": "When devices are addressed by index, one flaky device misroutes all the others. Pin devices by serial number wherever possible.",
+   "tags": [
+    "RTL-SDR",
+    "SpyServer",
+    "USB",
+    "uhubctl"
+   ],
+   "related": [
+    "spyserver-station",
+    "gmrs-monitor"
+   ]
+  },
+  {
+   "id": "sdrpp-wrong-sink",
+   "title": "SDR++ kept playing into the headphone jack",
+   "topic": "radio",
+   "date": "2026-09",
+   "problem": "SDR++ audio landed on a USB card's headphone output while everything else went to its speakers.",
+   "approach": "Probing the RtAudio library directly showed its PulseAudio backend sees one device name for a card that PipeWire\nsplits into three sinks. SDR++ couldn't address the speaker sink at all. Config edits and PipeWire routing rules\nboth lost to RtAudio's explicit choice.\n",
+   "outcome": "A launcher wrapper moves the stream to the right sink once SDR++ opens it.",
+   "lesson": "When an app can't name the device you want, move its stream after the fact.",
+   "tags": [
+    "SDR++",
+    "PipeWire",
+    "RtAudio",
+    "audio routing"
+   ],
+   "related": [
+    "sdr-noise-reduction"
+   ]
+  },
+  {
+   "id": "cw-agc-howl",
+   "title": "The CW \"noise\" that was really the AGC",
+   "topic": "radio",
+   "date": "2026-11",
+   "problem": "Even with noise reduction on, a howl filled the gaps between Morse characters in SDR++.",
+   "approach": "Recording and analysing the audio disproved the first theory, noise. The CW AGC was raising gain by up to 140 dB in\nevery pause. RNNoise, which the voice modes use, turned out to erase CW entirely, a repeater's Morse ID included.\n",
+   "outcome": "The noise reduction now routes by demodulator. The CW howl is a property of SDR++'s AGC, and is livable.",
+   "lesson": "Speech denoisers delete CW, RTTY and FT8, so route by mode.",
+   "tags": [
+    "SDR++",
+    "RNNoise",
+    "AGC",
+    "PipeWire",
+    "CW"
+   ],
+   "related": [
+    "sdr-noise-reduction",
+    "sdrpp-cw"
+   ]
+  },
+  {
+   "id": "console-mic-fallback",
+   "title": "The radio console that started listening to the room",
+   "topic": "radio",
+   "date": "2026-11",
+   "problem": "The browser \"listen\" feature on the radio console sounded like a room microphone, and the CW decoder printed false characters.",
+   "approach": "When the radio's USB audio interface dropped off, PipeWire silently switched capture to the default input, which was a\nwebcam mic. Capture is now pinned to the interface by name and reconnects automatically. The false characters came\nfrom input clipping and the decoder locking onto noise.\n",
+   "outcome": "Clipping went from 5.5% to zero, and false characters from about 245 a minute to none in a 60-second test. Probabilistic word-splitting raised whole-word accuracy from about 40% to 90%.",
+   "lesson": "After a USB drop, the sound server re-routes capture quietly, so pin it by device name.",
+   "tags": [
+    "PipeWire",
+    "CW decoding",
+    "DSP",
+    "Python"
+   ],
+   "related": [
+    "ft891-console"
+   ]
+  },
+  {
+   "id": "transmit-safe-console",
+   "title": "Building a transmit-capable radio console without ever transmitting",
+   "topic": "radio",
+   "date": "2026-11",
+   "problem": "A web console for an HF radio had to handle real transmit paths for a brand-new operator, without ever keying the radio by accident.",
+   "approach": "Receive-only is the default and is enforced in the CAT layer. A licence-privilege engine from FCC Part 97 decides\nwhat's allowed where, and it and every transmit path were tested only against a simulated radio, in dozens of\nsafety cases. Polling the S-meter fast enough meant raising CAT from 4800 to 38400 baud.\n",
+   "outcome": "Receive, FT8 and CW decoding, band conditions and memory editing all work on the real radio, with no transmissions.",
+   "lesson": "One CAT command (AGC) flipped the radio from USB to LSB, which is firmware behaviour, not a bug in the app.",
+   "tags": [
+    "Yaesu CAT",
+    "Part 97",
+    "simulation",
+    "WebSockets"
+   ],
+   "related": [
+    "ft891-console",
+    "desk-controls"
+   ]
+  },
+  {
+   "id": "ft8-stale-clock",
+   "title": "\"No FT8 signals\" was really a stale clock",
+   "topic": "radio",
+   "date": "2026-11",
+   "problem": "A handheld ESP32-P4 SDR decoded nothing on 40 m FT8.",
+   "approach": "The firmware's built-in FT8, FT4 and WSPR self-tests all passed, so the decoder was fine. The board's real-time clock\nwas weeks off, and with no GPS or Wi-Fi nothing corrected it. A time-set command that landed late left it about\n20 seconds slow.\n",
+   "outcome": "With the clock set, 20 m gave 42 decodes in two minutes, at SNRs from −1 to −18 dB.",
+   "lesson": "FT8 needs the clock within about a second. A bad clock looks exactly like a dead band.",
+   "tags": [
+    "FT8",
+    "WSPR",
+    "ESP32-P4",
+    "RTL-SDR"
+   ],
+   "related": [
+    "lakeshark-ft891"
+   ]
+  },
+  {
+   "id": "vna-unlabeled-cal",
+   "title": "Measuring an antenna with unlabelled calibration parts",
+   "topic": "radio",
+   "date": "2026-11",
+   "problem": "A new NanoVNA arrived with OPEN, SHORT and LOAD caps that weren't labelled, and the goal was SWR across four HF bands.",
+   "approach": "Claude drove the VNA over its USB text shell and identified each cap from its readings; open and short, for example,\nsit about 180° apart in phase. It calibrated 1–31 MHz, saved the calibration, and plotted SWR per band. The scripts\nthen became a small toolkit.\n",
+   "outcome": "80 m and 10 m matched well (SWR 1.13 at 3.55 MHz), 40 m and 20 m sat around 2–3:1, and 20 m resonated about 300 kHz high.",
+   "lesson": "Placing a marker off the calibrated grid silently drops the VNA to factory calibration. SWR measured at the VNA end also looks better than it is because of cable loss.",
+   "tags": [
+    "NanoVNA",
+    "antennas",
+    "SWR",
+    "calibration",
+    "Python"
+   ],
+   "related": [
+    "nanovna-toolkit"
+   ]
+  },
+  {
+   "id": "hf-noise-ab",
+   "title": "A repeatable noise-floor test for antenna changes",
+   "topic": "radio",
+   "date": "2026-09",
+   "problem": "\"Did moving the antenna help?\" kept getting answered by impression.",
+   "approach": "A sweep script drives a direct-sampling RTL-SDR over rtl_tcp across seven centre frequencies from 0.3 to 14.3 MHz.\nThe levels are uncalibrated, so a run is only compared against another run with the same dongle and settings.\n",
+   "outcome": "Before-and-after numbers for every change, and a saved baseline to compare against.",
+   "lesson": "Give the tuner a few seconds after each retune, or a settle bug produces confidently wrong numbers.",
+   "tags": [
+    "RTL-SDR",
+    "rtl_tcp",
+    "HF",
+    "Python"
+   ],
+   "related": [
+    "orbic-sdr"
+   ]
+  },
+  {
+   "id": "mesh-frequency-slot",
+   "title": "Two mesh radios that may not have been on the same frequency",
+   "topic": "radio",
+   "date": "2026-11",
+   "problem": "Messages on a private Meshtastic channel stopped arriving between two devices.",
+   "approach": "Meshtastic derives the frequency slot from a hash of the channel name unless it's set explicitly, so the same channel\ncan sit on different frequencies across firmware setups. A third device listened receive-only on both candidate\nfrequencies, keeping to a standing no-transmit rule.\n",
+   "outcome": "Nothing was heard from the sender on either frequency. It turned out to be reporting zero airtime, and the likeliest culprit was a phone-to-node Bluetooth link that had gone stale. Reboots cleared it.",
+   "lesson": "Set the frequency slot explicitly, and a \"connected\" Bluetooth link can still be dropping messages.",
+   "tags": [
+    "Meshtastic",
+    "LoRa",
+    "BLE",
+    "debugging"
+   ],
+   "related": [
+    "mesh-watch"
+   ]
+  },
+  {
+   "id": "mt7927-driver",
+   "title": "A brand-new Wi-Fi 7 card on an immutable Linux",
+   "topic": "hardware",
+   "date": "2026-08",
+   "problem": "The motherboard's MediaTek MT7927 Wi-Fi/Bluetooth had no kernel support yet, and Bluetooth sat in an endless probe loop.",
+   "approach": "Wi-Fi uses an out-of-tree mt76 build loaded by a systemd unit, with its modules relabelled `modules_object_t` so\nSELinux lets init load them. Bluetooth uses a checksum-verified firmware blob the kernel finds through\n`firmware_class.path`, set by a tmpfiles rule.\n",
+   "outcome": "Both work, and both are written to retire themselves once the kernel and linux-firmware catch up.",
+   "lesson": "Kernel arguments staged on an atomic distro only finalise on a clean shutdown, and a hard lock throws them away.",
+   "tags": [
+    "Linux kernel",
+    "SELinux",
+    "rpm-ostree",
+    "mt76",
+    "Bluetooth"
+   ],
+   "related": []
+  },
+  {
+   "id": "meshtastic-flash-offset",
+   "title": "A flashing script that clobbered the OTA partition",
+   "topic": "hardware",
+   "date": "2026-07",
+   "problem": "Meshtastic nodes flashed with the bundled install script misbehaved on 16 MB boards.",
+   "approach": "The script reads the correct filesystem offset from the release metadata, then flashes at a hard-coded address\nanyway, which lands inside the OTA partition on 16 MB layouts. Flashing each image by hand with esptool, at the\noffsets from the release's partition table, fixed it.\n",
+   "outcome": "Several nodes were flashed cleanly this way, including an 8 MB board that needs different offsets.",
+   "lesson": "Trust the release's partition table over the script that ships with it. Read config back after every write too, because writes over TCP can be silently lost.",
+   "tags": [
+    "ESP32",
+    "esptool",
+    "Meshtastic",
+    "flash layout"
+   ],
+   "related": [
+    "mesh-watch"
+   ]
+  },
+  {
+   "id": "one-off-formatter-firmware",
+   "title": "Writing a throwaway firmware just to format an SD card",
+   "topic": "hardware",
+   "date": "2026-10",
+   "problem": "A handheld's firmware could see its SD card but not read it, and it has no format command.",
+   "approach": "The card turned out to be exFAT, which the firmware can't read. After confirming the bootloader doesn't check\nsignatures, Claude built a purpose-made formatter in an ESP-IDF container and flashed it into the app slot. It checked\nthe card, formatted it FAT32 and verified it with a test file, then the original firmware went back on.\n",
+   "outcome": "The 64 GB card mounted, and the device's settings were untouched.",
+   "lesson": "On small firmwares, \"seen but unmountable\" usually means exFAT.",
+   "tags": [
+    "ESP-IDF",
+    "ESP32-P4",
+    "SD card",
+    "FAT32"
+   ],
+   "related": [
+    "lakeshark-ft891"
+   ]
+  },
+  {
+   "id": "mcu-card-reader",
+   "title": "Turning a microcontroller into a USB card reader",
+   "topic": "hardware",
+   "date": "2026-10",
+   "problem": "The goal was to load an offline street map and 600 MB of music onto a handheld's SD card, but copying over the serial console would have taken hours.",
+   "approach": "Temporary firmware turned the board into a high-speed USB mass-storage device. The map was cut from free\nOpenStreetMap-based Protomaps data and converted to PMTiles, and the music was converted to plain 16-bit WAV, with\nevery file verified byte for byte.\n",
+   "outcome": "All the files copied in about 24 minutes and the map shows street-level detail. A bigger USB buffer didn't help, because the card's small-write speed (about 0.4 MB/s) was the real limit.",
+   "lesson": "If the device doesn't appear on the USB bus at all, check whether the cable is charge-only.",
+   "tags": [
+    "USB mass storage",
+    "PMTiles",
+    "OpenStreetMap",
+    "ESP32-P4"
+   ],
+   "related": [
+    "lakeshark-ft891"
+   ]
+  },
+  {
+   "id": "printed-case-magnet",
+   "title": "A printed case built from the manufacturer's STLs, with a magnet inside",
+   "topic": "hardware",
+   "date": "2026-09",
+   "problem": "An e-paper LoRa handheld needed a removable case that cleared every port, with an embedded magnet ring.",
+   "approach": "A parametric Python generator lofted case bodies from cross-sections of the manufacturer's published STLs. It was\nchecked for interference and floating islands, then iterated through snap case, clamshell, kickstand and embedded\nmagnet, with a slicer pause so the magnet is printed over.\n",
+   "outcome": "The snap case and clamshell printed and fit. The kickstand nubs were too small. The magnet print jammed because a project-level supports setting filled the cavity.",
+   "lesson": "Verify against the real slicer project, not a stock profile. A per-plate print-sequence override can grey out \"Add pause\".",
+   "tags": [
+    "3D printing",
+    "trimesh",
+    "Bambu Studio",
+    "parametric CAD"
+   ],
+   "related": [
+    "vellum-tdeck",
+    "bambu-cli"
+   ]
+  },
+  {
+   "id": "printer-orientation-lockout",
+   "title": "Remote printing, and the printer's cloud-mode lockout",
+   "topic": "hardware",
+   "date": "2026-11",
+   "problem": "The goal was to print an SDR dongle cage on a Bambu P1S straight from an STL, without touching the printer.",
+   "approach": "Slicing the part on its edge with tree supports made the clip legs strong and cut the print from 2 h 25 m to 1 h 37 m.\nA generic start G-code was swapped for the printer's real one, the file was uploaded, and progress was read over the\nprinter's local MQTT.\n",
+   "outcome": "The printer refused the remote print-start (error 0x05024007), so it was started from the app's file list and printed fine.",
+   "lesson": "In cloud mode, third-party start commands are blocked, so plan on pressing the button.",
+   "tags": [
+    "Bambu P1S",
+    "slicing",
+    "MQTT",
+    "3D printing"
+   ],
+   "related": [
+    "bambu-cli"
+   ]
+  },
+  {
+   "id": "rgb-that-wouldnt-listen",
+   "title": "RGB lighting that ignored its controller",
+   "topic": "hardware",
+   "date": "2026-11",
+   "problem": "OpenRGB couldn't control the motherboard lighting, didn't see the RAM at all, and later the fans wouldn't take colours.",
+   "approach": "OpenRGB skips a board whose ARGB headers report zero LEDs, so the headers had to be set to 40. The RAM only appears\nonce a user is logged in, because a stale pre-login server held the bus. Fans on a 12 V header needed a small\ndirect-write module. A stdlib-only SDK client drives it all from deck keys.\n",
+   "outcome": "The deck controls power, colour, effects, brightness and fans, and the settings survive restarts.",
+   "lesson": "Read the state back from the hardware rather than trusting what the plugin thinks it set. The board also ignores \"Direct\" mode.",
+   "tags": [
+    "OpenRGB",
+    "HID",
+    "OpenDeck",
+    "Python"
+   ],
+   "related": [
+    "desk-controls"
+   ]
+  },
+  {
+   "id": "sdrpp-crash-patch",
+   "title": "Patching a startup crash in a prebuilt SDR++",
+   "topic": "hardware",
+   "date": "2026-07",
+   "problem": "SDR++ crashed with a divide-by-zero signal (SIGFPE) at startup.",
+   "approach": "The waterfall code divides by its height before the height is set, a race at startup. The core library was rebuilt at\nthe exact commit the package came from, with guards in two functions (one also had a memmove size underflow).\n",
+   "outcome": "The crash is gone. Upgrading the package would overwrite the patched library, and the fix is recorded so it can be reapplied.",
+   "lesson": "Rebuild at the package's exact commit, so the patched library stays ABI-identical to the rest of the install.",
+   "tags": [
+    "C++",
+    "SDR++",
+    "debugging",
+    "ABI"
+   ],
+   "related": []
+  },
+  {
+   "id": "flipper-headless-testing",
+   "title": "Testing a Flipper Zero app without touching the Flipper",
+   "topic": "hardware",
+   "date": "2026-09",
+   "problem": "Developing a Flipper Zero radio app meant pressing a lot of buttons to test each build.",
+   "approach": "The serial CLI can drive a running app with `input send`. `loader info` reports whether it crashed and `free` checks\nfor leaks, so a script can smoke-test every build. That turned up traps: the CC1101's `begin()` returns false by\ndesign, list-item pointers dangle after a rebuild, and asynchronous transmit drops the first and last level runs.\n",
+   "outcome": "The app was verified on air and submitted to the official app catalogue.",
+   "lesson": null,
+   "tags": [
+    "Flipper Zero",
+    "C",
+    "CC1101",
+    "test automation"
+   ],
+   "related": [
+    "flipper-morse-beacon"
+   ]
+  },
+  {
+   "id": "mtp-graft",
+   "title": "Grafting a missing speculative-decoding head back into a model",
+   "topic": "ai",
+   "date": "2026-11",
+   "problem": "Community \"abliterated\" exports of the local 27B model lacked the multi-token-prediction (MTP) head the server uses for speed.",
+   "approach": "Comparing tensor counts (1,199 against 1,184) showed the 15 MTP tensors missing, because Transformers'\n`save_pretrained` drops modules it doesn't know. Only those tensors were fetched from the stock shards, using HTTP\nbyte ranges, then grafted into the export's index. The result was converted to GGUF and quantised to Q4_K_M with the\nreference model's per-tensor overrides and an importance matrix.\n",
+   "outcome": "A working build with draft-MTP engaged (about 39 tokens/s in a test), set up as a switchable alternative to the default model.",
+   "lesson": "Any tool that round-trips weights through Transformers can silently drop inference-only tensors.",
+   "tags": [
+    "llama.cpp",
+    "GGUF",
+    "quantisation",
+    "safetensors",
+    "speculative decoding"
+   ],
+   "related": [
+    "local-llm"
+   ]
+  },
+  {
+   "id": "claude-code-local",
+   "title": "Pointing Claude Code at a local model",
+   "topic": "ai",
+   "date": "2026-09",
+   "problem": "The goal was to run Claude Code against the home LLM server instead of a cloud API.",
+   "approach": "llama.cpp already serves an Anthropic-compatible endpoint, so the base URL was enough. But Claude Code sends a\ntrailing system message after the user turn, which the model's chat template rejects, so a small shim folds it in.\nWatching the process's sockets confirmed it never contacted anything off the machine. The same trick lets a qFlipper\nfork that only speaks Ollama's API use the server.\n",
+   "outcome": "Plain prompts and full tool-call round trips work against the local model.",
+   "lesson": "Patch the message shape in a shim, not the shared model's template, which every other client depends on.",
+   "tags": [
+    "Claude Code",
+    "llama.cpp",
+    "Anthropic API",
+    "Ollama API"
+   ],
+   "related": [
+    "local-llm"
+   ]
+  },
+  {
+   "id": "runaway-thinking",
+   "title": "The assistant that thought for six minutes",
+   "topic": "ai",
+   "date": "2026-09",
+   "problem": "After a tool error, the family assistant's reasoning model thought for 342 seconds, hit the workflow timeout and left a typing indicator on.",
+   "approach": "A finite reasoning budget on the server closes the thinking block so the model has to answer, and the token limit and\ntimeout were raised to match. Short replies turn thinking off per request.\n",
+   "outcome": "There have been no more runaway turns. A one-line reply went from 2.7 s to 1.3 s with thinking off.",
+   "lesson": "Reasoning models need a thinking budget in production. \"Effort\" alone doesn't bound it.",
+   "tags": [
+    "llama.cpp",
+    "reasoning models",
+    "n8n",
+    "agents"
+   ],
+   "related": [
+    "family-assistant",
+    "local-llm"
+   ]
+  },
+  {
+   "id": "confirm-in-code",
+   "title": "Making an AI ask before it deletes, by enforcing it in code",
+   "topic": "ai",
+   "date": "2026-10",
+   "problem": "An assistant with write access to the family calendar and lists removed items without asking, despite prompt rules telling it to confirm.",
+   "approach": "A separate tool endpoint's first call only returns the question to ask. A change runs only after a later call with a\nsingle-use confirmation code, which expires in five minutes, and only one change can be pending at a time. Deletes\nmust resolve to exactly one item and are verified afterwards.\n",
+   "outcome": "It was tested end to end. When the model fired the same \"yes\" about 30 times in a loop, only the first got through.",
+   "lesson": "Prompts ask, code enforces. Put destructive-action confirmation in the tool, not the system prompt.",
+   "tags": [
+    "MCP",
+    "agent safety",
+    "n8n",
+    "tool design"
+   ],
+   "related": [
+    "family-assistant"
+   ]
+  },
+  {
+   "id": "speech-to-text-bench",
+   "title": "Picking speech-to-text for a TV that talks back",
+   "topic": "ai",
+   "date": "2026-10",
+   "problem": "A voice chat on the family TV needed fast, accurate speech-to-text, with no GPU memory to spare.",
+   "approach": "Six setups (Parakeet 0.6B, Moonshine, and Whisper small and large-v3-turbo) were benchmarked on a workstation CPU and\nan Apple-silicon Mac, using clean and noisy clips of the kinds of things kids ask.\n",
+   "outcome": "Parakeet on the CPU won, at about 60 ms per utterance with near-zero errors and no GPU at all. Short names were the weak spot until the vocabulary was biased toward them.",
+   "lesson": "The fastest, most accurate option was the CPU one.",
+   "tags": [
+    "speech-to-text",
+    "Parakeet",
+    "Whisper",
+    "benchmarking"
+   ],
+   "related": [
+    "talk-to-the-cat"
+   ]
+  },
+  {
+   "id": "namesake-facts",
+   "title": "Stopping trivia about the wrong thing",
+   "topic": "ai",
+   "date": "2026-10",
+   "problem": "TV pop-up trivia showed facts about a garment for a YouTube channel whose name was one letter off from it. Wikipedia search had quietly \"corrected\" the unknown name.",
+   "approach": "Every name word in the query must now appear in the matched article, and the fact-writer is told a name is never a\ntypo. Searches use the screenshot, title, channel and captions together, from narrow to broad.\n",
+   "outcome": "Wrong-subject facts are blocked in tests, and the improved search order is live.",
+   "lesson": "Checking that a fact matches its article isn't enough. Check that the article is about the original subject.",
+   "tags": [
+    "LLM grounding",
+    "Wikipedia API",
+    "SearXNG",
+    "vision models"
+   ],
+   "related": [
+    "tv-launcher"
+   ]
+  },
+  {
+   "id": "remove-not-add",
+   "title": "\"Get rid of the meow\" added another meow",
+   "topic": "ai",
+   "date": "2026-10",
+   "problem": "Asking the TV cat's music mode to remove a sound made it add another layer of that sound.",
+   "approach": "Keyword rules always treated the word as a request to add. Removal intent (\"remove\", \"no more\", \"mute\", \"take out\")\nnow wins. Clear removals drop the matching layers without calling the LLM, and vague ones go to the LLM with a\ndelete-only instruction.\n",
+   "outcome": "Removal works for every instrument and sound, tested offline against the exact phrases that failed.",
+   "lesson": "Substring matching fires on \"pulsing\" and \"rising\" because they contain \"sing\". Intent keywords need word boundaries and ordering.",
+   "tags": [
+    "intent parsing",
+    "LLM agents",
+    "regression tests"
+   ],
+   "related": [
+    "talk-to-the-cat"
+   ]
+  },
+  {
+   "id": "melody-lookup",
+   "title": "When an LLM can't hum, look the tune up",
+   "topic": "ai",
+   "date": "2026-10",
+   "problem": "The language model couldn't reliably recall famous melodies, so the TV cat's ocarina songs came out wrong.",
+   "approach": "Songs come from a three-tier chain: a small public-domain songbook with exact notes, then free MIDI libraries (search,\ndownload, and pull the lead track's top notes with mido, shifted into range and cached), and only then the model's\nmemory.\n",
+   "outcome": "Songbook and MIDI lookups play correctly. Some requests still find no MIDI file.",
+   "lesson": "Making the band louder buried the melody, so mix changes need a melody-priority check.",
+   "tags": [
+    "MIDI",
+    "mido",
+    "LLM tools",
+    "music"
+   ],
+   "related": [
+    "tv-launcher",
+    "talk-to-the-cat"
+   ]
+  },
+  {
+   "id": "gateway-allowlist",
+   "title": "Guarding an inverter's settings below the UI, not in it",
+   "topic": "home",
+   "date": "2026-10",
+   "problem": "A dashboard was getting controls for a solar inverter's charge windows and priorities, and the layer underneath could write far more than that.",
+   "approach": "The Modbus-to-MQTT gateway accepted writes to every register, including battery type and voltages. Its register map was\nreplaced with one that's read-only except for an allowlist of 16 registers. The app adds value checks, a read-back\nafter every write, and an audit log, and its AI tools preview a change before applying it.\n",
+   "outcome": "The controls are live and tested on the real inverter, and the dangerous settings can no longer be written through the gateway.",
+   "lesson": "Hiding a setting in the UI protects nothing if a lower layer still accepts it.",
+   "tags": [
+    "Modbus",
+    "MQTT",
+    "allowlist",
+    "MCP"
+   ],
+   "related": [
+    "inverter-dashboard"
+   ]
+  },
+  {
+   "id": "history-13mb-to-36kb",
+   "title": "A phone dashboard that downloaded 13 MB to draw a chart",
+   "topic": "home",
+   "date": "2026-11",
+   "problem": "The inverter dashboard was slow on phones, pulling about 13 MB to show 30 days of history.",
+   "approach": "The history query now buckets values on the server, using a covering index. The UI was rebuilt mobile-first, with a\npower-flow diagram, touch charts, tap-to-see-history and a home-screen app manifest.\n",
+   "outcome": "Thirty days now loads 36 KB in about 180 ms.",
+   "lesson": "At the 30-day scale, the peak-window overlay turned into noisy stripes, so the overlay is dropped at that zoom.",
+   "tags": [
+    "SQLite",
+    "PWA",
+    "SVG charts",
+    "performance"
+   ],
+   "related": [
+    "inverter-dashboard"
+   ]
+  },
+  {
+   "id": "tv-deep-sleep",
+   "title": "The TV that \"died\" was just very asleep",
+   "topic": "home",
+   "date": "2026-10",
+   "problem": "After a standby test, a debloated Google TV vanished from the network for almost seven hours.",
+   "approach": "Android's system_server had crashed after a wake, and the chip fell into deep sleep with Wi-Fi off, so it ignored\nnetwork wake requests. It hadn't been bricked: it came back on its own.\n",
+   "outcome": "There's now a recovery procedure: press the remote's power button, then read the crash records.",
+   "lesson": "An unreachable embedded device isn't necessarily dead. Find out what power state it's in before assuming the worst.",
+   "tags": [
+    "Android TV",
+    "ADB",
+    "power management"
+   ],
+   "related": [
+    "tv-launcher"
+   ]
+  },
+  {
+   "id": "ext3-recovery",
+   "title": "Recovering files from a crash-corrupted encrypted volume",
+   "topic": "data",
+   "date": "2026-05",
+   "problem": "A crash mid-write left an encrypted ext3 volume with missing files, zero-byte stubs and \"Structure needs cleaning\" errors.",
+   "approach": "The decrypted device was copied to an image with dd and fsck was run on the copy. The journal had wrapped and undelete\ntools found nothing, but about 1,000 orphan inodes still had intact block chains, and fsck reattached them with full\ncontent. Signature carving found the rest, and partial MP4s were rebuilt from their raw H.264 units.\n",
+   "outcome": "About a thousand files came back with their full content. The live volume was repaired the same way only after the copy proved it worked.",
+   "lesson": "Run fsck on an image first. PhotoRec's auto-detected 64 KB block size truncates every file at 64 KB, so force 4096.",
+   "tags": [
+    "ext3",
+    "fsck",
+    "PhotoRec",
+    "dd",
+    "ffmpeg"
+   ],
+   "related": []
+  },
+  {
+   "id": "ocr-rescue",
+   "title": "Rescuing an overnight OCR job and the PDFs that hung it",
+   "topic": "data",
+   "date": "2026-11",
+   "problem": "An OCR job over about 21,600 PDFs in an offline library died after an OS update, and eleven PDFs hung or failed.",
+   "approach": "An Xcode update had swapped the system Python for one that needs a licence accepted, so the standard-library-only\nscript moved to Homebrew Python. A Ghostscript rewrite fixed the books that hung. For truncated files, the page images\nwere pulled out with mutool, repacked and OCR'd.\n",
+   "outcome": "The job finished at about 815,000 pages, and 10 of the 11 bad books became searchable. The last one was all zeros at the source.",
+   "lesson": "The re-encode turned 4-hour hangs into 6-second jobs, so the hang was in the image decoder, not the book. Queue known-bad files last.",
+   "tags": [
+    "OCR",
+    "Ghostscript",
+    "mutool",
+    "PDF",
+    "macOS"
+   ],
+   "related": [
+    "offline-library"
+   ]
+  },
+  {
+   "id": "ocr-engine-choice",
+   "title": "Making 400 GB of offline books searchable by an assistant",
+   "topic": "data",
+   "date": "2026-10",
+   "problem": "An offline reference library, including scanned old books, needed to be searchable by the home assistant, on a nearly full machine.",
+   "approach": "aria2 with nearby mirrors raised downloads from about 7 to 69 MB/s. For OCR, Apple's Vision framework running natively\nbeat Tesseract in Docker, at 0.44 against 1.6 seconds a page. OCR text lives in plain files with a rebuilt index,\nrather than a SQLite database shared across the Docker VM boundary.\n",
+   "outcome": "The assistant answered a water-safety question by finding and quoting a scanned public-health PDF.",
+   "lesson": "Kiwix rejects searches that mix languages, so group the books by language.",
+   "tags": [
+    "Kiwix",
+    "OCR",
+    "Apple Vision",
+    "aria2",
+    "MCP"
+   ],
+   "related": [
+    "offline-library"
+   ]
+  },
+  {
+   "id": "bug-report-gists",
+   "title": "One-key bug reports from inside a game, screenshots included",
+   "topic": "dev",
+   "date": "2026-11",
+   "problem": "GitHub's issues API can't take attachments, and bugs needed filing from inside the running game with a screenshot and a clip.",
+   "approach": "A Vite dev-server plugin files the issue with the local gh CLI, so no token reaches the page. Media go into a secret\ngist per issue, with ffmpeg turning the clip into a GIF because gists serve MP4 as a download. Each report includes a\n\"stand here again\" link, console errors and GPU info, and forged-origin requests are refused.\n",
+   "outcome": "Merged. Test issues show the screenshot and the GIF inline.",
+   "lesson": "Save each report locally before uploading, so a failed upload loses nothing.",
+   "tags": [
+    "GitHub CLI",
+    "gists",
+    "ffmpeg",
+    "Vite"
+   ],
+   "related": [
+    "lanterns-of-selvane"
+   ]
+  },
+  {
+   "id": "nightly-bot-runner",
+   "title": "An overnight AI developer that needs my approval to merge",
+   "topic": "dev",
+   "date": "2026-11",
+   "problem": "Claude was to develop a side project unattended each night, but I can't approve pull requests opened under my own login.",
+   "approach": "A systemd timer unloads the local LLM, runs fresh Claude sessions against the backlog, then brings the LLM back. A\nGitHub App gives the bot its own identity, with an hourly token helper. A merge-rule engine, tested on 63 fixture\ncases, handles drafts, hold labels, protected paths, CI and auto-merge timers, and a morning text sums up the night.\n",
+   "outcome": "Pull requests, CI, screenshot uploads, a mid-session token renewal and approval detection all worked end to end. A trial whole-codebase review found a real crash bug.",
+   "lesson": "A guard written too broadly, like blocking every PR that touches the agent's instructions file, quietly stalls everything. Check it against recent history.",
+   "tags": [
+    "GitHub Apps",
+    "systemd",
+    "Claude Code",
+    "CI/CD"
+   ],
+   "related": [
+    "lanterns-of-selvane"
+   ]
+  }
  ]
 }

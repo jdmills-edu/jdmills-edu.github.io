@@ -4,21 +4,22 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const cards = $$('.card');
   const q = $('#q');
-  const sel = { category: new Set(), status: new Set() };
+  const sel = {};   // one Set per chip group (category/status on projects, topic on use cases)
+  for (const b of $$('.chips button')) sel[b.dataset.filter] = sel[b.dataset.filter] || new Set();
+  const noun = document.querySelector('.uc') ? 'use cases' : 'projects';
 
   function apply() {
     const terms = (q.value || '').toLowerCase().split(/\s+/).filter(Boolean);
     let shown = 0;
     for (const c of cards) {
-      const ok = (!sel.category.size || sel.category.has(c.dataset.category)) &&
-                 (!sel.status.size || sel.status.has(c.dataset.status)) &&
+      const ok = Object.entries(sel).every(([k, set]) => !set.size || set.has(c.dataset[k])) &&
                  terms.every(t => c.dataset.search.includes(t));
       c.hidden = !ok;
       if (ok) shown++;
     }
     for (const s of $$('.cat-section')) s.hidden = !$$('.card', s).some(c => !c.hidden);
-    const filtered = terms.length || sel.category.size || sel.status.size;
-    $('#result').textContent = filtered ? `${shown} of ${cards.length} projects` : '';
+    const filtered = terms.length || Object.values(sel).some(set => set.size);
+    $('#result').textContent = filtered ? `${shown} of ${cards.length} ${noun}` : '';
     $('#empty').hidden = shown > 0;
   }
   for (const b of $$('.chips button')) {

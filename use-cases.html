@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Use cases · jdmills-edu</title>
+<meta name="description" content="Problems I&#x27;ve worked through with AI rather than projects I shipped: hardware faults, flaky drivers, radio-noise hunts, data recovery and local-model plumbing. Each one says what was wrong, what worked, and what I&#x27;d tell someone hitting the same thing.">
+<meta property="og:title" content="Use cases · jdmills-edu">
+<meta property="og:description" content="Problems I&#x27;ve worked through with AI rather than projects I shipped: hardware faults, flaky drivers, radio-noise hunts, data recovery and local-model plumbing. Each one says what was wrong, what worked, and what I&#x27;d tell someone hitting the same thing.">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css?v=6b3c07c5">
+<script>try{var t=localStorage.getItem('pi-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#projects">Skip to use cases</a>
+<header class="masthead">
+<div class="wrap">
+<div class="topline"><span class="handle"><a href="https://github.com/jdmills-edu" rel="noopener">jdmills-edu</a></span><nav class="tabs" aria-label="Sections"><a href="index.html">Projects <span class="n">42</span></a><a href="use-cases.html" aria-current="page">Use cases <span class="n">47</span></a></nav><button type="button" class="theme" id="theme" aria-label="Toggle dark mode"><span aria-hidden="true">◐</span></button></div>
+<h1>Use cases</h1>
+<p class="intro">Problems I&#x27;ve worked through with AI rather than projects I shipped: hardware faults, flaky drivers, radio-noise hunts, data recovery and local-model plumbing. Each one says what was wrong, what worked, and what I&#x27;d tell someone hitting the same thing.</p>
+<p class="rebuilt">Rebuilt automatically · <time datetime="2026-11-16">16 Nov 2026</time></p>
+</div>
+</header>
+<nav class="filters wrap" aria-label="Filter use cases">
+<label class="search"><span class="vh">Search use cases</span><input type="search" id="q" placeholder="Search problems, fixes, tech…" autocomplete="off"></label>
+<div class="chips" role="group" aria-label="Topic"><button type="button" data-filter="topic" data-value="troubleshooting" aria-pressed="false">Troubleshooting</button><button type="button" data-filter="topic" data-value="radio" aria-pressed="false">Radio &amp; RF</button><button type="button" data-filter="topic" data-value="hardware" aria-pressed="false">Hardware &amp; firmware</button><button type="button" data-filter="topic" data-value="ai" aria-pressed="false">AI &amp; local models</button><button type="button" data-filter="topic" data-value="home" aria-pressed="false">Home &amp; automation</button><button type="button" data-filter="topic" data-value="data" aria-pressed="false">Data recovery</button><button type="button" data-filter="topic" data-value="dev" aria-pressed="false">Dev tooling</button></div>
+<p class="result" id="result" aria-live="polite"></p>
+</nav>
+<main id="projects" class="wrap">
+<section class="cat-section" id="t-troubleshooting"><h2>Troubleshooting <span class="n">12</span></h2><div class="grid uc-grid"><article class="card uc topic-troubleshooting" id="u-carrier-waiting" data-topic="troubleshooting" data-search="two different reasons for &quot;carrier: waiting&quot; the fm screen of a handheld sdr firmware sat on &quot;waiting for carrier&quot; with no audio, on two separate occasions. the first time, reading the firmware source showed the screen was locked to a frequency below the onboard lr2021&#x27;s
+floor, a job the firmware hands to an external rtl-sdr that wasn&#x27;t plugged in. the second time, the console showed no
+dongle registered at all. a reboot and usb root-port resets didn&#x27;t help, and the schematic showed the usb-a power
+switch&#x27;s enable pin tied to 5 v, so no software can cut the dongle&#x27;s power.
+ retuning fixed the first case. the second needed a physical unplug and replug, after which hf came straight back. a bus-powered dongle that hangs stays hung until vbus drops, and a reboot doesn&#x27;t drop it. rtl-sdr lr2021 usb host schematics">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-carrier-waiting">Two different reasons for &quot;CARRIER: WAITING&quot;</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>The FM screen of a handheld SDR firmware sat on &quot;waiting for carrier&quot; with no audio, on two separate occasions.</p></dd></div><div><dt>What worked</dt><dd><p>The first time, reading the firmware source showed the screen was locked to a frequency below the onboard LR2021&#x27;s floor, a job the firmware hands to an external RTL-SDR that wasn&#x27;t plugged in. The second time, the console showed no dongle registered at all. A reboot and USB root-port resets didn&#x27;t help, and the schematic showed the USB-A power switch&#x27;s enable pin tied to 5 V, so no software can cut the dongle&#x27;s power.</p></dd></div><div><dt>Result</dt><dd><p>Retuning fixed the first case. The second needed a physical unplug and replug, after which HF came straight back.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> A bus-powered dongle that hangs stays hung until VBUS drops, and a reboot doesn&#x27;t drop it.</p>
+<ul class="stack"><li>RTL-SDR</li><li>LR2021</li><li>USB host</li><li>schematics</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-lakeshark-ft891">LakeShark FT-891 app</a></p>
+</div></article>
+<article class="card uc topic-troubleshooting" id="u-accidental-software-rendering" data-topic="troubleshooting" data-search="two apps quietly rendering on the cpu sdr++ used about 830% cpu drawing a waterfall, and a 3d slicer felt sluggish, on a machine with two nvidia gpus. sdr++ ran in a distrobox created without nvidia support, so opengl fell back to llvmpipe. rather than rebuild the
+container, the host&#x27;s nvidia libraries were symlinked in and registered with glvnd. the slicer had a months-old
+flatpak override forcing software gl.
+ sdr++ dropped to 1–2% cpu on the gpu. resetting the override restored hardware rendering in the slicer. check `glxinfo -b`. old workarounds outlive the bugs they fixed. opengl llvmpipe distrobox flatpak nvidia">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-accidental-software-rendering">Two apps quietly rendering on the CPU</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>SDR++ used about 830% CPU drawing a waterfall, and a 3D slicer felt sluggish, on a machine with two NVIDIA GPUs.</p></dd></div><div><dt>What worked</dt><dd><p>SDR++ ran in a distrobox created without NVIDIA support, so OpenGL fell back to llvmpipe. Rather than rebuild the container, the host&#x27;s NVIDIA libraries were symlinked in and registered with glvnd. The slicer had a months-old Flatpak override forcing software GL.</p></dd></div><div><dt>Result</dt><dd><p>SDR++ dropped to 1–2% CPU on the GPU. Resetting the override restored hardware rendering in the slicer.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Check <code>glxinfo -B</code>. Old workarounds outlive the bugs they fixed.</p>
+<ul class="stack"><li>OpenGL</li><li>llvmpipe</li><li>distrobox</li><li>Flatpak</li><li>NVIDIA</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-bambu-cli">Headless 3D printing CLI</a></p>
+</div></article>
+<article class="card uc topic-troubleshooting" id="u-serial-port-reset-loop" data-topic="troubleshooting" data-search="the &quot;boot loop&quot; that was my own serial console a freshly flashed esp32-p4 handheld seemed to reboot itself again and again, with a 30-second splash each time. the reboots lined up exactly with each new serial connection, and the firmware&#x27;s crash record showed only external
+resets. the board wires the usb-serial chip&#x27;s dtr/rts lines straight to the chip&#x27;s en pin, so linux toggling them on
+every port open reset the board. a tiny helper now holds the port open in a state linux leaves alone, run as a
+systemd service tied to that usb device.
+ connecting no longer resets the board. it still resets once on plug-in and when flashing, as it should. if a board &quot;boot-loops&quot; only while you&#x27;re watching it, suspect your own tooling first. esp32-p4 usb serial dtr/rts systemd">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-serial-port-reset-loop">The &quot;boot loop&quot; that was my own serial console</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>A freshly flashed ESP32-P4 handheld seemed to reboot itself again and again, with a 30-second splash each time.</p></dd></div><div><dt>What worked</dt><dd><p>The reboots lined up exactly with each new serial connection, and the firmware&#x27;s crash record showed only external resets. The board wires the USB-serial chip&#x27;s DTR/RTS lines straight to the chip&#x27;s EN pin, so Linux toggling them on every port open reset the board. A tiny helper now holds the port open in a state Linux leaves alone, run as a systemd service tied to that USB device.</p></dd></div><div><dt>Result</dt><dd><p>Connecting no longer resets the board. It still resets once on plug-in and when flashing, as it should.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> If a board &quot;boot-loops&quot; only while you&#x27;re watching it, suspect your own tooling first.</p>
+<ul class="stack"><li>ESP32-P4</li><li>USB serial</li><li>DTR/RTS</li><li>systemd</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-lakeshark-ft891">LakeShark FT-891 app</a></p>
+</div></article>
+<article class="card uc topic-troubleshooting" id="u-failed-suspend-not-hangs" data-topic="troubleshooting" data-search="most &quot;freezes&quot; were failed resumes from sleep a workstation seemed to freeze at random every few days and needed a hard reset. an audit of all 36 retained boots found 14 ending with &quot;pm: suspend entry&quot; as the last log line, so the desktop was
+suspending itself after 15 idle minutes (ssh doesn&#x27;t count as activity) and failing to resume. a remote kernel log
+stream (netconsole) caught the remaining hangs from another machine.
+ masking the sleep targets ended the suspend failures. a smaller set of real hangs under dual-gpu load is still being chased. before debugging a &quot;hang&quot;, check whether the machine simply went to sleep. linux systemd suspend netconsole journalctl">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-failed-suspend-not-hangs">Most &quot;freezes&quot; were failed resumes from sleep</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>A workstation seemed to freeze at random every few days and needed a hard reset.</p></dd></div><div><dt>What worked</dt><dd><p>An audit of all 36 retained boots found 14 ending with &quot;PM: suspend entry&quot; as the last log line, so the desktop was suspending itself after 15 idle minutes (SSH doesn&#x27;t count as activity) and failing to resume. A remote kernel log stream (netconsole) caught the remaining hangs from another machine.</p></dd></div><div><dt>Result</dt><dd><p>Masking the sleep targets ended the suspend failures. A smaller set of real hangs under dual-GPU load is still being chased.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Before debugging a &quot;hang&quot;, check whether the machine simply went to sleep.</p>
+<ul class="stack"><li>Linux</li><li>systemd</li><li>suspend</li><li>netconsole</li><li>journalctl</li></ul>
+
+</div></article>
+<article class="card uc topic-troubleshooting" id="u-netconsole-went-dark" data-topic="troubleshooting" data-search="a hard freeze, and the crash log that had quietly stopped working the workstation hard-froze twice in half an hour. the journal stopped mid-line with no kernel, gpu or pcie error. a service that logged every 7.5 seconds pinned the freeze to the second, below where the kernel&#x27;s lockup watchdog
+could see it. both freezes came while the llm was busy across both gpus, one of them on an oculink link. the remote
+netconsole log that should have caught it had stopped days earlier, because the receiving machine&#x27;s mac address
+changed after a network-card swap.
+ no root cause yet, though the evidence points at the pcie link under dual-gpu load. netconsole works again and now checks the mac. netconsole fails silently when the receiver&#x27;s mac changes, so test your crash logging before you need it. netconsole pcie oculink multi-gpu">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-netconsole-went-dark">A hard freeze, and the crash log that had quietly stopped working</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>The workstation hard-froze twice in half an hour. The journal stopped mid-line with no kernel, GPU or PCIe error.</p></dd></div><div><dt>What worked</dt><dd><p>A service that logged every 7.5 seconds pinned the freeze to the second, below where the kernel&#x27;s lockup watchdog could see it. Both freezes came while the LLM was busy across both GPUs, one of them on an OCuLink link. The remote netconsole log that should have caught it had stopped days earlier, because the receiving machine&#x27;s MAC address changed after a network-card swap.</p></dd></div><div><dt>Result</dt><dd><p>No root cause yet, though the evidence points at the PCIe link under dual-GPU load. Netconsole works again and now checks the MAC.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Netconsole fails silently when the receiver&#x27;s MAC changes, so test your crash logging before you need it.</p>
+<ul class="stack"><li>netconsole</li><li>PCIe</li><li>OCuLink</li><li>multi-GPU</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-local-llm">Local LLM server</a></p>
+</div></article>
+<article class="card uc topic-troubleshooting" id="u-tcc-wedge" data-topic="troubleshooting" data-search="a permission prompt nobody could click froze a headless mac two services on a headless mac mini, a bird detector and an inverter monitor, hung with no error. even their sqlite opens never returned. sampling a hung process showed it stuck in the kernel&#x27;s `open()`. sampling the per-user privacy daemon (tccd) showed
+its threads piled up behind a consent prompt nobody could answer. the root cause: macos ties these grants to a
+binary&#x27;s path, and each homebrew upgrade of node or python changes that path.
+ force-killing tccd let both services recover, and moving their data out of the protected documents folder keeps it from recurring. on a headless mac, keep service data out of tcc-protected folders. macos tcc launchd docker sqlite">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-tcc-wedge">A permission prompt nobody could click froze a headless Mac</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>Two services on a headless Mac mini, a bird detector and an inverter monitor, hung with no error. Even their SQLite opens never returned.</p></dd></div><div><dt>What worked</dt><dd><p>Sampling a hung process showed it stuck in the kernel&#x27;s <code>open()</code>. Sampling the per-user privacy daemon (tccd) showed its threads piled up behind a consent prompt nobody could answer. The root cause: macOS ties these grants to a binary&#x27;s path, and each Homebrew upgrade of node or python changes that path.</p></dd></div><div><dt>Result</dt><dd><p>Force-killing tccd let both services recover, and moving their data out of the protected Documents folder keeps it from recurring.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> On a headless Mac, keep service data out of TCC-protected folders.</p>
+<ul class="stack"><li>macOS</li><li>TCC</li><li>launchd</li><li>Docker</li><li>SQLite</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-bird-detector">Backyard bird detector</a>, <a href="index.html#p-inverter-dashboard">Solar &amp; battery inverter dashboard</a></p>
+</div></article>
+<article class="card uc topic-troubleshooting" id="u-gnome-extensions-off" data-topic="troubleshooting" data-search="every gnome extension silently switched off a keep-awake extension wasn&#x27;t running, and it turned out every gnome extension had been off for days. three gnome shell crashes, the last within two seconds of startup, had tripped a safety switch that disables user
+extensions, on the theory that an extension caused the crash. the actual crash was in the shell&#x27;s sound-device code.
+the first check said everything was fine because the terminal&#x27;s `gsettings` was homebrew&#x27;s build, which can&#x27;t see the
+real settings.
+ flipping the setting back restored all 15 extensions without a restart. on a system with homebrew, call /usr/bin/gsettings. brew&#x27;s build returns defaults and silently drops writes. gnome gsettings homebrew">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-gnome-extensions-off">Every GNOME extension silently switched off</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>A keep-awake extension wasn&#x27;t running, and it turned out every GNOME extension had been off for days.</p></dd></div><div><dt>What worked</dt><dd><p>Three GNOME Shell crashes, the last within two seconds of startup, had tripped a safety switch that disables user extensions, on the theory that an extension caused the crash. The actual crash was in the shell&#x27;s sound-device code. The first check said everything was fine because the terminal&#x27;s <code>gsettings</code> was Homebrew&#x27;s build, which can&#x27;t see the real settings.</p></dd></div><div><dt>Result</dt><dd><p>Flipping the setting back restored all 15 extensions without a restart.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> On a system with Homebrew, call /usr/bin/gsettings. Brew&#x27;s build returns defaults and silently drops writes.</p>
+<ul class="stack"><li>GNOME</li><li>gsettings</li><li>Homebrew</li></ul>
+
+</div></article>
+<article class="card uc topic-troubleshooting" id="u-gpu-order-trap" data-topic="troubleshooting" data-search="a global setting flipped which gpu an app used an image-generation launcher that pinned work with cuda_visible_devices=1,0 started computing on the wrong card. testing all four combinations of cuda_device_order and cuda_visible_devices in pytorch showed that a system-wide
+pci_bus_id setting, added two weeks earlier for another app, had inverted the old workaround.
+ the launcher now sets both variables explicitly, so the bigger card is always the compute device. a workaround written for one enumeration order breaks the moment something else changes the order. cuda pytorch comfyui multi-gpu">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-gpu-order-trap">A global setting flipped which GPU an app used</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>An image-generation launcher that pinned work with CUDA_VISIBLE_DEVICES=1,0 started computing on the wrong card.</p></dd></div><div><dt>What worked</dt><dd><p>Testing all four combinations of CUDA_DEVICE_ORDER and CUDA_VISIBLE_DEVICES in PyTorch showed that a system-wide PCI_BUS_ID setting, added two weeks earlier for another app, had inverted the old workaround.</p></dd></div><div><dt>Result</dt><dd><p>The launcher now sets both variables explicitly, so the bigger card is always the compute device.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> A workaround written for one enumeration order breaks the moment something else changes the order.</p>
+<ul class="stack"><li>CUDA</li><li>PyTorch</li><li>ComfyUI</li><li>multi-GPU</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-local-llm">Local LLM server</a></p>
+</div></article>
+<article class="card uc topic-troubleshooting" id="u-invisible-cursor" data-topic="troubleshooting" data-search="an invisible mouse pointer that was really a vram shortage the mouse pointer vanished on the linux desktop, but hovering and clicking still worked. the gnome log lines looked like a multi-gpu modifier bug, but a kernel nvkms error showed the display gpu couldn&#x27;t
+allocate memory for the cursor sprite. the local llm server had sized itself to leave only 512 mib free, and the
+desktop ate that. fixing the per-gpu margin was complicated by llama.cpp numbering the gpus in the reverse of
+nvidia-smi&#x27;s order.
+ a bigger per-device margin on the display gpu fixed it for good. the pointer only comes back after a fresh login. pointer position needs no gpu memory and the sprite does, which is why input keeps working. mutter falls back to a software cursor for the rest of the session. nvidia gnome wayland llama.cpp vram">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-invisible-cursor">An invisible mouse pointer that was really a VRAM shortage</a></h3><time class="uc-date" datetime="2026-09">Sep 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>The mouse pointer vanished on the Linux desktop, but hovering and clicking still worked.</p></dd></div><div><dt>What worked</dt><dd><p>The GNOME log lines looked like a multi-GPU modifier bug, but a kernel NVKMS error showed the display GPU couldn&#x27;t allocate memory for the cursor sprite. The local LLM server had sized itself to leave only 512 MiB free, and the desktop ate that. Fixing the per-GPU margin was complicated by llama.cpp numbering the GPUs in the reverse of nvidia-smi&#x27;s order.</p></dd></div><div><dt>Result</dt><dd><p>A bigger per-device margin on the display GPU fixed it for good. The pointer only comes back after a fresh login.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Pointer position needs no GPU memory and the sprite does, which is why input keeps working. Mutter falls back to a software cursor for the rest of the session.</p>
+<ul class="stack"><li>NVIDIA</li><li>GNOME</li><li>Wayland</li><li>llama.cpp</li><li>VRAM</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-local-llm">Local LLM server</a></p>
+</div></article>
+<article class="card uc topic-troubleshooting" id="u-hdmi-frl-black-screen" data-topic="troubleshooting" data-search="black screen after the monitor sleeps after the monitor went to sleep, the screen often never came back, and sometimes the only fix was a reboot. the kernel log showed &quot;hdmi frl link training failed&quot;. the monitor&#x27;s 240 hz mode needs hdmi 2.1&#x27;s frl signalling,
+and the nvidia driver often fails to retrain it after a display power event. a rescue script, runnable over ssh, drops
+to a 60 hz mode that always trains and then retries the full mode.
+ the real fix is to use displayport for this pairing. the script covers the times the cabling can&#x27;t change.  nvidia hdmi 2.1 wayland displayport">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-hdmi-frl-black-screen">Black screen after the monitor sleeps</a></h3><time class="uc-date" datetime="2026-09">Sep 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>After the monitor went to sleep, the screen often never came back, and sometimes the only fix was a reboot.</p></dd></div><div><dt>What worked</dt><dd><p>The kernel log showed &quot;HDMI FRL link training failed&quot;. The monitor&#x27;s 240 Hz mode needs HDMI 2.1&#x27;s FRL signalling, and the NVIDIA driver often fails to retrain it after a display power event. A rescue script, runnable over SSH, drops to a 60 Hz mode that always trains and then retries the full mode.</p></dd></div><div><dt>Result</dt><dd><p>The real fix is to use DisplayPort for this pairing. The script covers the times the cabling can&#x27;t change.</p></dd></div></dl>
+
+<ul class="stack"><li>NVIDIA</li><li>HDMI 2.1</li><li>Wayland</li><li>DisplayPort</li></ul>
+
+</div></article>
+<article class="card uc topic-troubleshooting" id="u-slow-downloads" data-topic="troubleshooting" data-search="&quot;downloads keep failing&quot;: four causes, three of them local browser downloads failed and pages stalled on and off for months, on both wired and wi-fi. `ethtool` showed the link partner had withdrawn gigabit from its advertisement, so a failing cable kept flapping the
+link and downshifting it to 100 mb. a flatpak sync service in a restart loop was quietly using about 30 mbps. the
+router advertised ipv6 that black-holed some sites. the real path mtu was 1420, not 1500.
+ a new cable took throughput from about 9 to 22 mb/s with peaks near 90. masking the runaway service and turning ipv6 off on that profile cleared the stalls. check the negotiated link speed first. an intermittent fault often has more than one cause. ethtool ipv6 mtu flatpak networkmanager">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-slow-downloads">&quot;Downloads keep failing&quot;: four causes, three of them local</a></h3><time class="uc-date" datetime="2026-09">Sep 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>Browser downloads failed and pages stalled on and off for months, on both wired and Wi-Fi.</p></dd></div><div><dt>What worked</dt><dd><p><code>ethtool</code> showed the link partner had withdrawn gigabit from its advertisement, so a failing cable kept flapping the link and downshifting it to 100 Mb. A Flatpak sync service in a restart loop was quietly using about 30 Mbps. The router advertised IPv6 that black-holed some sites. The real path MTU was 1420, not 1500.</p></dd></div><div><dt>Result</dt><dd><p>A new cable took throughput from about 9 to 22 MB/s with peaks near 90. Masking the runaway service and turning IPv6 off on that profile cleared the stalls.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Check the negotiated link speed first. An intermittent fault often has more than one cause.</p>
+<ul class="stack"><li>ethtool</li><li>IPv6</li><li>MTU</li><li>Flatpak</li><li>NetworkManager</li></ul>
+
+</div></article>
+<article class="card uc topic-troubleshooting" id="u-audio-interface-dropouts" data-topic="troubleshooting" data-search="an audio interface that fell off usb on its own a usb audio interface kept going &quot;offline&quot;, sometimes at 4 a.m. with nothing playing. a small monitor service polled every five seconds and saved diagnostics for each event. the signature was always a
+clean usb disconnect and a re-enumeration a second later, with no host-side errors, on a direct root-hub port, and in
+escalating bursts. that pointed at the device&#x27;s power path, not drivers or firmware.
+ firmware reflashing and custom drivers were ruled out. a staged a/b plan swaps the power adapter, the cable, and then the port. log faults automatically before you theorise. manual power cycles look exactly like faults in the logs. usb alsa pipewire systemd">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-audio-interface-dropouts">An audio interface that fell off USB on its own</a></h3><time class="uc-date" datetime="2026-07">Jul 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>A USB audio interface kept going &quot;offline&quot;, sometimes at 4 a.m. with nothing playing.</p></dd></div><div><dt>What worked</dt><dd><p>A small monitor service polled every five seconds and saved diagnostics for each event. The signature was always a clean USB disconnect and a re-enumeration a second later, with no host-side errors, on a direct root-hub port, and in escalating bursts. That pointed at the device&#x27;s power path, not drivers or firmware.</p></dd></div><div><dt>Result</dt><dd><p>Firmware reflashing and custom drivers were ruled out. A staged A/B plan swaps the power adapter, the cable, and then the port.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Log faults automatically before you theorise. Manual power cycles look exactly like faults in the logs.</p>
+<ul class="stack"><li>USB</li><li>ALSA</li><li>PipeWire</li><li>systemd</li></ul>
+
+</div></article></div></section><section class="cat-section" id="t-radio"><h2>Radio &amp; RF <span class="n">10</span></h2><div class="grid uc-grid"><article class="card uc topic-radio" id="u-cw-agc-howl" data-topic="radio" data-search="the cw &quot;noise&quot; that was really the agc even with noise reduction on, a howl filled the gaps between morse characters in sdr++. recording and analysing the audio disproved the first theory, noise. the cw agc was raising gain by up to 140 db in
+every pause. rnnoise, which the voice modes use, turned out to erase cw entirely, a repeater&#x27;s morse id included.
+ the noise reduction now routes by demodulator. the cw howl is a property of sdr++&#x27;s agc, and is livable. speech denoisers delete cw, rtty and ft8, so route by mode. sdr++ rnnoise agc pipewire cw">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-cw-agc-howl">The CW &quot;noise&quot; that was really the AGC</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>Even with noise reduction on, a howl filled the gaps between Morse characters in SDR++.</p></dd></div><div><dt>What worked</dt><dd><p>Recording and analysing the audio disproved the first theory, noise. The CW AGC was raising gain by up to 140 dB in every pause. RNNoise, which the voice modes use, turned out to erase CW entirely, a repeater&#x27;s Morse ID included.</p></dd></div><div><dt>Result</dt><dd><p>The noise reduction now routes by demodulator. The CW howl is a property of SDR++&#x27;s AGC, and is livable.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Speech denoisers delete CW, RTTY and FT8, so route by mode.</p>
+<ul class="stack"><li>SDR++</li><li>RNNoise</li><li>AGC</li><li>PipeWire</li><li>CW</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-sdr-noise-reduction">SDR++ noise reduction</a>, <a href="index.html#p-sdrpp-cw">CW decoder for SDR++</a></p>
+</div></article>
+<article class="card uc topic-radio" id="u-console-mic-fallback" data-topic="radio" data-search="the radio console that started listening to the room the browser &quot;listen&quot; feature on the radio console sounded like a room microphone, and the cw decoder printed false characters. when the radio&#x27;s usb audio interface dropped off, pipewire silently switched capture to the default input, which was a
+webcam mic. capture is now pinned to the interface by name and reconnects automatically. the false characters came
+from input clipping and the decoder locking onto noise.
+ clipping went from 5.5% to zero, and false characters from about 245 a minute to none in a 60-second test. probabilistic word-splitting raised whole-word accuracy from about 40% to 90%. after a usb drop, the sound server re-routes capture quietly, so pin it by device name. pipewire cw decoding dsp python">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-console-mic-fallback">The radio console that started listening to the room</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>The browser &quot;listen&quot; feature on the radio console sounded like a room microphone, and the CW decoder printed false characters.</p></dd></div><div><dt>What worked</dt><dd><p>When the radio&#x27;s USB audio interface dropped off, PipeWire silently switched capture to the default input, which was a webcam mic. Capture is now pinned to the interface by name and reconnects automatically. The false characters came from input clipping and the decoder locking onto noise.</p></dd></div><div><dt>Result</dt><dd><p>Clipping went from 5.5% to zero, and false characters from about 245 a minute to none in a 60-second test. Probabilistic word-splitting raised whole-word accuracy from about 40% to 90%.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> After a USB drop, the sound server re-routes capture quietly, so pin it by device name.</p>
+<ul class="stack"><li>PipeWire</li><li>CW decoding</li><li>DSP</li><li>Python</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-ft891-console">FT-891 Shack Console</a></p>
+</div></article>
+<article class="card uc topic-radio" id="u-transmit-safe-console" data-topic="radio" data-search="building a transmit-capable radio console without ever transmitting a web console for an hf radio had to handle real transmit paths for a brand-new operator, without ever keying the radio by accident. receive-only is the default and is enforced in the cat layer. a licence-privilege engine from fcc part 97 decides
+what&#x27;s allowed where, and it and every transmit path were tested only against a simulated radio, in dozens of
+safety cases. polling the s-meter fast enough meant raising cat from 4800 to 38400 baud.
+ receive, ft8 and cw decoding, band conditions and memory editing all work on the real radio, with no transmissions. one cat command (agc) flipped the radio from usb to lsb, which is firmware behaviour, not a bug in the app. yaesu cat part 97 simulation websockets">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-transmit-safe-console">Building a transmit-capable radio console without ever transmitting</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>A web console for an HF radio had to handle real transmit paths for a brand-new operator, without ever keying the radio by accident.</p></dd></div><div><dt>What worked</dt><dd><p>Receive-only is the default and is enforced in the CAT layer. A licence-privilege engine from FCC Part 97 decides what&#x27;s allowed where, and it and every transmit path were tested only against a simulated radio, in dozens of safety cases. Polling the S-meter fast enough meant raising CAT from 4800 to 38400 baud.</p></dd></div><div><dt>Result</dt><dd><p>Receive, FT8 and CW decoding, band conditions and memory editing all work on the real radio, with no transmissions.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> One CAT command (AGC) flipped the radio from USB to LSB, which is firmware behaviour, not a bug in the app.</p>
+<ul class="stack"><li>Yaesu CAT</li><li>Part 97</li><li>simulation</li><li>WebSockets</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-ft891-console">FT-891 Shack Console</a>, <a href="index.html#p-desk-controls">Desk control surface</a></p>
+</div></article>
+<article class="card uc topic-radio" id="u-ft8-stale-clock" data-topic="radio" data-search="&quot;no ft8 signals&quot; was really a stale clock a handheld esp32-p4 sdr decoded nothing on 40 m ft8. the firmware&#x27;s built-in ft8, ft4 and wspr self-tests all passed, so the decoder was fine. the board&#x27;s real-time clock
+was weeks off, and with no gps or wi-fi nothing corrected it. a time-set command that landed late left it about
+20 seconds slow.
+ with the clock set, 20 m gave 42 decodes in two minutes, at snrs from −1 to −18 db. ft8 needs the clock within about a second. a bad clock looks exactly like a dead band. ft8 wspr esp32-p4 rtl-sdr">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-ft8-stale-clock">&quot;No FT8 signals&quot; was really a stale clock</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>A handheld ESP32-P4 SDR decoded nothing on 40 m FT8.</p></dd></div><div><dt>What worked</dt><dd><p>The firmware&#x27;s built-in FT8, FT4 and WSPR self-tests all passed, so the decoder was fine. The board&#x27;s real-time clock was weeks off, and with no GPS or Wi-Fi nothing corrected it. A time-set command that landed late left it about 20 seconds slow.</p></dd></div><div><dt>Result</dt><dd><p>With the clock set, 20 m gave 42 decodes in two minutes, at SNRs from −1 to −18 dB.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> FT8 needs the clock within about a second. A bad clock looks exactly like a dead band.</p>
+<ul class="stack"><li>FT8</li><li>WSPR</li><li>ESP32-P4</li><li>RTL-SDR</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-lakeshark-ft891">LakeShark FT-891 app</a></p>
+</div></article>
+<article class="card uc topic-radio" id="u-vna-unlabeled-cal" data-topic="radio" data-search="measuring an antenna with unlabelled calibration parts a new nanovna arrived with open, short and load caps that weren&#x27;t labelled, and the goal was swr across four hf bands. claude drove the vna over its usb text shell and identified each cap from its readings; open and short, for example,
+sit about 180° apart in phase. it calibrated 1–31 mhz, saved the calibration, and plotted swr per band. the scripts
+then became a small toolkit.
+ 80 m and 10 m matched well (swr 1.13 at 3.55 mhz), 40 m and 20 m sat around 2–3:1, and 20 m resonated about 300 khz high. placing a marker off the calibrated grid silently drops the vna to factory calibration. swr measured at the vna end also looks better than it is because of cable loss. nanovna antennas swr calibration python">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-vna-unlabeled-cal">Measuring an antenna with unlabelled calibration parts</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>A new NanoVNA arrived with OPEN, SHORT and LOAD caps that weren&#x27;t labelled, and the goal was SWR across four HF bands.</p></dd></div><div><dt>What worked</dt><dd><p>Claude drove the VNA over its USB text shell and identified each cap from its readings; open and short, for example, sit about 180° apart in phase. It calibrated 1–31 MHz, saved the calibration, and plotted SWR per band. The scripts then became a small toolkit.</p></dd></div><div><dt>Result</dt><dd><p>80 m and 10 m matched well (SWR 1.13 at 3.55 MHz), 40 m and 20 m sat around 2–3:1, and 20 m resonated about 300 kHz high.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Placing a marker off the calibrated grid silently drops the VNA to factory calibration. SWR measured at the VNA end also looks better than it is because of cable loss.</p>
+<ul class="stack"><li>NanoVNA</li><li>antennas</li><li>SWR</li><li>calibration</li><li>Python</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-nanovna-toolkit">NanoVNA toolkit</a></p>
+</div></article>
+<article class="card uc topic-radio" id="u-mesh-frequency-slot" data-topic="radio" data-search="two mesh radios that may not have been on the same frequency messages on a private meshtastic channel stopped arriving between two devices. meshtastic derives the frequency slot from a hash of the channel name unless it&#x27;s set explicitly, so the same channel
+can sit on different frequencies across firmware setups. a third device listened receive-only on both candidate
+frequencies, keeping to a standing no-transmit rule.
+ nothing was heard from the sender on either frequency. it turned out to be reporting zero airtime, and the likeliest culprit was a phone-to-node bluetooth link that had gone stale. reboots cleared it. set the frequency slot explicitly, and a &quot;connected&quot; bluetooth link can still be dropping messages. meshtastic lora ble debugging">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-mesh-frequency-slot">Two mesh radios that may not have been on the same frequency</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>Messages on a private Meshtastic channel stopped arriving between two devices.</p></dd></div><div><dt>What worked</dt><dd><p>Meshtastic derives the frequency slot from a hash of the channel name unless it&#x27;s set explicitly, so the same channel can sit on different frequencies across firmware setups. A third device listened receive-only on both candidate frequencies, keeping to a standing no-transmit rule.</p></dd></div><div><dt>Result</dt><dd><p>Nothing was heard from the sender on either frequency. It turned out to be reporting zero airtime, and the likeliest culprit was a phone-to-node Bluetooth link that had gone stale. Reboots cleared it.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Set the frequency slot explicitly, and a &quot;connected&quot; Bluetooth link can still be dropping messages.</p>
+<ul class="stack"><li>Meshtastic</li><li>LoRa</li><li>BLE</li><li>debugging</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-mesh-watch">Kid-friendly mesh messenger watch</a></p>
+</div></article>
+<article class="card uc topic-radio" id="u-sdrpp-wrong-sink" data-topic="radio" data-search="sdr++ kept playing into the headphone jack sdr++ audio landed on a usb card&#x27;s headphone output while everything else went to its speakers. probing the rtaudio library directly showed its pulseaudio backend sees one device name for a card that pipewire
+splits into three sinks. sdr++ couldn&#x27;t address the speaker sink at all. config edits and pipewire routing rules
+both lost to rtaudio&#x27;s explicit choice.
+ a launcher wrapper moves the stream to the right sink once sdr++ opens it. when an app can&#x27;t name the device you want, move its stream after the fact. sdr++ pipewire rtaudio audio routing">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-sdrpp-wrong-sink">SDR++ kept playing into the headphone jack</a></h3><time class="uc-date" datetime="2026-09">Sep 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>SDR++ audio landed on a USB card&#x27;s headphone output while everything else went to its speakers.</p></dd></div><div><dt>What worked</dt><dd><p>Probing the RtAudio library directly showed its PulseAudio backend sees one device name for a card that PipeWire splits into three sinks. SDR++ couldn&#x27;t address the speaker sink at all. Config edits and PipeWire routing rules both lost to RtAudio&#x27;s explicit choice.</p></dd></div><div><dt>Result</dt><dd><p>A launcher wrapper moves the stream to the right sink once SDR++ opens it.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> When an app can&#x27;t name the device you want, move its stream after the fact.</p>
+<ul class="stack"><li>SDR++</li><li>PipeWire</li><li>RtAudio</li><li>audio routing</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-sdr-noise-reduction">SDR++ noise reduction</a></p>
+</div></article>
+<article class="card uc topic-radio" id="u-hf-noise-ab" data-topic="radio" data-search="a repeatable noise-floor test for antenna changes &quot;did moving the antenna help?&quot; kept getting answered by impression. a sweep script drives a direct-sampling rtl-sdr over rtl_tcp across seven centre frequencies from 0.3 to 14.3 mhz.
+the levels are uncalibrated, so a run is only compared against another run with the same dongle and settings.
+ before-and-after numbers for every change, and a saved baseline to compare against. give the tuner a few seconds after each retune, or a settle bug produces confidently wrong numbers. rtl-sdr rtl_tcp hf python">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-hf-noise-ab">A repeatable noise-floor test for antenna changes</a></h3><time class="uc-date" datetime="2026-09">Sep 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>&quot;Did moving the antenna help?&quot; kept getting answered by impression.</p></dd></div><div><dt>What worked</dt><dd><p>A sweep script drives a direct-sampling RTL-SDR over rtl_tcp across seven centre frequencies from 0.3 to 14.3 MHz. The levels are uncalibrated, so a run is only compared against another run with the same dongle and settings.</p></dd></div><div><dt>Result</dt><dd><p>Before-and-after numbers for every change, and a saved baseline to compare against.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Give the tuner a few seconds after each retune, or a settle bug produces confidently wrong numbers.</p>
+<ul class="stack"><li>RTL-SDR</li><li>rtl_tcp</li><li>HF</li><li>Python</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-orbic-sdr">Orbic SDR server</a></p>
+</div></article>
+<article class="card uc topic-radio" id="u-dongles-and-a-bad-hub" data-topic="radio" data-search="sdr dongles dropping off usb, and the hub that caused it on a four-dongle sdr server, dongles kept vanishing and the repeater monitor went silently deaf for 11 days. each dropped dongle shifted the device indices, so spyserver instances grabbed the wrong dongle or none at all. per-port
+power cycling with uhubctl made recovery possible remotely. a grabbed recording of pure fm hiss ruled out a decoding
+bug.
+ the usb sub-hub turned out to be the fault, not the dongles. index-based device mapping is what made one drop cascade. when devices are addressed by index, one flaky device misroutes all the others. pin devices by serial number wherever possible. rtl-sdr spyserver usb uhubctl">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-dongles-and-a-bad-hub">SDR dongles dropping off USB, and the hub that caused it</a></h3><time class="uc-date" datetime="2026-08">Aug 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>On a four-dongle SDR server, dongles kept vanishing and the repeater monitor went silently deaf for 11 days.</p></dd></div><div><dt>What worked</dt><dd><p>Each dropped dongle shifted the device indices, so SpyServer instances grabbed the wrong dongle or none at all. Per-port power cycling with uhubctl made recovery possible remotely. A grabbed recording of pure FM hiss ruled out a decoding bug.</p></dd></div><div><dt>Result</dt><dd><p>The USB sub-hub turned out to be the fault, not the dongles. Index-based device mapping is what made one drop cascade.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> When devices are addressed by index, one flaky device misroutes all the others. Pin devices by serial number wherever possible.</p>
+<ul class="stack"><li>RTL-SDR</li><li>SpyServer</li><li>USB</li><li>uhubctl</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-spyserver-station">Network SDR server</a>, <a href="index.html#p-gmrs-monitor">GMRS repeater monitor</a></p>
+</div></article>
+<article class="card uc topic-radio" id="u-monitor-rfi" data-topic="radio" data-search="tracing radio noise to a monitor&#x27;s power supply the noise floor on several receivers jumped up to 20 db in a single step, with a flat hash and no carrier. the hash pulsed at exactly 250 hz with strong harmonics, which pointed to power electronics, not mains. turning the
+workstation off didn&#x27;t clear it, and the solar inverter was ruled out by its logs. the sudden step turned out to be a
+coax run falling behind an oled monitor. weeks later it came back on a long hf wire.
+ turning the monitor off dropped the floor by 8 db immediately, and rerouting the coax fixed it. a real signal&#x27;s modulation lives only in its own channel, while hash stamps the same envelope rate on every frequency. compare envelope spectra across bands. rfi sdr spectrum analysis coax">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-monitor-rfi">Tracing radio noise to a monitor&#x27;s power supply</a></h3><time class="uc-date" datetime="2026-07">Jul 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>The noise floor on several receivers jumped up to 20 dB in a single step, with a flat hash and no carrier.</p></dd></div><div><dt>What worked</dt><dd><p>The hash pulsed at exactly 250 Hz with strong harmonics, which pointed to power electronics, not mains. Turning the workstation off didn&#x27;t clear it, and the solar inverter was ruled out by its logs. The sudden step turned out to be a coax run falling behind an OLED monitor. Weeks later it came back on a long HF wire.</p></dd></div><div><dt>Result</dt><dd><p>Turning the monitor off dropped the floor by 8 dB immediately, and rerouting the coax fixed it.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> A real signal&#x27;s modulation lives only in its own channel, while hash stamps the same envelope rate on every frequency. Compare envelope spectra across bands.</p>
+<ul class="stack"><li>RFI</li><li>SDR</li><li>spectrum analysis</li><li>coax</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-spectrum-sweepers">Spectrum sweeper station</a>, <a href="index.html#p-gmrs-monitor">GMRS repeater monitor</a></p>
+</div></article></div></section><section class="cat-section" id="t-hardware"><h2>Hardware &amp; firmware <span class="n">9</span></h2><div class="grid uc-grid"><article class="card uc topic-hardware" id="u-printer-orientation-lockout" data-topic="hardware" data-search="remote printing, and the printer&#x27;s cloud-mode lockout the goal was to print an sdr dongle cage on a bambu p1s straight from an stl, without touching the printer. slicing the part on its edge with tree supports made the clip legs strong and cut the print from 2 h 25 m to 1 h 37 m.
+a generic start g-code was swapped for the printer&#x27;s real one, the file was uploaded, and progress was read over the
+printer&#x27;s local mqtt.
+ the printer refused the remote print-start (error 0x05024007), so it was started from the app&#x27;s file list and printed fine. in cloud mode, third-party start commands are blocked, so plan on pressing the button. bambu p1s slicing mqtt 3d printing">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-printer-orientation-lockout">Remote printing, and the printer&#x27;s cloud-mode lockout</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>The goal was to print an SDR dongle cage on a Bambu P1S straight from an STL, without touching the printer.</p></dd></div><div><dt>What worked</dt><dd><p>Slicing the part on its edge with tree supports made the clip legs strong and cut the print from 2 h 25 m to 1 h 37 m. A generic start G-code was swapped for the printer&#x27;s real one, the file was uploaded, and progress was read over the printer&#x27;s local MQTT.</p></dd></div><div><dt>Result</dt><dd><p>The printer refused the remote print-start (error 0x05024007), so it was started from the app&#x27;s file list and printed fine.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> In cloud mode, third-party start commands are blocked, so plan on pressing the button.</p>
+<ul class="stack"><li>Bambu P1S</li><li>slicing</li><li>MQTT</li><li>3D printing</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-bambu-cli">Headless 3D printing CLI</a></p>
+</div></article>
+<article class="card uc topic-hardware" id="u-rgb-that-wouldnt-listen" data-topic="hardware" data-search="rgb lighting that ignored its controller openrgb couldn&#x27;t control the motherboard lighting, didn&#x27;t see the ram at all, and later the fans wouldn&#x27;t take colours. openrgb skips a board whose argb headers report zero leds, so the headers had to be set to 40. the ram only appears
+once a user is logged in, because a stale pre-login server held the bus. fans on a 12 v header needed a small
+direct-write module. a stdlib-only sdk client drives it all from deck keys.
+ the deck controls power, colour, effects, brightness and fans, and the settings survive restarts. read the state back from the hardware rather than trusting what the plugin thinks it set. the board also ignores &quot;direct&quot; mode. openrgb hid opendeck python">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-rgb-that-wouldnt-listen">RGB lighting that ignored its controller</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>OpenRGB couldn&#x27;t control the motherboard lighting, didn&#x27;t see the RAM at all, and later the fans wouldn&#x27;t take colours.</p></dd></div><div><dt>What worked</dt><dd><p>OpenRGB skips a board whose ARGB headers report zero LEDs, so the headers had to be set to 40. The RAM only appears once a user is logged in, because a stale pre-login server held the bus. Fans on a 12 V header needed a small direct-write module. A stdlib-only SDK client drives it all from deck keys.</p></dd></div><div><dt>Result</dt><dd><p>The deck controls power, colour, effects, brightness and fans, and the settings survive restarts.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Read the state back from the hardware rather than trusting what the plugin thinks it set. The board also ignores &quot;Direct&quot; mode.</p>
+<ul class="stack"><li>OpenRGB</li><li>HID</li><li>OpenDeck</li><li>Python</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-desk-controls">Desk control surface</a></p>
+</div></article>
+<article class="card uc topic-hardware" id="u-one-off-formatter-firmware" data-topic="hardware" data-search="writing a throwaway firmware just to format an sd card a handheld&#x27;s firmware could see its sd card but not read it, and it has no format command. the card turned out to be exfat, which the firmware can&#x27;t read. after confirming the bootloader doesn&#x27;t check
+signatures, claude built a purpose-made formatter in an esp-idf container and flashed it into the app slot. it checked
+the card, formatted it fat32 and verified it with a test file, then the original firmware went back on.
+ the 64 gb card mounted, and the device&#x27;s settings were untouched. on small firmwares, &quot;seen but unmountable&quot; usually means exfat. esp-idf esp32-p4 sd card fat32">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-one-off-formatter-firmware">Writing a throwaway firmware just to format an SD card</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>A handheld&#x27;s firmware could see its SD card but not read it, and it has no format command.</p></dd></div><div><dt>What worked</dt><dd><p>The card turned out to be exFAT, which the firmware can&#x27;t read. After confirming the bootloader doesn&#x27;t check signatures, Claude built a purpose-made formatter in an ESP-IDF container and flashed it into the app slot. It checked the card, formatted it FAT32 and verified it with a test file, then the original firmware went back on.</p></dd></div><div><dt>Result</dt><dd><p>The 64 GB card mounted, and the device&#x27;s settings were untouched.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> On small firmwares, &quot;seen but unmountable&quot; usually means exFAT.</p>
+<ul class="stack"><li>ESP-IDF</li><li>ESP32-P4</li><li>SD card</li><li>FAT32</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-lakeshark-ft891">LakeShark FT-891 app</a></p>
+</div></article>
+<article class="card uc topic-hardware" id="u-mcu-card-reader" data-topic="hardware" data-search="turning a microcontroller into a usb card reader the goal was to load an offline street map and 600 mb of music onto a handheld&#x27;s sd card, but copying over the serial console would have taken hours. temporary firmware turned the board into a high-speed usb mass-storage device. the map was cut from free
+openstreetmap-based protomaps data and converted to pmtiles, and the music was converted to plain 16-bit wav, with
+every file verified byte for byte.
+ all the files copied in about 24 minutes and the map shows street-level detail. a bigger usb buffer didn&#x27;t help, because the card&#x27;s small-write speed (about 0.4 mb/s) was the real limit. if the device doesn&#x27;t appear on the usb bus at all, check whether the cable is charge-only. usb mass storage pmtiles openstreetmap esp32-p4">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-mcu-card-reader">Turning a microcontroller into a USB card reader</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>The goal was to load an offline street map and 600 MB of music onto a handheld&#x27;s SD card, but copying over the serial console would have taken hours.</p></dd></div><div><dt>What worked</dt><dd><p>Temporary firmware turned the board into a high-speed USB mass-storage device. The map was cut from free OpenStreetMap-based Protomaps data and converted to PMTiles, and the music was converted to plain 16-bit WAV, with every file verified byte for byte.</p></dd></div><div><dt>Result</dt><dd><p>All the files copied in about 24 minutes and the map shows street-level detail. A bigger USB buffer didn&#x27;t help, because the card&#x27;s small-write speed (about 0.4 MB/s) was the real limit.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> If the device doesn&#x27;t appear on the USB bus at all, check whether the cable is charge-only.</p>
+<ul class="stack"><li>USB mass storage</li><li>PMTiles</li><li>OpenStreetMap</li><li>ESP32-P4</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-lakeshark-ft891">LakeShark FT-891 app</a></p>
+</div></article>
+<article class="card uc topic-hardware" id="u-printed-case-magnet" data-topic="hardware" data-search="a printed case built from the manufacturer&#x27;s stls, with a magnet inside an e-paper lora handheld needed a removable case that cleared every port, with an embedded magnet ring. a parametric python generator lofted case bodies from cross-sections of the manufacturer&#x27;s published stls. it was
+checked for interference and floating islands, then iterated through snap case, clamshell, kickstand and embedded
+magnet, with a slicer pause so the magnet is printed over.
+ the snap case and clamshell printed and fit. the kickstand nubs were too small. the magnet print jammed because a project-level supports setting filled the cavity. verify against the real slicer project, not a stock profile. a per-plate print-sequence override can grey out &quot;add pause&quot;. 3d printing trimesh bambu studio parametric cad">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-printed-case-magnet">A printed case built from the manufacturer&#x27;s STLs, with a magnet inside</a></h3><time class="uc-date" datetime="2026-09">Sep 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>An e-paper LoRa handheld needed a removable case that cleared every port, with an embedded magnet ring.</p></dd></div><div><dt>What worked</dt><dd><p>A parametric Python generator lofted case bodies from cross-sections of the manufacturer&#x27;s published STLs. It was checked for interference and floating islands, then iterated through snap case, clamshell, kickstand and embedded magnet, with a slicer pause so the magnet is printed over.</p></dd></div><div><dt>Result</dt><dd><p>The snap case and clamshell printed and fit. The kickstand nubs were too small. The magnet print jammed because a project-level supports setting filled the cavity.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Verify against the real slicer project, not a stock profile. A per-plate print-sequence override can grey out &quot;Add pause&quot;.</p>
+<ul class="stack"><li>3D printing</li><li>trimesh</li><li>Bambu Studio</li><li>parametric CAD</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-vellum-tdeck">Vellum for the T-Deck Pro MAX</a>, <a href="index.html#p-bambu-cli">Headless 3D printing CLI</a></p>
+</div></article>
+<article class="card uc topic-hardware" id="u-flipper-headless-testing" data-topic="hardware" data-search="testing a flipper zero app without touching the flipper developing a flipper zero radio app meant pressing a lot of buttons to test each build. the serial cli can drive a running app with `input send`. `loader info` reports whether it crashed and `free` checks
+for leaks, so a script can smoke-test every build. that turned up traps: the cc1101&#x27;s `begin()` returns false by
+design, list-item pointers dangle after a rebuild, and asynchronous transmit drops the first and last level runs.
+ the app was verified on air and submitted to the official app catalogue.  flipper zero c cc1101 test automation">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-flipper-headless-testing">Testing a Flipper Zero app without touching the Flipper</a></h3><time class="uc-date" datetime="2026-09">Sep 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>Developing a Flipper Zero radio app meant pressing a lot of buttons to test each build.</p></dd></div><div><dt>What worked</dt><dd><p>The serial CLI can drive a running app with <code>input send</code>. <code>loader info</code> reports whether it crashed and <code>free</code> checks for leaks, so a script can smoke-test every build. That turned up traps: the CC1101&#x27;s <code>begin()</code> returns false by design, list-item pointers dangle after a rebuild, and asynchronous transmit drops the first and last level runs.</p></dd></div><div><dt>Result</dt><dd><p>The app was verified on air and submitted to the official app catalogue.</p></dd></div></dl>
+
+<ul class="stack"><li>Flipper Zero</li><li>C</li><li>CC1101</li><li>test automation</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-flipper-morse-beacon">Morse Beacon for Flipper Zero</a></p>
+</div></article>
+<article class="card uc topic-hardware" id="u-mt7927-driver" data-topic="hardware" data-search="a brand-new wi-fi 7 card on an immutable linux the motherboard&#x27;s mediatek mt7927 wi-fi/bluetooth had no kernel support yet, and bluetooth sat in an endless probe loop. wi-fi uses an out-of-tree mt76 build loaded by a systemd unit, with its modules relabelled `modules_object_t` so
+selinux lets init load them. bluetooth uses a checksum-verified firmware blob the kernel finds through
+`firmware_class.path`, set by a tmpfiles rule.
+ both work, and both are written to retire themselves once the kernel and linux-firmware catch up. kernel arguments staged on an atomic distro only finalise on a clean shutdown, and a hard lock throws them away. linux kernel selinux rpm-ostree mt76 bluetooth">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-mt7927-driver">A brand-new Wi-Fi 7 card on an immutable Linux</a></h3><time class="uc-date" datetime="2026-08">Aug 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>The motherboard&#x27;s MediaTek MT7927 Wi-Fi/Bluetooth had no kernel support yet, and Bluetooth sat in an endless probe loop.</p></dd></div><div><dt>What worked</dt><dd><p>Wi-Fi uses an out-of-tree mt76 build loaded by a systemd unit, with its modules relabelled <code>modules_object_t</code> so SELinux lets init load them. Bluetooth uses a checksum-verified firmware blob the kernel finds through <code>firmware_class.path</code>, set by a tmpfiles rule.</p></dd></div><div><dt>Result</dt><dd><p>Both work, and both are written to retire themselves once the kernel and linux-firmware catch up.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Kernel arguments staged on an atomic distro only finalise on a clean shutdown, and a hard lock throws them away.</p>
+<ul class="stack"><li>Linux kernel</li><li>SELinux</li><li>rpm-ostree</li><li>mt76</li><li>Bluetooth</li></ul>
+
+</div></article>
+<article class="card uc topic-hardware" id="u-meshtastic-flash-offset" data-topic="hardware" data-search="a flashing script that clobbered the ota partition meshtastic nodes flashed with the bundled install script misbehaved on 16 mb boards. the script reads the correct filesystem offset from the release metadata, then flashes at a hard-coded address
+anyway, which lands inside the ota partition on 16 mb layouts. flashing each image by hand with esptool, at the
+offsets from the release&#x27;s partition table, fixed it.
+ several nodes were flashed cleanly this way, including an 8 mb board that needs different offsets. trust the release&#x27;s partition table over the script that ships with it. read config back after every write too, because writes over tcp can be silently lost. esp32 esptool meshtastic flash layout">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-meshtastic-flash-offset">A flashing script that clobbered the OTA partition</a></h3><time class="uc-date" datetime="2026-07">Jul 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>Meshtastic nodes flashed with the bundled install script misbehaved on 16 MB boards.</p></dd></div><div><dt>What worked</dt><dd><p>The script reads the correct filesystem offset from the release metadata, then flashes at a hard-coded address anyway, which lands inside the OTA partition on 16 MB layouts. Flashing each image by hand with esptool, at the offsets from the release&#x27;s partition table, fixed it.</p></dd></div><div><dt>Result</dt><dd><p>Several nodes were flashed cleanly this way, including an 8 MB board that needs different offsets.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Trust the release&#x27;s partition table over the script that ships with it. Read config back after every write too, because writes over TCP can be silently lost.</p>
+<ul class="stack"><li>ESP32</li><li>esptool</li><li>Meshtastic</li><li>flash layout</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-mesh-watch">Kid-friendly mesh messenger watch</a></p>
+</div></article>
+<article class="card uc topic-hardware" id="u-sdrpp-crash-patch" data-topic="hardware" data-search="patching a startup crash in a prebuilt sdr++ sdr++ crashed with a divide-by-zero signal (sigfpe) at startup. the waterfall code divides by its height before the height is set, a race at startup. the core library was rebuilt at
+the exact commit the package came from, with guards in two functions (one also had a memmove size underflow).
+ the crash is gone. upgrading the package would overwrite the patched library, and the fix is recorded so it can be reapplied. rebuild at the package&#x27;s exact commit, so the patched library stays abi-identical to the rest of the install. c++ sdr++ debugging abi">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-sdrpp-crash-patch">Patching a startup crash in a prebuilt SDR++</a></h3><time class="uc-date" datetime="2026-07">Jul 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>SDR++ crashed with a divide-by-zero signal (SIGFPE) at startup.</p></dd></div><div><dt>What worked</dt><dd><p>The waterfall code divides by its height before the height is set, a race at startup. The core library was rebuilt at the exact commit the package came from, with guards in two functions (one also had a memmove size underflow).</p></dd></div><div><dt>Result</dt><dd><p>The crash is gone. Upgrading the package would overwrite the patched library, and the fix is recorded so it can be reapplied.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Rebuild at the package&#x27;s exact commit, so the patched library stays ABI-identical to the rest of the install.</p>
+<ul class="stack"><li>C++</li><li>SDR++</li><li>debugging</li><li>ABI</li></ul>
+
+</div></article></div></section><section class="cat-section" id="t-ai"><h2>AI &amp; local models <span class="n">8</span></h2><div class="grid uc-grid"><article class="card uc topic-ai" id="u-mtp-graft" data-topic="ai" data-search="grafting a missing speculative-decoding head back into a model community &quot;abliterated&quot; exports of the local 27b model lacked the multi-token-prediction (mtp) head the server uses for speed. comparing tensor counts (1,199 against 1,184) showed the 15 mtp tensors missing, because transformers&#x27;
+`save_pretrained` drops modules it doesn&#x27;t know. only those tensors were fetched from the stock shards, using http
+byte ranges, then grafted into the export&#x27;s index. the result was converted to gguf and quantised to q4_k_m with the
+reference model&#x27;s per-tensor overrides and an importance matrix.
+ a working build with draft-mtp engaged (about 39 tokens/s in a test), set up as a switchable alternative to the default model. any tool that round-trips weights through transformers can silently drop inference-only tensors. llama.cpp gguf quantisation safetensors speculative decoding">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-mtp-graft">Grafting a missing speculative-decoding head back into a model</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>Community &quot;abliterated&quot; exports of the local 27B model lacked the multi-token-prediction (MTP) head the server uses for speed.</p></dd></div><div><dt>What worked</dt><dd><p>Comparing tensor counts (1,199 against 1,184) showed the 15 MTP tensors missing, because Transformers&#x27; <code>save_pretrained</code> drops modules it doesn&#x27;t know. Only those tensors were fetched from the stock shards, using HTTP byte ranges, then grafted into the export&#x27;s index. The result was converted to GGUF and quantised to Q4_K_M with the reference model&#x27;s per-tensor overrides and an importance matrix.</p></dd></div><div><dt>Result</dt><dd><p>A working build with draft-MTP engaged (about 39 tokens/s in a test), set up as a switchable alternative to the default model.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Any tool that round-trips weights through Transformers can silently drop inference-only tensors.</p>
+<ul class="stack"><li>llama.cpp</li><li>GGUF</li><li>quantisation</li><li>safetensors</li><li>speculative decoding</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-local-llm">Local LLM server</a></p>
+</div></article>
+<article class="card uc topic-ai" id="u-confirm-in-code" data-topic="ai" data-search="making an ai ask before it deletes, by enforcing it in code an assistant with write access to the family calendar and lists removed items without asking, despite prompt rules telling it to confirm. a separate tool endpoint&#x27;s first call only returns the question to ask. a change runs only after a later call with a
+single-use confirmation code, which expires in five minutes, and only one change can be pending at a time. deletes
+must resolve to exactly one item and are verified afterwards.
+ it was tested end to end. when the model fired the same &quot;yes&quot; about 30 times in a loop, only the first got through. prompts ask, code enforces. put destructive-action confirmation in the tool, not the system prompt. mcp agent safety n8n tool design">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-confirm-in-code">Making an AI ask before it deletes, by enforcing it in code</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>An assistant with write access to the family calendar and lists removed items without asking, despite prompt rules telling it to confirm.</p></dd></div><div><dt>What worked</dt><dd><p>A separate tool endpoint&#x27;s first call only returns the question to ask. A change runs only after a later call with a single-use confirmation code, which expires in five minutes, and only one change can be pending at a time. Deletes must resolve to exactly one item and are verified afterwards.</p></dd></div><div><dt>Result</dt><dd><p>It was tested end to end. When the model fired the same &quot;yes&quot; about 30 times in a loop, only the first got through.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Prompts ask, code enforces. Put destructive-action confirmation in the tool, not the system prompt.</p>
+<ul class="stack"><li>MCP</li><li>agent safety</li><li>n8n</li><li>tool design</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-family-assistant">Family assistant over iMessage</a></p>
+</div></article>
+<article class="card uc topic-ai" id="u-speech-to-text-bench" data-topic="ai" data-search="picking speech-to-text for a tv that talks back a voice chat on the family tv needed fast, accurate speech-to-text, with no gpu memory to spare. six setups (parakeet 0.6b, moonshine, and whisper small and large-v3-turbo) were benchmarked on a workstation cpu and
+an apple-silicon mac, using clean and noisy clips of the kinds of things kids ask.
+ parakeet on the cpu won, at about 60 ms per utterance with near-zero errors and no gpu at all. short names were the weak spot until the vocabulary was biased toward them. the fastest, most accurate option was the cpu one. speech-to-text parakeet whisper benchmarking">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-speech-to-text-bench">Picking speech-to-text for a TV that talks back</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>A voice chat on the family TV needed fast, accurate speech-to-text, with no GPU memory to spare.</p></dd></div><div><dt>What worked</dt><dd><p>Six setups (Parakeet 0.6B, Moonshine, and Whisper small and large-v3-turbo) were benchmarked on a workstation CPU and an Apple-silicon Mac, using clean and noisy clips of the kinds of things kids ask.</p></dd></div><div><dt>Result</dt><dd><p>Parakeet on the CPU won, at about 60 ms per utterance with near-zero errors and no GPU at all. Short names were the weak spot until the vocabulary was biased toward them.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> The fastest, most accurate option was the CPU one.</p>
+<ul class="stack"><li>speech-to-text</li><li>Parakeet</li><li>Whisper</li><li>benchmarking</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-talk-to-the-cat">Talk to the TV cat</a></p>
+</div></article>
+<article class="card uc topic-ai" id="u-namesake-facts" data-topic="ai" data-search="stopping trivia about the wrong thing tv pop-up trivia showed facts about a garment for a youtube channel whose name was one letter off from it. wikipedia search had quietly &quot;corrected&quot; the unknown name. every name word in the query must now appear in the matched article, and the fact-writer is told a name is never a
+typo. searches use the screenshot, title, channel and captions together, from narrow to broad.
+ wrong-subject facts are blocked in tests, and the improved search order is live. checking that a fact matches its article isn&#x27;t enough. check that the article is about the original subject. llm grounding wikipedia api searxng vision models">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-namesake-facts">Stopping trivia about the wrong thing</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>TV pop-up trivia showed facts about a garment for a YouTube channel whose name was one letter off from it. Wikipedia search had quietly &quot;corrected&quot; the unknown name.</p></dd></div><div><dt>What worked</dt><dd><p>Every name word in the query must now appear in the matched article, and the fact-writer is told a name is never a typo. Searches use the screenshot, title, channel and captions together, from narrow to broad.</p></dd></div><div><dt>Result</dt><dd><p>Wrong-subject facts are blocked in tests, and the improved search order is live.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Checking that a fact matches its article isn&#x27;t enough. Check that the article is about the original subject.</p>
+<ul class="stack"><li>LLM grounding</li><li>Wikipedia API</li><li>SearXNG</li><li>vision models</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-tv-launcher">Living-room TV launcher</a></p>
+</div></article>
+<article class="card uc topic-ai" id="u-remove-not-add" data-topic="ai" data-search="&quot;get rid of the meow&quot; added another meow asking the tv cat&#x27;s music mode to remove a sound made it add another layer of that sound. keyword rules always treated the word as a request to add. removal intent (&quot;remove&quot;, &quot;no more&quot;, &quot;mute&quot;, &quot;take out&quot;)
+now wins. clear removals drop the matching layers without calling the llm, and vague ones go to the llm with a
+delete-only instruction.
+ removal works for every instrument and sound, tested offline against the exact phrases that failed. substring matching fires on &quot;pulsing&quot; and &quot;rising&quot; because they contain &quot;sing&quot;. intent keywords need word boundaries and ordering. intent parsing llm agents regression tests">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-remove-not-add">&quot;Get rid of the meow&quot; added another meow</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>Asking the TV cat&#x27;s music mode to remove a sound made it add another layer of that sound.</p></dd></div><div><dt>What worked</dt><dd><p>Keyword rules always treated the word as a request to add. Removal intent (&quot;remove&quot;, &quot;no more&quot;, &quot;mute&quot;, &quot;take out&quot;) now wins. Clear removals drop the matching layers without calling the LLM, and vague ones go to the LLM with a delete-only instruction.</p></dd></div><div><dt>Result</dt><dd><p>Removal works for every instrument and sound, tested offline against the exact phrases that failed.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Substring matching fires on &quot;pulsing&quot; and &quot;rising&quot; because they contain &quot;sing&quot;. Intent keywords need word boundaries and ordering.</p>
+<ul class="stack"><li>intent parsing</li><li>LLM agents</li><li>regression tests</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-talk-to-the-cat">Talk to the TV cat</a></p>
+</div></article>
+<article class="card uc topic-ai" id="u-melody-lookup" data-topic="ai" data-search="when an llm can&#x27;t hum, look the tune up the language model couldn&#x27;t reliably recall famous melodies, so the tv cat&#x27;s ocarina songs came out wrong. songs come from a three-tier chain: a small public-domain songbook with exact notes, then free midi libraries (search,
+download, and pull the lead track&#x27;s top notes with mido, shifted into range and cached), and only then the model&#x27;s
+memory.
+ songbook and midi lookups play correctly. some requests still find no midi file. making the band louder buried the melody, so mix changes need a melody-priority check. midi mido llm tools music">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-melody-lookup">When an LLM can&#x27;t hum, look the tune up</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>The language model couldn&#x27;t reliably recall famous melodies, so the TV cat&#x27;s ocarina songs came out wrong.</p></dd></div><div><dt>What worked</dt><dd><p>Songs come from a three-tier chain: a small public-domain songbook with exact notes, then free MIDI libraries (search, download, and pull the lead track&#x27;s top notes with mido, shifted into range and cached), and only then the model&#x27;s memory.</p></dd></div><div><dt>Result</dt><dd><p>Songbook and MIDI lookups play correctly. Some requests still find no MIDI file.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Making the band louder buried the melody, so mix changes need a melody-priority check.</p>
+<ul class="stack"><li>MIDI</li><li>mido</li><li>LLM tools</li><li>music</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-tv-launcher">Living-room TV launcher</a>, <a href="index.html#p-talk-to-the-cat">Talk to the TV cat</a></p>
+</div></article>
+<article class="card uc topic-ai" id="u-claude-code-local" data-topic="ai" data-search="pointing claude code at a local model the goal was to run claude code against the home llm server instead of a cloud api. llama.cpp already serves an anthropic-compatible endpoint, so the base url was enough. but claude code sends a
+trailing system message after the user turn, which the model&#x27;s chat template rejects, so a small shim folds it in.
+watching the process&#x27;s sockets confirmed it never contacted anything off the machine. the same trick lets a qflipper
+fork that only speaks ollama&#x27;s api use the server.
+ plain prompts and full tool-call round trips work against the local model. patch the message shape in a shim, not the shared model&#x27;s template, which every other client depends on. claude code llama.cpp anthropic api ollama api">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-claude-code-local">Pointing Claude Code at a local model</a></h3><time class="uc-date" datetime="2026-09">Sep 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>The goal was to run Claude Code against the home LLM server instead of a cloud API.</p></dd></div><div><dt>What worked</dt><dd><p>llama.cpp already serves an Anthropic-compatible endpoint, so the base URL was enough. But Claude Code sends a trailing system message after the user turn, which the model&#x27;s chat template rejects, so a small shim folds it in. Watching the process&#x27;s sockets confirmed it never contacted anything off the machine. The same trick lets a qFlipper fork that only speaks Ollama&#x27;s API use the server.</p></dd></div><div><dt>Result</dt><dd><p>Plain prompts and full tool-call round trips work against the local model.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Patch the message shape in a shim, not the shared model&#x27;s template, which every other client depends on.</p>
+<ul class="stack"><li>Claude Code</li><li>llama.cpp</li><li>Anthropic API</li><li>Ollama API</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-local-llm">Local LLM server</a></p>
+</div></article>
+<article class="card uc topic-ai" id="u-runaway-thinking" data-topic="ai" data-search="the assistant that thought for six minutes after a tool error, the family assistant&#x27;s reasoning model thought for 342 seconds, hit the workflow timeout and left a typing indicator on. a finite reasoning budget on the server closes the thinking block so the model has to answer, and the token limit and
+timeout were raised to match. short replies turn thinking off per request.
+ there have been no more runaway turns. a one-line reply went from 2.7 s to 1.3 s with thinking off. reasoning models need a thinking budget in production. &quot;effort&quot; alone doesn&#x27;t bound it. llama.cpp reasoning models n8n agents">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-runaway-thinking">The assistant that thought for six minutes</a></h3><time class="uc-date" datetime="2026-09">Sep 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>After a tool error, the family assistant&#x27;s reasoning model thought for 342 seconds, hit the workflow timeout and left a typing indicator on.</p></dd></div><div><dt>What worked</dt><dd><p>A finite reasoning budget on the server closes the thinking block so the model has to answer, and the token limit and timeout were raised to match. Short replies turn thinking off per request.</p></dd></div><div><dt>Result</dt><dd><p>There have been no more runaway turns. A one-line reply went from 2.7 s to 1.3 s with thinking off.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Reasoning models need a thinking budget in production. &quot;Effort&quot; alone doesn&#x27;t bound it.</p>
+<ul class="stack"><li>llama.cpp</li><li>reasoning models</li><li>n8n</li><li>agents</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-family-assistant">Family assistant over iMessage</a>, <a href="index.html#p-local-llm">Local LLM server</a></p>
+</div></article></div></section><section class="cat-section" id="t-home"><h2>Home &amp; automation <span class="n">3</span></h2><div class="grid uc-grid"><article class="card uc topic-home" id="u-history-13mb-to-36kb" data-topic="home" data-search="a phone dashboard that downloaded 13 mb to draw a chart the inverter dashboard was slow on phones, pulling about 13 mb to show 30 days of history. the history query now buckets values on the server, using a covering index. the ui was rebuilt mobile-first, with a
+power-flow diagram, touch charts, tap-to-see-history and a home-screen app manifest.
+ thirty days now loads 36 kb in about 180 ms. at the 30-day scale, the peak-window overlay turned into noisy stripes, so the overlay is dropped at that zoom. sqlite pwa svg charts performance">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-history-13mb-to-36kb">A phone dashboard that downloaded 13 MB to draw a chart</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>The inverter dashboard was slow on phones, pulling about 13 MB to show 30 days of history.</p></dd></div><div><dt>What worked</dt><dd><p>The history query now buckets values on the server, using a covering index. The UI was rebuilt mobile-first, with a power-flow diagram, touch charts, tap-to-see-history and a home-screen app manifest.</p></dd></div><div><dt>Result</dt><dd><p>Thirty days now loads 36 KB in about 180 ms.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> At the 30-day scale, the peak-window overlay turned into noisy stripes, so the overlay is dropped at that zoom.</p>
+<ul class="stack"><li>SQLite</li><li>PWA</li><li>SVG charts</li><li>performance</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-inverter-dashboard">Solar &amp; battery inverter dashboard</a></p>
+</div></article>
+<article class="card uc topic-home" id="u-gateway-allowlist" data-topic="home" data-search="guarding an inverter&#x27;s settings below the ui, not in it a dashboard was getting controls for a solar inverter&#x27;s charge windows and priorities, and the layer underneath could write far more than that. the modbus-to-mqtt gateway accepted writes to every register, including battery type and voltages. its register map was
+replaced with one that&#x27;s read-only except for an allowlist of 16 registers. the app adds value checks, a read-back
+after every write, and an audit log, and its ai tools preview a change before applying it.
+ the controls are live and tested on the real inverter, and the dangerous settings can no longer be written through the gateway. hiding a setting in the ui protects nothing if a lower layer still accepts it. modbus mqtt allowlist mcp">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-gateway-allowlist">Guarding an inverter&#x27;s settings below the UI, not in it</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>A dashboard was getting controls for a solar inverter&#x27;s charge windows and priorities, and the layer underneath could write far more than that.</p></dd></div><div><dt>What worked</dt><dd><p>The Modbus-to-MQTT gateway accepted writes to every register, including battery type and voltages. Its register map was replaced with one that&#x27;s read-only except for an allowlist of 16 registers. The app adds value checks, a read-back after every write, and an audit log, and its AI tools preview a change before applying it.</p></dd></div><div><dt>Result</dt><dd><p>The controls are live and tested on the real inverter, and the dangerous settings can no longer be written through the gateway.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Hiding a setting in the UI protects nothing if a lower layer still accepts it.</p>
+<ul class="stack"><li>Modbus</li><li>MQTT</li><li>allowlist</li><li>MCP</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-inverter-dashboard">Solar &amp; battery inverter dashboard</a></p>
+</div></article>
+<article class="card uc topic-home" id="u-tv-deep-sleep" data-topic="home" data-search="the tv that &quot;died&quot; was just very asleep after a standby test, a debloated google tv vanished from the network for almost seven hours. android&#x27;s system_server had crashed after a wake, and the chip fell into deep sleep with wi-fi off, so it ignored
+network wake requests. it hadn&#x27;t been bricked: it came back on its own.
+ there&#x27;s now a recovery procedure: press the remote&#x27;s power button, then read the crash records. an unreachable embedded device isn&#x27;t necessarily dead. find out what power state it&#x27;s in before assuming the worst. android tv adb power management">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-tv-deep-sleep">The TV that &quot;died&quot; was just very asleep</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>After a standby test, a debloated Google TV vanished from the network for almost seven hours.</p></dd></div><div><dt>What worked</dt><dd><p>Android&#x27;s system_server had crashed after a wake, and the chip fell into deep sleep with Wi-Fi off, so it ignored network wake requests. It hadn&#x27;t been bricked: it came back on its own.</p></dd></div><div><dt>Result</dt><dd><p>There&#x27;s now a recovery procedure: press the remote&#x27;s power button, then read the crash records.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> An unreachable embedded device isn&#x27;t necessarily dead. Find out what power state it&#x27;s in before assuming the worst.</p>
+<ul class="stack"><li>Android TV</li><li>ADB</li><li>power management</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-tv-launcher">Living-room TV launcher</a></p>
+</div></article></div></section><section class="cat-section" id="t-data"><h2>Data recovery <span class="n">3</span></h2><div class="grid uc-grid"><article class="card uc topic-data" id="u-ocr-rescue" data-topic="data" data-search="rescuing an overnight ocr job and the pdfs that hung it an ocr job over about 21,600 pdfs in an offline library died after an os update, and eleven pdfs hung or failed. an xcode update had swapped the system python for one that needs a licence accepted, so the standard-library-only
+script moved to homebrew python. a ghostscript rewrite fixed the books that hung. for truncated files, the page images
+were pulled out with mutool, repacked and ocr&#x27;d.
+ the job finished at about 815,000 pages, and 10 of the 11 bad books became searchable. the last one was all zeros at the source. the re-encode turned 4-hour hangs into 6-second jobs, so the hang was in the image decoder, not the book. queue known-bad files last. ocr ghostscript mutool pdf macos">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-ocr-rescue">Rescuing an overnight OCR job and the PDFs that hung it</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>An OCR job over about 21,600 PDFs in an offline library died after an OS update, and eleven PDFs hung or failed.</p></dd></div><div><dt>What worked</dt><dd><p>An Xcode update had swapped the system Python for one that needs a licence accepted, so the standard-library-only script moved to Homebrew Python. A Ghostscript rewrite fixed the books that hung. For truncated files, the page images were pulled out with mutool, repacked and OCR&#x27;d.</p></dd></div><div><dt>Result</dt><dd><p>The job finished at about 815,000 pages, and 10 of the 11 bad books became searchable. The last one was all zeros at the source.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> The re-encode turned 4-hour hangs into 6-second jobs, so the hang was in the image decoder, not the book. Queue known-bad files last.</p>
+<ul class="stack"><li>OCR</li><li>Ghostscript</li><li>mutool</li><li>PDF</li><li>macOS</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-offline-library">Offline reference library</a></p>
+</div></article>
+<article class="card uc topic-data" id="u-ocr-engine-choice" data-topic="data" data-search="making 400 gb of offline books searchable by an assistant an offline reference library, including scanned old books, needed to be searchable by the home assistant, on a nearly full machine. aria2 with nearby mirrors raised downloads from about 7 to 69 mb/s. for ocr, apple&#x27;s vision framework running natively
+beat tesseract in docker, at 0.44 against 1.6 seconds a page. ocr text lives in plain files with a rebuilt index,
+rather than a sqlite database shared across the docker vm boundary.
+ the assistant answered a water-safety question by finding and quoting a scanned public-health pdf. kiwix rejects searches that mix languages, so group the books by language. kiwix ocr apple vision aria2 mcp">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-ocr-engine-choice">Making 400 GB of offline books searchable by an assistant</a></h3><time class="uc-date" datetime="2026-10">Oct 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>An offline reference library, including scanned old books, needed to be searchable by the home assistant, on a nearly full machine.</p></dd></div><div><dt>What worked</dt><dd><p>aria2 with nearby mirrors raised downloads from about 7 to 69 MB/s. For OCR, Apple&#x27;s Vision framework running natively beat Tesseract in Docker, at 0.44 against 1.6 seconds a page. OCR text lives in plain files with a rebuilt index, rather than a SQLite database shared across the Docker VM boundary.</p></dd></div><div><dt>Result</dt><dd><p>The assistant answered a water-safety question by finding and quoting a scanned public-health PDF.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Kiwix rejects searches that mix languages, so group the books by language.</p>
+<ul class="stack"><li>Kiwix</li><li>OCR</li><li>Apple Vision</li><li>aria2</li><li>MCP</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-offline-library">Offline reference library</a></p>
+</div></article>
+<article class="card uc topic-data" id="u-ext3-recovery" data-topic="data" data-search="recovering files from a crash-corrupted encrypted volume a crash mid-write left an encrypted ext3 volume with missing files, zero-byte stubs and &quot;structure needs cleaning&quot; errors. the decrypted device was copied to an image with dd and fsck was run on the copy. the journal had wrapped and undelete
+tools found nothing, but about 1,000 orphan inodes still had intact block chains, and fsck reattached them with full
+content. signature carving found the rest, and partial mp4s were rebuilt from their raw h.264 units.
+ about a thousand files came back with their full content. the live volume was repaired the same way only after the copy proved it worked. run fsck on an image first. photorec&#x27;s auto-detected 64 kb block size truncates every file at 64 kb, so force 4096. ext3 fsck photorec dd ffmpeg">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-ext3-recovery">Recovering files from a crash-corrupted encrypted volume</a></h3><time class="uc-date" datetime="2026-05">May 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>A crash mid-write left an encrypted ext3 volume with missing files, zero-byte stubs and &quot;Structure needs cleaning&quot; errors.</p></dd></div><div><dt>What worked</dt><dd><p>The decrypted device was copied to an image with dd and fsck was run on the copy. The journal had wrapped and undelete tools found nothing, but about 1,000 orphan inodes still had intact block chains, and fsck reattached them with full content. Signature carving found the rest, and partial MP4s were rebuilt from their raw H.264 units.</p></dd></div><div><dt>Result</dt><dd><p>About a thousand files came back with their full content. The live volume was repaired the same way only after the copy proved it worked.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Run fsck on an image first. PhotoRec&#x27;s auto-detected 64 KB block size truncates every file at 64 KB, so force 4096.</p>
+<ul class="stack"><li>ext3</li><li>fsck</li><li>PhotoRec</li><li>dd</li><li>ffmpeg</li></ul>
+
+</div></article></div></section><section class="cat-section" id="t-dev"><h2>Dev tooling <span class="n">2</span></h2><div class="grid uc-grid"><article class="card uc topic-dev" id="u-bug-report-gists" data-topic="dev" data-search="one-key bug reports from inside a game, screenshots included github&#x27;s issues api can&#x27;t take attachments, and bugs needed filing from inside the running game with a screenshot and a clip. a vite dev-server plugin files the issue with the local gh cli, so no token reaches the page. media go into a secret
+gist per issue, with ffmpeg turning the clip into a gif because gists serve mp4 as a download. each report includes a
+&quot;stand here again&quot; link, console errors and gpu info, and forged-origin requests are refused.
+ merged. test issues show the screenshot and the gif inline. save each report locally before uploading, so a failed upload loses nothing. github cli gists ffmpeg vite">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-bug-report-gists">One-key bug reports from inside a game, screenshots included</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>GitHub&#x27;s issues API can&#x27;t take attachments, and bugs needed filing from inside the running game with a screenshot and a clip.</p></dd></div><div><dt>What worked</dt><dd><p>A Vite dev-server plugin files the issue with the local gh CLI, so no token reaches the page. Media go into a secret gist per issue, with ffmpeg turning the clip into a GIF because gists serve MP4 as a download. Each report includes a &quot;stand here again&quot; link, console errors and GPU info, and forged-origin requests are refused.</p></dd></div><div><dt>Result</dt><dd><p>Merged. Test issues show the screenshot and the GIF inline.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> Save each report locally before uploading, so a failed upload loses nothing.</p>
+<ul class="stack"><li>GitHub CLI</li><li>gists</li><li>ffmpeg</li><li>Vite</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-lanterns-of-selvane">Lanterns of Selvane</a></p>
+</div></article>
+<article class="card uc topic-dev" id="u-nightly-bot-runner" data-topic="dev" data-search="an overnight ai developer that needs my approval to merge claude was to develop a side project unattended each night, but i can&#x27;t approve pull requests opened under my own login. a systemd timer unloads the local llm, runs fresh claude sessions against the backlog, then brings the llm back. a
+github app gives the bot its own identity, with an hourly token helper. a merge-rule engine, tested on 63 fixture
+cases, handles drafts, hold labels, protected paths, ci and auto-merge timers, and a morning text sums up the night.
+ pull requests, ci, screenshot uploads, a mid-session token renewal and approval detection all worked end to end. a trial whole-codebase review found a real crash bug. a guard written too broadly, like blocking every pr that touches the agent&#x27;s instructions file, quietly stalls everything. check it against recent history. github apps systemd claude code ci/cd">
+<div class="card-body">
+<div class="card-head"><h3><a href="#u-nightly-bot-runner">An overnight AI developer that needs my approval to merge</a></h3><time class="uc-date" datetime="2026-11">Nov 2026</time></div>
+<dl class="uc-body"><div><dt>Problem</dt><dd><p>Claude was to develop a side project unattended each night, but I can&#x27;t approve pull requests opened under my own login.</p></dd></div><div><dt>What worked</dt><dd><p>A systemd timer unloads the local LLM, runs fresh Claude sessions against the backlog, then brings the LLM back. A GitHub App gives the bot its own identity, with an hourly token helper. A merge-rule engine, tested on 63 fixture cases, handles drafts, hold labels, protected paths, CI and auto-merge timers, and a morning text sums up the night.</p></dd></div><div><dt>Result</dt><dd><p>Pull requests, CI, screenshot uploads, a mid-session token renewal and approval detection all worked end to end. A trial whole-codebase review found a real crash bug.</p></dd></div></dl>
+<p class="uc-lesson"><span>Lesson</span> A guard written too broadly, like blocking every PR that touches the agent&#x27;s instructions file, quietly stalls everything. Check it against recent history.</p>
+<ul class="stack"><li>GitHub Apps</li><li>systemd</li><li>Claude Code</li><li>CI/CD</li></ul>
+<p class="uc-related">Related: <a href="index.html#p-lanterns-of-selvane">Lanterns of Selvane</a></p>
+</div></article></div></section>
+<p class="empty" id="empty" hidden>Nothing matches that. Try fewer filters.</p>
+</main>
+<footer class="wrap foot">
+<p>Drawn from my conversations with Claude and the notes it keeps, rewritten for the public: names, places, addresses and
+anything security-related are left out. <a href="projects.json">projects.json</a> has the same data.</p>
+</footer>
+<dialog id="lightbox" aria-label="Image viewer">
+<figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+<div class="lb-bar"><button type="button" id="lb-prev" aria-label="Previous image">←</button><span id="lb-pos"></span><button type="button" id="lb-next" aria-label="Next image">→</button><button type="button" id="lb-close" aria-label="Close">Close</button></div>
+</dialog>
+<script src="app.js?v=6b3c07c5" defer></script>
+</body>
+</html>
