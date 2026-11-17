@@ -359,7 +359,12 @@
    "links": [],
    "upstream": null,
    "last_activity": "2026-11-14",
-   "images": []
+   "images": [
+    {
+     "src": "shots/sdr-noise-reduction-1.webp",
+     "caption": "Same recording, three ways: the spectral reducer cuts the hiss 12 dB and keeps the Morse; RNNoise erases the Morse"
+    }
+   ]
   },
   {
    "id": "nanovna-toolkit",
@@ -581,7 +586,28 @@
    "links": [],
    "upstream": null,
    "last_activity": "2026-11-13",
-   "images": []
+   "images": [
+    {
+     "src": "shots/vellum-tdeck-1.webp",
+     "caption": "The app launcher, as the e-paper panel receives it (from the desktop simulator)"
+    },
+    {
+     "src": "shots/vellum-tdeck-2.webp",
+     "caption": "The .epub reader"
+    },
+    {
+     "src": "shots/vellum-tdeck-3.webp",
+     "caption": "A mesh conversation, with heard and not-heard states"
+    },
+    {
+     "src": "shots/vellum-tdeck-4.webp",
+     "caption": "The music player"
+    },
+    {
+     "src": "shots/vellum-tdeck-5.webp",
+     "caption": "Renders of the printed case with an embedded magnet ring, in two variants"
+    }
+   ]
   },
   {
    "id": "desk-controls",
@@ -591,7 +617,7 @@
    "started": "2026-11",
    "retired": null,
    "tagline": "A Bluetooth knob and an open-source stream-deck setup wired into the radio, the GPUs and the lights.",
-   "body": "The knob cycles through modes (volume, scroll, zoom, scrub, undo, lights and radio), with an Input\nRemapper preset per mode switched over D-Bus. In radio mode the shack console reads the knob directly\nto tune the FT-891. Deck keys show GPU stats, toggle SDR noise reduction and drive the RGB lighting.",
+   "body": "The knob cycles through modes (volume, scroll, zoom, scrub, undo, lights and radio), with an Input\nRemapper preset per mode switched over D-Bus. In radio mode the shack console reads the knob directly\nto tune the FT-891. The deck runs custom stdlib-only plugins: live GPU and inverter tiles, a dial-mode\nkey, an SDR noise-reduction toggle and RGB lighting keys, including raw-HID control of fans OpenRGB can't\nreach.",
    "stack": [
     "Bash",
     "Input Remapper",
@@ -602,7 +628,12 @@
    "links": [],
    "upstream": null,
    "last_activity": null,
-   "images": []
+   "images": [
+    {
+     "src": "shots/desk-controls-1.webp",
+     "caption": "The deck's 15 keys, redrawn from its saved layout: system stats, dial mode, SDR noise reduction, lighting, both GPUs and the inverter"
+    }
+   ]
   },
   {
    "id": "bambu-cli",
@@ -1375,21 +1406,61 @@
    ]
   },
   {
-   "id": "making-physical-things",
-   "title": "3D printing and desk hardware",
+   "id": "stream-deck-and-dial",
+   "title": "Customising a stream deck and a Bluetooth dial",
    "topic": "hardware",
-   "summary": "Parametric cases built from manufacturers' STL files, slicing and printing from the command line, and lighting\nand controls driven from a deck. Claude writes the geometry and checks it before anything gets printed.",
+   "summary": "A 15-key OpenDeck stream deck and a Bluetooth knob became a control surface for the whole desk: live GPU and\ninverter tiles, a radio tuning knob, noise-reduction and lighting keys. Claude writes the plugins, works out\neach device's quirks, and reads the hardware state back instead of trusting the plugin.",
+   "tags": [
+    "OpenDeck",
+    "Stream Deck plugins",
+    "Input Remapper",
+    "D-Bus",
+    "hidraw",
+    "OpenRGB",
+    "Python"
+   ],
+   "related": [
+    "desk-controls",
+    "sdr-noise-reduction",
+    "ft891-console"
+   ],
+   "examples": [
+    {
+     "title": "Plugins with nothing but the standard library",
+     "text": "The OpenDeck Flatpak sandbox has Python but no pip, so the tile plugin brings its own WebSocket client and a tiny PNG painter. It draws GPU sparklines and VRAM bars plus battery, load and grid tiles, and only redraws a key when its output changes."
+    },
+    {
+     "title": "GPU tiles that don't shuffle when a card disappears",
+     "text": "The tiles stream nvidia-smi from outside the sandbox, with slots fixed by PCI bus ID. If the external GPU drops off its link, its tile says \"offline\" instead of the other card sliding into its place."
+    },
+    {
+     "title": "A six-mode dial, switched from a deck key",
+     "text": "Each mode (volume, scroll, zoom, scrub, undo, lights) is an Input Remapper preset swapped over the system D-Bus, and a deck key shows and cycles the current one. Homebrew's own `gdbus` quietly talked to the wrong bus until the system binary was used."
+    },
+    {
+     "title": "The dial as a radio tuning knob",
+     "text": "In radio mode the shack console reads the knob's raw HID events and tunes the VFO, with spin acceleration (up to 20× steps, capped at 50 kHz) and coalesced CAT writes. It was tested against a fake radio and a fake dial before going near the real ones."
+    },
+    {
+     "title": "RGB keys that reach what OpenRGB can't",
+     "text": "OpenRGB skips a board whose headers report zero LEDs, and the RAM only appears after login. The case fans on the 12 V header needed raw-HID packets: mode on effect channel 1, colour in slot 5, both found by testing live."
+    }
+   ]
+  },
+  {
+   "id": "making-physical-things",
+   "title": "3D printing from the command line",
+   "topic": "hardware",
+   "summary": "Parametric cases built from manufacturers' STL files, then sliced and sent to the printer without opening the\nslicer's GUI. Claude writes the geometry and checks it for clashes before anything gets printed.",
    "tags": [
     "3D printing",
     "trimesh",
     "Bambu Studio",
-    "OpenRGB",
-    "OpenDeck"
+    "MQTT"
    ],
    "related": [
     "bambu-cli",
-    "vellum-tdeck",
-    "desk-controls"
+    "vellum-tdeck"
    ],
    "examples": [
     {
@@ -1399,10 +1470,6 @@
     {
      "title": "Remote printing, and the printer's cloud-mode lockout",
      "text": "Printing the part standing on its edge made it stronger and 50 minutes faster. The printer refuses a remote start in cloud mode, so plan on pressing the button."
-    },
-    {
-     "title": "RGB lighting that ignored its controller",
-     "text": "OpenRGB skips a board whose headers report zero LEDs, and the RAM only appears after login. Reading the hardware state back beat trusting what the plugin thought it had set."
     }
    ]
   },
